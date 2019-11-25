@@ -1,0 +1,250 @@
+a:link {color: #000000;
+    text-transform:none;
+    /**清除下划线*/
+    text-decoration:none;}
+a:hover {color: #7cc815; text-decoration:none;}
+a:visited {text-decoration:none;}
+a:active {text-decoration:underline;}
+
+.index-header{
+    height: 150px;
+}
+/**顶部标签*/
+.index-top{
+    width:100%;
+    margin:2px auto 0;
+    height: 30px;
+    line-height: 30px;
+    font-size: 8pt;
+    width: 1200px;
+    margin: 0 auto;
+}
+.top-left{
+    width: 35%;
+    height: 30px;
+    float: left;
+}
+.top-right{
+    width: 64%;
+    height: 30px;
+    float: left;
+}
+/**顶部样式*/
+ul li {float: left;list-style: none;text-align: center;}
+.ul-left{height:20px;margin: 5px 0 0 0;}
+.ul-right{height:20px;margin: 5px 0 0 90px;}
+.ul-right li{width: 70px;}
+.ul-left li{width: 100px; margin-left: 5px}
+
+/**头部*/
+.head{
+    width:100%;
+    height: 100px;
+    font-family:微软雅黑;
+    font-size:20pt;
+    width: 1200px;
+    margin: 0 auto
+}
+.logo{
+    display: block;
+    background: url(../img/Logo.png) no-repeat;
+    width:175px;
+    height:55px;
+    margin:25px 20px auto;
+    float: left;
+}
+.search{
+    margin:35px 0 0 600px;
+    float: left;
+}
+.input-bor{
+    border-radius:0;
+}
+.el-input{
+    width: 300px;
+    padding:5px;
+    border:2px solid #7cc815!important
+}
+.el-button{
+    line-height:22px;
+    height:30px;
+    background:#7cc815;
+    font-family:"微软雅黑";
+    border-color:#7cc815;
+}
+/******主要内容*******/
+.body-main{
+    width: 1200px;
+    margin: 0 auto;
+}
+/**图片放大镜及参数**/
+.main-top{
+    width: 1200px;
+    height: 600px;
+}
+.main-top-left{
+    width: 350px;
+    height: 500px;
+    border: solid 1px;
+    float: left;
+}
+.main-top-right{
+    width: 800px;
+    height: 500px;
+    margin-left: 45px;
+    border: solid 1px;
+    float: left;
+}
+.top-right-item{
+    width: 700px;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 10px;
+    padding-left: 50px;
+    border: #0abdfe solid 1px;
+}
+/****主要信息****/
+.main-inf{
+    width: 1200px;
+    height: auto;
+}
+/**左侧**/
+.main-inf-left{
+    width: 200px;
+    height: 500px;
+    border: solid 1px;
+    float: left;
+}
+/**右侧**/
+.main-inf-right{
+    width: 960px;
+    height: auto;
+    margin-left: 35px;
+    margin-bottom: 100px;
+    border: solid 1px;
+    float: left;
+}
+/**左侧详细信息**/
+.change-left{
+    width: 98px;
+    height: 50px;
+    float: left;
+    border-top:#d4d4d4 solid 1px;
+    border-left:#d4d4d4 solid 1px;
+    border-right:#d4d4d4 solid 1px;
+}
+.change-borderAll{
+    width: 97px;
+    height: 50px;
+    float: left;
+    border:#d4d4d4 solid 1px;
+}
+.change-borderTlr{
+    width: 97px;
+    height: 50px;
+    float: left;
+    border-top:#d4d4d4 solid 1px;
+    border-left:#d4d4d4 solid 1px;
+    border-right:#d4d4d4 solid 1px;
+}
+.change-right{
+    width: 98px;
+    height: 50px;
+    border:#d4d4d4 solid 1px;
+    float: left;
+}
+.tab-pane{
+    display:none;
+}
+.active{
+    display:block;
+}
+.change-content{
+    width: 197px;
+    height: 50px;
+    border: solid 1px;
+    float: left;
+}
+.part-list{
+    width: 198px;
+    height: 60px;
+}
+.part-list li{
+    width: 85px;
+    padding-left: 10px;
+    font-size: 10pt;
+    margin-top: 10px;
+    float: left;
+    border-bottom: #d4d4d4 solid 1px;
+    list-style-type:none;
+}
+.part-item{
+    width: 200px;
+    height: 330px;
+    margin-top: 110px;
+}
+.item-list{
+    width: 200px;
+    height: 200px;
+}
+/**右侧详细信息**/
+.change-inf{
+    width: 960px;
+    height: 50px;
+    border:#d4d4d4 solid 1px;
+}
+.inf-item{
+    width: 150px;
+    height: 50px;
+    float: left;
+}
+.change-inf-main{
+    width: 960px;
+    height: auto;
+}
+.goods-intro{
+    width: 200px;
+    height: 60px;
+
+}
+.goods-intro li{
+    width: 200px;
+    padding-left: 10px;
+    font-size: 10pt;
+    margin-top: 10px;
+    text-align: left;
+}
+.intro-detail{
+    width: 960px;
+}
+/******底部******/
+.bottom-foot{
+    width: 1200px;
+    margin:570px auto 0;
+    border-top: #1aa5fb solid 1px;
+}
+.order-bottom{
+    width:100%;
+    margin-top: 20px;
+    text-align:center;
+    font-size: 8pt;
+}
+.bottom-main{
+    width: 8%;
+    height: 140px;
+    margin-left: 10%;
+    float: left;
+}
+.bottom-main-list{
+    width: 100%;
+    height: 20px;
+}
+.order-foot{
+    width:100%;
+    text-align:center;
+    margin:200px auto 50px;
+    font-size: 8pt;
+}
+.order-foot ul li {float: left;list-style: none;text-align: center;}
+.order-foot ul{width: 60%;height:20px;margin: 0 20% 10px;}
+.order-foot li{width: 80px;}

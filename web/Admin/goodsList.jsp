@@ -1,0 +1,254 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<html>
+<head>
+    <title>goodList</title>
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="css/link.css" charset="utf-8">
+
+    <style type="text/css">
+        #a{
+            width: 100%;
+            border: solid 1px #dddddd;
+            border-top: solid 2px #dddddd;
+            border-right: solid 2px #dddddd;
+            margin-top: 20px;
+            float: left;
+        }
+        .a-1{
+            width: 10%;
+            height: 40px;
+            line-height:40px;
+            text-align: center;
+            font-family: 微软雅黑;
+            border-bottom: solid 1px #dddddd;
+            border-left: solid 1px #dddddd;
+            background-color: rgba(222,209,165,0.45);
+            float: left;
+        }
+        .a-2{
+            width: 10%;
+            height: 50px;
+            line-height:50px;
+            text-align: center;
+            font-family: 微软雅黑;
+            font-size: 10pt;
+            border-bottom: solid 1px #dddddd;
+            border-left: solid 1px #dddddd;
+            float: left;
+            /**对超出容器的部分强制截取，高度不确定则换行*/
+            overflow: hidden;
+            /**显示省略符号来代表被修剪的文本。*/
+            text-overflow: ellipsis;
+            /**禁止换行*/
+            white-space: nowrap;
+        }
+        .a-3{
+            width: 100%;
+            height: 40px;
+            line-height:40px;
+            text-align: center;
+            font-family: 微软雅黑;
+            font-size: 9pt;
+            border-bottom: solid 1px #dddddd;
+            border-left: solid 1px #dddddd;
+            border-right: solid 1px #dddddd;
+            float: left;
+        }
+        .main-top{
+            width: 100%;
+            height: 60px;
+            font-size: 14pt;
+            line-height:50px;
+            border: solid 1px #dddddd;
+            background-color: #d2d2d2;
+            float: left;
+        }
+        .serach_1{
+            width: 100%;
+            height: 120px;
+            border: solid 1px #dddddd;
+        }
+        .serach_2{
+            width: 100%;
+            height: 60px;
+            font-size: 12pt;
+            line-height:50px;
+            background-color: rgba(222,209,165,0.45);
+            float: left;
+        }
+        .serach_3{
+            width: 32.3%;
+            height: 60px;
+            text-align: center;
+            line-height:60px;
+            font-size: 14pt;
+            margin-left: 1%;
+            float: left;
+        }
+        .el-input{
+            width: 60%;
+            height: 40px;
+            margin-top: 10px;
+        }
+        .el-select{
+            width: 25%;
+            height: 40px;
+            font-size: 10pt;
+            margin-top: 10px;
+        }
+        .el-button{
+            width: 60px;
+            height: 30px;
+            margin-top: 15px;
+            margin-left: 75%;
+            float: left;
+        }
+
+    </style>
+</head>
+<body>
+<div style="margin: 0px 20px;">
+    <div class="main-top"><span style="margin-left: 10px">商品列表</span></div>
+    <div class="serach_1">
+
+        <form  action="<c:url value='/ProductServlet?action=searchGo'/>" method="post">
+            <div class="serach_2"><span style="margin-left: 10px;float: left;">筛选查询</span>
+                <input type="submit" class="el-button" value="查 询">
+                <input type="button" class="el-button" style="margin-left: 2%;width: 70px;"
+                       value="批量删除" onclick="delAll()">
+            </div>
+            <div class="serach_3">
+                <span style="font-size: 12pt">输入搜索：</span>
+                <input type="text" id="sValue" name="sValue" class="el-input" placeholder="商品名称/商品货号">
+            </div>
+            <div class="serach_3">
+                <span style="font-size: 12pt">条件：</span>
+                <select id="sKey" name="sKey" class="el-select">
+                    <option value="gid">商品货号</option>
+                    <option value="goods_name">商品名称</option>
+                    <option value="Categories_two">分类</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div id="a" >
+        <div class="a-1" style="width: 9.1%;">
+            <span>批量操作</span>
+        </div>
+        <div class="a-1">编号</div>
+        <div class="a-1">商品名称</div>
+        <div class="a-1">价格/货号</div>
+        <div class="a-1">分类</div>
+        <div class="a-1">品牌</div>
+        <div class="a-1">SKU库存</div>
+        <div class="a-1">销量</div>
+        <div class="a-1">审核状态</div>
+        <div class="a-1">操作</div>
+
+        <c:forEach var="record" items="${myList.list}">
+                <div class="a-2" style="width: 9.1%;">
+                    <input style="width: 60%;height: 20px;margin-top: 10px;" type="checkbox" name="course" value=${record.id} >
+                </div>
+                <div class="a-2">${record.gid}</div>
+                <div class="a-2" title=${record.goods_name}>${record.goods_name}</div>
+                <div class="a-2">${record.price}</div>
+                <div class="a-2">${record.Categories_two}</div>
+                <div class="a-2">${record.name}</div>
+                <div class="a-2">${record.sku}</div>
+                <div class="a-2">${record.sales}</div>
+                <div class="a-2" style="line-height:25px">待审核<br><a href="">审核详情</a></div>
+                <div class="a-2">
+                    <a href="<c:url value='/ProductServlet?action=findOne&id=${record.id}'/>" >查看</a>|
+                    <a href="<c:url value='/ProductServlet?action=updateBeforeGo&id=${record.id}'/>">修改</a>|
+                    <a onclick="javascript:return del()" href="<c:url value='/ProductServlet?action=deleteGo&id=${record.id}'/>" >删除</a>
+                </div>
+        </c:forEach>
+    </div>
+
+    <div class="a-3">
+        <div style="width: 70%;text-align: left;margin-left: 20px;float: left">
+            共找到${myList.totalSize}条记录，每页${myList.pageSize}条，共${myList.totalPage }页，当前第${myList.currentPage }页
+        </div>
+        <div style="float: left;width: 15%;">
+            <!-- 首页 -->
+            <c:choose>
+                <c:when test="${myList.currentPage==1 }">首页
+                </c:when>
+                <c:otherwise>
+                    <a href="<c:url value='/ProductServlet?action=findAllGoods&currentPage=${myList.currentPage != 1 }'/>">首页</a>
+                </c:otherwise>
+            </c:choose>
+            <!-- 上一页 -->
+            <c:choose>
+                <c:when test="${myList.currentPage==1 }">上一页
+                </c:when>
+                <c:otherwise>
+                    <a href="<c:url value='/ProductServlet?action=findAllGoods&currentPage=${myList.currentPage-1 }'/>">上一页</a>
+                </c:otherwise>
+            </c:choose>
+            <!-- 下一页 -->
+            <c:choose>
+                <c:when test="${myList.currentPage==myList.totalPage }">下一页
+                </c:when>
+                <c:otherwise>
+                    <a href="<c:url value='/ProductServlet?action=findAllGoods&currentPage=${myList.currentPage+1 }'/>">下一页</a>
+                </c:otherwise>
+            </c:choose>
+            <!-- 尾页 -->
+            <c:choose>
+                <c:when test="${myList.currentPage == myList.totalPage }">尾页
+                </c:when>
+                <c:otherwise>
+                    <a href="<c:url value='/ProductServlet?action=findAllGoods&currentPage=${myList.totalPage }'/>">尾页</a>
+                </c:otherwise>
+            </c:choose>
+        </div>
+        <div style="float: left">
+            跳至<input id="currentPage" name="currentPage" style="height: 20px;width: 30px;" >页
+            <a href="<c:url value='/ProductServlet?action=findAllGoods'/>">确定</a>
+        </div>
+    </div>
+
+</div>
+</body>
+<script type="application/javascript">
+    function del() {
+        const msg = "确定要删除吗？\n请确认！";
+        if (confirm(msg)==true){
+            alert("删除成功");
+            return true;
+        }else{
+            return false;
+        }
+    }
+    function delAll() {
+        //获取所有名字为ck的编号组件
+        const ck = document.getElementsByName("course");
+        //ids字符串
+        let s = "";
+        //循环ck数组
+        for(let i = 0 ; i < ck.length ; i ++)
+        {   //如果被选择的选中
+            if(ck[i].checked)
+            {//编号字符串累加
+                s+=ck[i].value+",";
+            }
+        }
+        if (s==""){
+            alert("请至少选择一条数据");
+            return false;
+        }
+        //确认选项
+        let ok = window.confirm("确定要删除["+s+"] 记录吗？");
+        //如果确认选择
+        if(ok) {
+            alert("删除成功");
+            //把ids传入后台调用servlet
+            document.location = "ProductServlet?action=delGoMor&ids="+s;
+        }
+        //$("#delForm").submit().;
+    }
+</script>
+</html>

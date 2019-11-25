@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="css/top.css" type="text/css"/>
+	<link rel="stylesheet" href="css/link.css" type="text/css"/>
+	<link rel="stylesheet" href="css/left.css" type="text/css"/>
+	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+	<style type="text/css">
+		html, body{height: 100%;}
+		#top{width: 99%;height: 10%;
+			border-bottom: solid 2px;
+			border-color: #fff;
+			background:#1AA094;
+		}
+		#left{width: 13%;height: 99%;float: left;}
+		#right{width: 86%;height: 99%;float: left;
+			background:url("img/00.jpg")  no-repeat;background-size:100% 100%;
+		}
+	</style>
+	<script type="application/javascript">
+		$(document).ready(function(){
+			//页面加载的时候，内容框默认显示 a.html
+			$('#right').load("main.jsp");
+			//单击 a 链接，加载 a.html
+			$("#firstOne").click(function(){
+				$('#right').load('addNewGoods.jsp');
+			});
+			$("#firstTwo").click(function(){
+				$('#right').load('manageLeftGoods.jsp');
+			});
+			$("#firstThree").click(function(){
+				$('#right').load('manageLeftGoods.jsp');
+			});
+			$("#firstFour").click(function(){
+				$('#right').load('manageLeftGoods.jsp');
+			});
+			//单击 b 链接，加载 b.html
+			$("#topOne").click(function(){
+				$('#left').load('manageLeftOrder.jsp');
+			});
+			$("#topTwo").click(function(){
+				$('#left').load('manageLeftGoods.jsp');
+			});
+			$("#topThree").click(function(){
+				$('#left').load('manageLeftOrder.jsp');
+			});
+		})
+	</script>
+</head>
+<body>
+<div id = "top" style="border: solid 1px">
+	<div id="head-1">
+		<div class="head-3" >
+			<span style="font-size: 14pt">青橙</span>
+		</div>
+		<div class="head-3">
+			<a href="manageLeftFirst.jsp" target="left">首页</a>
+		</div>
+		<div class="head-3">
+			<a id="topTwo">商品</a>
+		</div>
+		<div class="head-3">
+			<a id="topThree">订单</a>
+		</div>
+		<div class="head-3">
+			<a href="">库存</a>
+		</div>
+		<div class="head-3">
+			<a href="">用户</a>
+		</div>
+		<div class="head-3">
+			<a href="">统计</a>
+		</div>
+		<div class="head-3">
+			<a href="">设置</a>
+		</div>
+	</div>
+
+	<div id="head-2">
+		<div class ="head-4" title="账户信息" style="margin-left: 30%;">
+			<img id="u1378_img" class="img" src="images/top-1.png"/>
+		</div>
+		<div style="height: 40px;width: 32px;float: left;">
+			<img src="images/top-6.png"/>
+		</div>
+		<div class ="head-4"  title="系统首页">
+			<a href="../manageLndex.html"><img id="top-2" src="images/top-2.png"/></a>
+		</div>
+		<div style="height: 40px;width: 32px;float: left;">
+			<img src="images/top-6.png"/>
+		</div>
+		<div id = "top-3" class = "head-4" title="常用菜单"  >
+			<img id = "top-31" src="images/top-3.png"/>
+		</div>
+		<div style="height: 40px;width: 32px;float: left;">
+			<img src="images/top-6.png"/>
+		</div>
+		<div class = "head-4" title="订单提示"  >
+			<img src="images/top-4.png"/>
+		</div>
+		<div style="height: 40px;width: 32px;float: left;">
+			<img src="images/top-6.png"/>
+		</div>
+		<div class ="head-4"  title="退出" >
+			<a href="/eshop/login.jsp" target="_top"><img src="images/top-5.png"/></a>
+		</div>
+	</div>
+</div>
+<div id = "left" style="border: solid 1px">
+	<div id="a">
+		<div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">系统首页</div>
+		<div class="left-a">
+			<li><a id="firstOne">系统首页</a></li>
+		</div>
+		<div class="left-a">
+			<li><a href="<c:url value='/AdminServlet?action=findAllGoods'/>" id="firstTwo">账户设置</a></li>
+		</div>
+		<div class="left-a">
+			<li><a id="firstThree">系统信息</a></li>
+		</div>
+		<div class="left-a">
+			<li><a id="firstFour">登录日志</a></li>
+		</div>
+	</div>
+
+</div>
+
+<div id = "right" style="border: solid 1px">
+	<h5>你好，${username }！</h5>
+</div>
+
+</body>
+</html>

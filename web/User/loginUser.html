@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="css/loginUser.css">
+
+    <script type="text/javascript">
+        //验证表单合法性
+          function login(){
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+          
+            if(username==""||username==null||password==""||password==null){
+                alert("请填写完整内容");
+                $(this).next('input').focus();
+                return false;
+            }
+            $("#myForm").submit();
+        }
+    </script>
+</head>
+<body>
+<!--头部-->
+<div style="width:936px; margin-top:30px;font-family:微软雅黑;font-size:20pt;">
+    <a class="logo" title="青橙" href="index.jsp"></a>
+</div>
+<!--登录-->
+<div style="background-color:#278296;margin-top:20px;height: 400px">
+
+    <form id="myForm" action="../UserServlet?action=login" method="post" style="margin-left:100px;">
+            <div class="all">
+                <div style="height: 60px;width:100%;border-bottom:solid 1px;text-align: center">
+                    <div id="tabOtherLogin" onclick="switchOtherLogin()" style="width: 49%;float: left;">
+                        <a href="javascript:void(0)" >
+                            <h3>扫描登录</h3>
+                        </a>
+                    </div>
+                    <div id="tabSuiForm" class="active" onclick="switchSuiForm()" style="width: 49%;float: left">
+                        <a href="javascript:void(0)" >
+                            <h3>账户登录</h3>
+                        </a>
+                    </div>
+                </div>
+
+                <div style="margin-top: 5px;">
+                    <!--扫码登录-->
+                    <div id="index" class="tab-pane" style="text-align: center;">
+                        <p>二维码登录</p>
+                        <img src="img/code.png" />
+                    </div>
+                    <!--账户登录-->
+                    <div id="profile" class="tab-pane active">
+                        <div>
+
+                            账号: <input id="username" class="el-input" type="text" maxlength="10" name="username"/><br/><br/>
+                            密码: <input id="password" class="el-input" type="password" maxlength="10" name="password"/><br/><br/>
+                        </div>
+                        <div style="height: 50px">
+                            <input type="button" value="登录" class="sui-btn go-button btn-danger" onclick="login()"/>
+
+                        </div>
+                        <div class="other">
+                            <div style="margin: 10px 20px 0 0;float: left">
+                                <img src="./img/qq.png" width="35px" height="35px" />
+                                    <img src="./img/sina.png" />
+                                    <img src="./img/ali.png" />
+                                    <img src="./img/weixin.png" />
+                            </div>
+                            <span class="regist"><a href="register.jsp" target="_blank">立即注册</a></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+    </form>
+
+</div>
+<!--底部-->
+<div class="login-foot">
+    <ul>
+        <li>关于我们</li>
+        <li>联系我们</li>
+        <li>联系客服</li>
+        <li>商家入驻</li>
+        <li>营销中心</li>
+        <li>手机品优购</li>
+        <li>销售联盟</li>
+        <li>品优购社区</li>
+    </ul>
+    <div >地址：北京市昌平区 邮编：100096 电话：400-400-4000 传真：010-82935100</div>
+    <div >京ICP备08001421号京公网安备110108007702
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    function switchSuiForm() {
+        document.getElementById('index').className = "tab-pane";
+        document.getElementById('profile').className = "tab-pane active";
+        document.getElementById('tabSuiForm').className = "active";
+        document.getElementById('tabOtherLogin').className = "";
+    }
+    function switchOtherLogin() {
+        document.getElementById('index').className = "tab-pane active";
+        document.getElementById('profile').className = "tab-pane";
+        document.getElementById('tabSuiForm').className = "";
+        document.getElementById('tabOtherLogin').className = "active";
+    }
+</script>
+</html>
