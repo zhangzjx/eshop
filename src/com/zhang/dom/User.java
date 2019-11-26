@@ -8,6 +8,21 @@ import java.util.Date;
  * @date 2019/11/11 16:50
  */
 public class User {
+    @Override
+    public String toString() {
+        return "User{" +
+                "uid=" + uid +
+                ", phone=" + phone +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", lasttime=" + lasttime +
+                ", sessionIdString='" + sessionIdString + '\'' +
+                ", ipString='" + ipString + '\'' +
+                ", firsttTimeString='" + firsttTimeString + '\'' +
+                '}';
+    }
+
     private int uid;
     private int phone;
     private String name;
@@ -22,19 +37,6 @@ public class User {
     public void setLasttime(Date lasttime) {
         this.lasttime = lasttime;
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "uid=" + uid +
-                ", phone=" + phone +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", lasttime=" + lasttime +
-                '}';
-    }
-
 
 
     public int getUid() {

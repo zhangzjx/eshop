@@ -2,6 +2,7 @@ package com.zhang.service;
 
 import com.zhang.dao.ProductDao;
 import com.zhang.dao.UserDao;
+import com.zhang.dom.Cart;
 import com.zhang.dom.User;
 import com.zhang.exception.UserException;
 import com.zhang.utils.Page;
@@ -31,7 +32,7 @@ public class UserService {
         UserDao.regist(user);
     }
     /**登录账号*/
-    public User login(String name,String password) throws UserException {
+    public User login(int uid,String name,String password) throws UserException {
         User user = userDao.findByName(name);
         if(user==null){
             throw new UserException("该用户不存在");
@@ -47,10 +48,11 @@ public class UserService {
         userDao.updateLastLoginTime(user);
     }
 
-    public Page findAllCart(int currentPage,String skey,String svalue) {
-        int totalSize = userDao.findCountCart(skey,svalue);
+    public Page findAllCart(int uid,int currentPage,String skey,String svalue) {
+        //根据用户id查询购物车商品数量及购物车搜索功能
+        int totalSize = userDao.findCountCart(uid,skey,svalue);
         Page page = new Page(currentPage,totalSize);
-        List<Map<String,Object>> list = UserDao.findAllCart(page.getStartIndex(),page.getPageSize(),skey,svalue);
+        List<Map<String,Object>> list = UserDao.findAllCart(uid,page.getStartIndex(),page.getPageSize(),skey,svalue);
         page.setList(list);
         System.out.println("页码"+page.getCurrentPage());
         return page;
@@ -66,5 +68,11 @@ public class UserService {
 
     public Map<String, Object> findOne(int id) {
         return userDao.findOne(id);
+    }
+
+    /**加购*/
+    public void addCart(Cart goods) {
+        //直接调用Dao来添加商品
+        userDao.addGoods(goods);
     }
 }

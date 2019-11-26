@@ -1,5 +1,6 @@
 package com.zhang.dao;
 
+import com.zhang.dom.Cart;
 import com.zhang.dom.User;
 import com.zhang.utils.JdbcUtils;
 
@@ -56,9 +57,10 @@ public class UserDao {
         if(list.size()>0){
             user = new User();
             Map<String,Object> record = list.get(0);
-            //user.setUid((Integer)  record.get("id"));
+            user.setUid((Integer)record.get("uid"));
             user.setName((String)record.get("name"));
             user.setPassword((String)record.get("password"));
+
         }
         return user;
     }
@@ -87,11 +89,13 @@ public class UserDao {
 
     /**购物车总记录数*/
     /**搜索结果总记录数*/
-    public int findCountCart(String skey,String svalue) {
-        StringBuilder sql=new StringBuilder("select count(*) from goods");
+    public int findCountCart(int uid,String skey,String svalue) {
+        StringBuilder sql=new StringBuilder("select count(*) from cart");
         if(skey!=null&&skey.length()>0&&svalue!=null&&svalue.length()>0){
             //'%123%'
             sql.append(" where "+skey+" like \"%"+svalue+"%\" ");
+        }else {
+            sql.append(" where uid="+uid);
         }
         return ((Number) JdbcUtils.selectScalar(sql.toString(), (Object[]) null)).intValue();
     }
@@ -100,16 +104,28 @@ public class UserDao {
      /**select a.*,b.brand_name from goods a,goods_brand b where a.bid=b.id
      * and a.gid like 100000001 limit 0,3 条件是a.bid=b。id和当a.gid=100000001时
      * */
-    public static List<Map<String, Object>> findAllCart(int startIndex, int pageSize,
+    public static List<Map<String, Object>> findAllCart(int uid, int startIndex, int pageSize,
                                                          String skey,String svalue) {
-        StringBuilder sql=new StringBuilder("select a.*,b.name,b.first from" +
-                " goods a,goods_brand b where a.bid=b.id");
+        StringBuilder sql=new StringBuilder("select a.*,b.quantity,b.price from" +
+                " goods a,cart b where a.id=b.id");
         if(skey!=null&&skey.length()>0&&svalue!=null&&svalue.length()>0){
             sql.append(" and a."+skey+" like \"%"+svalue+"%\" limit ?,?");
         }else{
-            sql.append(" limit ?,?");
+            sql.append(" and uid=? limit ?,?");
         }
-        return JdbcUtils.find(sql.toString(), startIndex, pageSize);
+        return JdbcUtils.find(sql.toString(),uid, startIndex, pageSize);
     }
 
+    /**加购**/
+    public void addGoods(Cart goods) {
+        String sql = "insert into cart values(null,?,?,?,?,?)";
+        Object[] params ={
+                goods.getUid(),
+                goods.getId(),
+                goods.getQuantity(),
+                goods.getPrice(),
+                new java.sql.Date(goods.getAddTime().getTime()),
+        };
+        JdbcUtils.insert(sql, params);
+    }
 }

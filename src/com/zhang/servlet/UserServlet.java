@@ -1,9 +1,9 @@
 package com.zhang.servlet;
 
+import com.zhang.dom.Cart;
 import com.zhang.dom.User;
 import com.zhang.exception.UserException;
 import com.zhang.service.UserService;
-import com.zhang.utils.BaseCalculate;
 import com.zhang.utils.MD5;
 import com.zhang.utils.Page;
 
@@ -13,9 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -32,6 +30,7 @@ public class UserServlet extends HttpServlet {
     public static final String ADD_CART = "addCart";
     public static final String INDEX_GOODS = "indexGoods";
     public static final String FIND_ONE = "findOne";
+    public static final String NULL = "null";
 
     private UserService userService = new UserService();
 
@@ -80,8 +79,25 @@ public class UserServlet extends HttpServlet {
          * 4.存在的话，再判断该购物车里是否已经有该商品,把购物车和总价存入到session中
          * 5.跳转到cart.jsp页面
          */
+        int uid=Integer.parseInt(request.getParameter("uid"));
         int id=Integer.parseInt(request.getParameter("id"));
-        int buycount=Integer.parseInt(request.getParameter("buycount"));
+        int quantity=Integer.parseInt(request.getParameter("quantity"));
+        double price= Double.parseDouble(request.getParameter("price"));
+
+        System.out.println(uid+""+id+""+quantity+""+price);
+
+        Cart goods = new Cart();
+        goods.setUid(uid);
+        goods.setId(id);
+        goods.setQuantity(quantity);
+        goods.setPrice(price);
+        goods.setAddTime(new Date());
+        //4.调用Service中add方法添加一条新闻
+        userService.addCart(goods);
+        //返回添加成功的信息
+        request.setAttribute("msg","添加成功");
+        response.sendRedirect(request.getContextPath()+"/User/index.jsp");
+       /**
         Map<String,Object> map = userService.findSingle(id);
         List<Map<String,Object>> cart=null;
         HttpSession session=request.getSession();
@@ -119,6 +135,7 @@ public class UserServlet extends HttpServlet {
         session.setAttribute("cart", cart);
         session.setAttribute("totalprice",totalprice);
         response.sendRedirect(request.getContextPath()+"/cart.jsp");
+        */
     }
 
     /**查询数据并分页
@@ -126,6 +143,7 @@ public class UserServlet extends HttpServlet {
      */
     private void myCart(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
+        int uid = 2;
         String skey = request.getParameter("sKey");
         String svalue=request.getParameter("sValue");
         String current = request.getParameter("currentPage");
@@ -137,7 +155,7 @@ public class UserServlet extends HttpServlet {
         }
         //1.获取购物车内容列表，调用Service的findAll方法,
         // 2.将获取的商品列表保存到request中
-        Page page = userService.findAllCart(currentPage,skey,svalue);
+        Page page = userService.findAllCart(uid,currentPage,skey,svalue);
         request.getSession().setAttribute("myCart",page);
         //3.将请求转发到news_list.jsp页面
         response.sendRedirect(request.getContextPath()+"/User/cart.jsp");
@@ -204,10 +222,12 @@ public class UserServlet extends HttpServlet {
          */
         String name = request.getParameter("username");
         String password = request.getParameter("password");
+        int uid = 0;
         System.out.println(name+password);
         password = MD5.md5(password);
         try {
-            User user = userService.login(name,password);
+            User user = userService.login(uid,name,password);
+
             userService.updateLastLoginTime(user);
             //把用户信息保存到session中
             HttpSession session = request.getSession();

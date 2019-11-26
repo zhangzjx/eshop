@@ -355,64 +355,64 @@
                 <div style="width: 260px;height:30px;margin:0 5px;line-height: 30px;border-bottom: #dfe4ed solid 1px">
                     <span>商城快报</span><span style="margin-left: 110px;">更多</span>&nbsp;></div>
                 <div style="margin-top: 10px;">
-                    <span style="margin-left: 15px;">【HOT】小米含泪清库存</span><br>
-                    <span style="margin-left: 15px;">【热门】iPhone大降价</span><br>
-                    <span style="margin-left: 15px;">【推荐】小米含泪清库存</span><br>
-                    <span style="margin-left: 15px;">【热评】小米含泪清库存</span><br>
+                    <a href="#" ><span style="margin-left: 15px;">【HOT】小米含泪清库存</span><br></a>
+                    <a href="#" ><span style="margin-left: 15px;">【热门】iPhone大降价</span><br></a>
+                    <a href="#" ><span style="margin-left: 15px;">【推荐】小米含泪清库存</span><br></a>
+                    <a href="#" > <span style="margin-left: 15px;">【热评】小米含泪清库存</span><br></a>
                 </div>
             </div>
             <div class="right-central">
                 <div class="right-central-list">
                     <div style="width: 50px;height: 40px;margin:10px 0 0 8px;">
-                        <img src="img/话费.png" style="width: 35px;height: 35px;">
+                        <a href="#" ><img src="img/话费.png" style="width: 35px;height: 35px;"></a>
                     </div>
                     话费
                 </div>
                 <div class="right-central-list">
                     <div style="width: 50px;height: 40px;margin:10px 0 0 8px;">
-                        <img src="img/飞机.png" style="width: 35px;height: 35px;">
+                        <a href="#" ><img src="img/飞机.png" style="width: 35px;height: 35px;"></a>
                     </div>
                     机票
                 </div>
                 <div class="right-central-list">
                     <div style="width: 50px;height: 40px;margin:10px 0 0 8px;">
-                        <img src="img/电影票.png" style="width: 35px;height: 35px;">
+                        <a href="#" ><img src="img/电影票.png" style="width: 35px;height: 35px;"></a>
                     </div>
                     电影票
                 </div>
                 <div class="right-central-list">
                     <div style="width: 50px;height: 40px;margin:10px 0 0 8px;">
-                        <img src="img/游戏.png" style="width: 35px;height: 35px;">
+                        <a href="#" ><img src="img/游戏.png" style="width: 35px;height: 35px;"></a>
                     </div>
                     游戏
                 </div>
                 <div class="right-central-list">
                     <div style="width: 50px;height: 40px;margin:10px 0 0 8px;">
-                        <img src="img/彩票.png" style="width: 35px;height: 35px;">
+                        <a href="#" ><img src="img/彩票.png" style="width: 35px;height: 35px;"></a>
                     </div>
                     彩票
                 </div>
                 <div class="right-central-list">
                     <div style="width: 50px;height: 40px;margin:10px 0 0 8px;">
-                        <img src="img/加油站.png" style="width: 35px;height: 35px;">
+                        <a href="#" ><img src="img/加油站.png" style="width: 35px;height: 35px;"></a>
                     </div>
                     加油站
                 </div>
                 <div class="right-central-list">
                     <div style="width: 50px;height: 40px;margin:10px 0 0 8px;">
-                        <img src="img/酒店.png" style="width: 35px;height: 35px;">
+                        <a href="#" ><img src="img/酒店.png" style="width: 35px;height: 35px;"></a>
                     </div>
                     酒店
                 </div>
                 <div class="right-central-list">
                     <div style="width: 50px;height: 40px;margin:10px 0 0 8px;">
-                        <img src="img/火车票.png" style="width: 35px;height: 35px;">
+                        <a href="#" ><img src="img/火车票.png" style="width: 35px;height: 35px;"></a>
                     </div>
                     火车票
                 </div>
             </div>
             <div class="right-bottom" title="广告">
-                <img src="img/guanggao.jpg" style="width: 236px;height: 98px;">
+                <a href="#" ><img src="img/guanggao.jpg" style="width: 236px;height: 98px;"></a>
             </div>
         </div>
     </div>
@@ -426,20 +426,26 @@
             <div class="content-all">
                 <c:forEach var="record" items="${myIndex}">
                     <div class="content">
-                        <!--查看商品详情-->
-                        <a href="<c:url value='/UserServlet?action=findOne&id=${record.id}'/>" >
-                            <div class="goods-img">
-                                <img src="${record.img}" style="width: 195px;height: 200px;">
+                        <form id="addForm" action="../UserServlet?action=addCart" method="post">
+                            <!--查看商品详情-->
+                            <input type="hidden" name="uid" value=${user.uid}>
+                            <input type="hidden" name="id" value=${record.id}>
+                            <a href="<c:url value='/UserServlet?action=findOne&id=${record.id}'/>" >
+                                <div class="goods-img">
+                                    <img src="${record.img}" style="width: 195px;height: 200px;">
+                                </div>
+                                <div class="goods-inf">
+                                    <!--<img src="/img/${record.content}" style="width: 195px;height: 200px;">-->
+                                        ${record.content}
+                                </div>
+                            </a>
+                            <div class="goods-bottom">
+                                <input type="hidden" name="quantity" value="1">
+                                <input type="hidden" name="price" value=${record.price}>
+                                <div class="goods-price" ><span>￥</span>${record.price}</div>
+                                <input type="submit" class="add-cart" value="" title="加购" >
                             </div>
-                            <div class="goods-inf">
-                                <!--<img src="/img/${record.content}" style="width: 195px;height: 200px;">-->
-                                    ${record.content}
-                            </div>
-                        </a>|
-                        <div class="goods-bottom">
-                            <div class="goods-price">${record.price}</div>
-                            <div class="add-cart" title="加购"></div>
-                        </div>
+                        </form>
                     </div>
                 </c:forEach>
             </div>
@@ -539,7 +545,8 @@
         document.location = "../UserServlet?action=myCart";
     }
     $(".add-cart").click(function () {
-        document.location = "../UserServlet?action=addCart";
+        alert("已加入购物车");
+        $("#addForm").submit();
     });
 </script>
 </html>
