@@ -45,12 +45,12 @@ a:active {text-decoration:underline;}
     font-size:15px
 }
 .go-button{
-    width: 80%;
+    width: 230px;
     height: 30px;
     line-height:30px;
     font-size:12pt;
     margin-top: 10px;
-    margin-left: 10%;
+    margin-left: 20%;
 }
 .login-foot{width:100%;margin:70px auto 0; font-size: 8pt;}
 ul li {float: left;list-style: none;text-align: center;}

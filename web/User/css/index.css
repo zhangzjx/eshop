@@ -218,23 +218,29 @@ a {text-decoration: none;color: black;}
 /******商品内容******/
 .goods-content{
     width: 90%;
-    height: 450px;
+    height: 420px;
     margin-top: 50px;
     margin-left: 5%;
     border:solid 1px;
 }
 .goods-change{
     width: 100%;
-    height: 80px;
+    height: 70px;
     border:solid 1px;
+}
+.change-main{
+    width: 70px;
+    height: 70px;
+    float: left;
+    margin-left: 20px;
 }
 .content-all{
     width: 100%;
-    height: 360px;
+    height: 340px;
 }
 .content{
     width: 18%;
-    height: 350px;
+    height: 330px;
     margin: 10px 0 0 18px;
     float: left;
     border: solid #00ff00 1px;
@@ -246,7 +252,7 @@ a {text-decoration: none;color: black;}
 }
 .goods-inf{
     width: 180px;
-    height: 100px;
+    height: 80px;
     padding-right: 10px;
     font-family: 微软雅黑;
     font-size: 10pt;

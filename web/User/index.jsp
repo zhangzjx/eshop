@@ -353,8 +353,9 @@
         <div class="type-right">
             <div class="right-top">
                 <div style="width: 260px;height:30px;margin:0 5px;line-height: 30px;border-bottom: #dfe4ed solid 1px">
-                    <span>商城快报</span><span style="margin-left: 110px;">更多</span>&nbsp;></div>
-                <div style="margin-top: 10px;">
+                    <span>商城快报</span><a href="#"><span style="margin-left: 110px;">更多</span>&nbsp;></a>
+                </div>
+                <div style="margin-top: 10px;font-size: 10pt;">
                     <a href="#" ><span style="margin-left: 15px;">【HOT】小米含泪清库存</span><br></a>
                     <a href="#" ><span style="margin-left: 15px;">【热门】iPhone大降价</span><br></a>
                     <a href="#" ><span style="margin-left: 15px;">【推荐】小米含泪清库存</span><br></a>
@@ -416,12 +417,27 @@
             </div>
         </div>
     </div>
+    ${user }
     <!-- 商品内容 -->
     <div style="width: 100%">
         <!--热门商品-->
         <div class="goods-content">
             <div class="goods-change">
-                ${user }
+                <div class="change-main" style="margin-left: 422px;">
+                    <a href="#">
+                        <img src="img/hot.png" style="width: 36px;height: 36px;margin:5px 0 0 17px;">
+                        热卖排行</a>
+                </div>
+                <div class="change-main" >
+                    <a href="#">
+                        <img src="img/hot.png" style="width: 36px;height: 36px;margin:5px 0 0 17px;">
+                        特价排行</a>
+                </div>
+                <div class="change-main" onclick="AllGoods()">
+                    <a href="#">
+                    <img src="img/hot.png" style="width: 36px;height: 36px;margin:5px 0 0 17px;">
+                        新品排行</a>
+                </div>
             </div>
             <div class="content-all">
                 <c:forEach var="record" items="${myIndex}">
@@ -543,10 +559,14 @@
     function myCart() {
         //把id传入后台调用servlet
         document.location = "../UserServlet?action=myCart";
-    }
+    };
     $(".add-cart").click(function () {
         alert("已加入购物车");
         $("#addForm").submit();
     });
+    function AllGoods() {
+        //把id传入后台调用servlet
+        document.location = "../UserServlet?action=AllGoods";
+    }
 </script>
 </html>
