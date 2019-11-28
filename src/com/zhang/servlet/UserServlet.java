@@ -31,6 +31,9 @@ public class UserServlet extends HttpServlet {
     public static final String INDEX_GOODS = "indexGoods";
     public static final String FIND_ONE = "findOne";
     public static final String NULL = "null";
+    public static final String ALL_GOODS = "allGoods";
+    public static final String DESC = "desc";
+    public static final String ASC = "asc";
 
     private UserService userService = new UserService();
 
@@ -65,9 +68,26 @@ public class UserServlet extends HttpServlet {
             indexGoods(request, response);
         } else if(FIND_ONE.equals(action)) {
             findOne(request, response);
+        } else if(ALL_GOODS.equals(action)||DESC.equals(action)||ASC.equals(action)) {
+            allGoods(request, response);
         }
 
     }
+
+    private void allGoods(HttpServletRequest request,
+                          HttpServletResponse response) throws IOException {
+        String action = request.getParameter("action");
+        request.getSession().setAttribute("allGoods",userService.allGoods(action));
+        response.sendRedirect(request.getContextPath()+"/User/allGoods.jsp");
+    }
+    /***
+    private void ascGoods(HttpServletRequest request,
+                          HttpServletResponse response) throws IOException {
+        request.getSession().setAttribute("allGoods",userService.ascGoods());
+        response.sendRedirect(request.getContextPath()+"/User/allGoods.jsp");
+    }
+     */
+
     /**
      * 加入购物车*/
     private void addCart(HttpServletRequest request,
@@ -143,7 +163,7 @@ public class UserServlet extends HttpServlet {
      */
     private void myCart(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
-        int uid = 2;
+        int uid = Integer.parseInt(request.getParameter("uid"));
         String skey = request.getParameter("sKey");
         String svalue=request.getParameter("sValue");
         String current = request.getParameter("currentPage");

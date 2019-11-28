@@ -433,7 +433,7 @@
                         <img src="img/hot.png" style="width: 36px;height: 36px;margin:5px 0 0 17px;">
                         特价排行</a>
                 </div>
-                <div class="change-main" onclick="AllGoods()">
+                <div class="change-main" onclick="allGoods()">
                     <a href="#">
                     <img src="img/hot.png" style="width: 36px;height: 36px;margin:5px 0 0 17px;">
                         新品排行</a>
@@ -444,7 +444,7 @@
                     <div class="content">
                         <form id="addForm" action="../UserServlet?action=addCart" method="post">
                             <!--查看商品详情-->
-                            <input type="hidden" name="uid" value=${user.uid}>
+                            <input type="hidden" id="uid" name="uid" value=${user.uid}>
                             <input type="hidden" name="id" value=${record.id}>
                             <a href="<c:url value='/UserServlet?action=findOne&id=${record.id}'/>" >
                                 <div class="goods-img">
@@ -473,7 +473,7 @@
             </div>
             <div class="favorite-main">
                 <div class="favorite-main-list">
-                    商品信息
+                    ${user}
                 </div>
                 <div class="favorite-main-list">
                     商品信息
@@ -557,16 +557,21 @@
 </div>
 <script type="application/javascript">
     function myCart() {
+        let uid=$("#uid").val();
         //把id传入后台调用servlet
-        document.location = "../UserServlet?action=myCart";
+        if (uid==null||uid==""){
+            alert("请先登录")
+        }else {
+            document.location = "../UserServlet?action=myCart&uid="+uid;
+        }
     };
     $(".add-cart").click(function () {
         alert("已加入购物车");
         $("#addForm").submit();
     });
-    function AllGoods() {
+    function allGoods() {
         //把id传入后台调用servlet
-        document.location = "../UserServlet?action=AllGoods";
+        document.location = "../UserServlet?action=allGoods";
     }
 </script>
 </html>

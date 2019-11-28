@@ -4,10 +4,10 @@ import com.zhang.dom.Cart;
 import com.zhang.dom.User;
 import com.zhang.utils.JdbcUtils;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+
+import static com.zhang.servlet.UserServlet.*;
 
 /**
  * @author prayers
@@ -18,6 +18,28 @@ public class UserDao {
     /**首页显示的商品*/
     public List<Map<String,Object>> findAll() {
         String sql = "select * from goods limit 0,5";
+        return JdbcUtils.find(sql);
+    }
+    /******所有商品******/
+    public List<Map<String, Object>> allGoods(String action) {
+        StringBuilder sql=new StringBuilder("select * from goods order by");
+        if(ALL_GOODS.equals(action)){
+            sql.append(" price desc");
+            System.out.println("allGoods执行"+action);
+        }else if(DESC.equals(action)){
+            sql.append(" price desc");
+            System.out.println("DESC执行"+action);
+        }else if(ASC.equals(action)){
+            sql.append(" price asc");
+            System.out.println("ASC执行"+action);
+        }
+        return JdbcUtils.find(sql.toString());
+    }
+
+
+    public List<Map<String, Object>> ascGoods() {
+        String sql = "select * from goods order by price asc";
+        System.out.println("ASC执行");
         return JdbcUtils.find(sql);
     }
     /**查找一条数据*/
@@ -95,7 +117,7 @@ public class UserDao {
             //'%123%'
             sql.append(" where "+skey+" like \"%"+svalue+"%\" ");
         }else {
-            sql.append(" where uid="+uid);
+            sql.append(" where status=1 and uid="+uid);
         }
         return ((Number) JdbcUtils.selectScalar(sql.toString(), (Object[]) null)).intValue();
     }
@@ -111,7 +133,7 @@ public class UserDao {
         if(skey!=null&&skey.length()>0&&svalue!=null&&svalue.length()>0){
             sql.append(" and a."+skey+" like \"%"+svalue+"%\" limit ?,?");
         }else{
-            sql.append(" and uid=? limit ?,?");
+            sql.append(" and uid=? and status=1 limit ?,?");
         }
         return JdbcUtils.find(sql.toString(),uid, startIndex, pageSize);
     }
@@ -128,4 +150,5 @@ public class UserDao {
         };
         JdbcUtils.insert(sql, params);
     }
+
 }

@@ -75,4 +75,13 @@ public class UserService {
         //直接调用Dao来添加商品
         userDao.addGoods(goods);
     }
+
+    public List<Map<String,Object>> allGoods(String action) {
+        return userDao.allGoods(action);
+
+    }
+
+    public List<Map<String,Object>> ascGoods() {
+        return userDao.ascGoods();
+    }
 }
