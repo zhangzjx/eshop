@@ -11,7 +11,10 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "uid=" + uid +
+                "aid=" + aid +
+                ", address='" + address + '\'' +
+                ", status=" + status +
+                ", uid=" + uid +
                 ", phone=" + phone +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
@@ -22,13 +25,42 @@ public class User {
                 ", firsttTimeString='" + firsttTimeString + '\'' +
                 '}';
     }
-
+    //收货地址id
+    private int aid;
     private int uid;
+    //收货地址
+    private String address;
+    //状态码
+    private int status;
     private int phone;
     private String name;
     private String password;
     private String email;
     private Date lasttime;
+
+    public int getAid() {
+        return aid;
+    }
+
+    public void setAid(int aid) {
+        this.aid = aid;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public Date getLasttime() {
         return lasttime;

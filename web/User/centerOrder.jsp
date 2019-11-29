@@ -10,6 +10,7 @@
 <head>
     <title>订单中心</title>
     <link rel="stylesheet" href="css/order.css">
+    <script type="text/javascript" src="js/order.js"></script>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="application/javascript">
         $(document).ready(function(){
@@ -25,6 +26,7 @@
 </head>
 <body>
 <input type="hidden" id="name" value="${name }">
+<input type="hidden" id="uid" value="${user.uid }">
 <div class="center-order-header">
     <!--顶部导航-->
     <div style="width: 100%;background-color: #EEE5DE;">
@@ -94,6 +96,13 @@
                 </div>
                 <div class="content-left-list">
                     <li><a href="centerOrderEvaluate.jsp">待评价</a></li>
+                </div>
+                <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">设置</div>
+                <div class="content-left-list">
+                    <li><a href="centerOrder.jsp">个人信息</a></li>
+                </div>
+                <div class="content-left-list">
+                    <li onclick="allAddress()"><a href="centerSettingAddress.jsp" style="cursor: pointer">地址管理</a></li>
                 </div>
             </div>
         </div>
@@ -193,6 +202,13 @@
 
 </body>
 <script type="application/javascript">
+    function allAddress() {
+        let uid = $("#uid").val();
+        $.post("${pageContext.request.contextPath}/UserServlet",{
+            action:"findAddress",
+            uid:uid,
+        },)
+    };
     function myCart() {
         //把id传入后台调用servlet
         document.location = "../UserServlet?action=myCart";

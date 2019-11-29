@@ -151,4 +151,54 @@ public class UserDao {
         JdbcUtils.insert(sql, params);
     }
 
+    /*****添加地址******/
+    public void addAddress(User m) {
+        String sql = "insert into address values(null,?,?,?)";
+        Object[] params ={
+                m.getUid(),
+                m.getAddress(),
+                m.getStatus(),
+        };
+        JdbcUtils.insert(sql, params);
+    }
+
+    /*****查看所有地址内容******/
+    public List<Map<String, Object>> allAddress(String uid) {
+        String sql = "select a.name,a.phone,b.* from user a,address b where a.uid=b.uid and a.uid=?";
+        return JdbcUtils.find(sql,uid);
+    }
+    /*****修改地址内容******/
+    public void updateAddress(User m) {
+        String sql="update address set address=? where aid=? and uid=?";
+        Object []params={
+                m.getAddress(),
+                m.getAid(),
+                m.getUid(),
+        };
+        JdbcUtils.update(sql, params);
+    }
+    /*****修改默认地址******/
+    public void updateDefault(User m) {
+        String sql="update address set status=1 where uid=?";
+        Object []params={
+                m.getUid(),
+        };
+        JdbcUtils.update(sql, params);
+    }
+    public void updateDefaultTwo(User m) {
+        String sql="update address set status=? where aid=? and uid=?";
+        Object []params={
+                m.getStatus(),
+                m.getAid(),
+                m.getUid(),
+        };
+        JdbcUtils.update(sql, params);
+    }
+
+    /*****删除地址******/
+    public void delAddress(int aid) {
+        String sql = "delete from goods where aid=?";
+        JdbcUtils.update(sql,aid);
+    }
+
 }

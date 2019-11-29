@@ -1,15 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2019/11/22
-  Time: 9:02
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>待评价</title>
+    <title>设置-个人信息</title>
     <link rel="stylesheet" href="css/order.css">
+    <script type="text/javascript" src="js/order.js"></script>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="application/javascript">
         $(document).ready(function(){
@@ -20,11 +15,40 @@
             }else {
                 $("#lg").show();
             }
+            //显示首页商品
+            $.post("${pageContext.request.contextPath}/UserServlet",{
+                action:"indexGoods",
+            },)
+            //$("#left-item-1,#left-item-2,#left-item-3,#left-item-4,#left-item-5" +
+            //    ",#left-item-6,#left-item-7,#left-item-8,#left-item-9,#left-item-10").hide();
         })
     </script>
+<style type="text/css">
+    .addressBtn{
+        width: 100px;
+        height: 40px;
+        border: 0;
+        float: right;
+        margin:5px 5px 0 0;
+    }
+    .addressBtn:hover{
+        background-color:#7cc815;;
+        cursor:pointer;
+    }
+    .addressBtn:active{
+        border: 0;
+     }
+    .address-border{
+        border: #D6EAF6 solid 1px;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+</style>
 </head>
 <body>
 <input type="hidden" id="name" value="${name }">
+<input type="hidden" id="uid" value="${user.uid}">
 <div class="center-order-header">
     <!--顶部导航-->
     <div style="width: 100%;background-color: #EEE5DE;">
@@ -85,55 +109,67 @@
                     <li><a href="centerOrderPay.jsp">待付款</a></li>
                 </div>
                 <div class="content-left-list">
-                    <li><a href="centerOrderSend.jsp">待发货</a></li>
+                    <li><a href="">待发货</a></li>
                 </div>
 
                 <div class="content-left-list">
                     <li><a href="centerOrderReceive.jsp">待收货</a></li>
                 </div>
                 <div class="content-left-list">
-                    <li><a href="">待评价</a></li>
+                    <li><a href="centerOrderEvaluate.jsp">待评价</a></li>
                 </div>
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">设置</div>
                 <div class="content-left-list">
                     <li><a href="centerOrder.jsp">个人信息</a></li>
                 </div>
                 <div class="content-left-list">
-                    <li><a href="centerSettingAddress.jsp">地址管理</a></li>
+                    <li class="address"><a href="centerSettingAddress.jsp">地址管理</a></li>
                 </div>
             </div>
         </div>
         <!--右侧主内容-->
         <div class="content-right">
-            <div class="right-top">
-                <div class="right-top-list" style="width: 350px">宝贝</div>
-                <div class="right-top-list" >单价</div>
-                <div class="right-top-list" >数量</div>
-                <div class="right-top-list" >商品操作</div>
-                <div class="right-top-list" >实付款</div>
-                <div class="right-top-list" >交易状态</div>
-                <div class="right-top-list" >交易操作</div>
+            <div class="right-top" style="height: 50px; line-height: 50px;">
+                <div  style="width: 100px;height: 50px;float: left;">地址管理</div>
+                <input type="button" class="addressBtn" value="添加新地址">
             </div>
             <div style="height: 50px"></div>
             <div class="right-main" >
                 <div class="right-main-top">
-                    <div class="main-top-list">订单时间</div>
-                    <div class="main-top-list">订单编号</div>
-                    <div class="main-top-list">店铺</div>
+                    <div class="main-top-list address-border" style="width: 100px;">姓名</div>
+                    <div class="main-top-list address-border" style="width: 510px">地址</div>
+                    <div class="main-top-list address-border" style="width: 150px">联系电话</div>
+                    <div class="main-top-list address-border" style="width: 150px">操作</div>
+                </div>
 
-                </div>
                 <div class="main-content" >
-                    <div class="main-content-list" style="width: 350px">商品详情</div>
-                    <div class="main-content-list">单价</div>
-                    <div class="main-content-list">数量</div>
-                    <div class="main-content-list">商品操作</div>
-                    <div class="main-content-list">交易状态</div>
-                    <div class="main-content-list">交易操作</div>
+                    <c:forEach var="record" items="${allAddress}">
+                        <form id="myForm" action="../UserServlet?action=changeDefault&uid=${user.uid}&status=0" method="post">
+                            <input type="hidden" name="aid" id="aid" value=${record.aid}>
+                            <div class="main-top-list address-border" style="width: 100px;">${record.name}</div>
+                            <div class="main-top-list address-border" style="width: 510px">
+                                <input type="text" id="itxt" disabled="true"
+                                       style="background-color: #fff;width: 400px;height: 30px;margin: 10px 0 10px 10px;border:0px;"
+                                       value=${record.address}>
+                            </div>
+                            <div class="main-top-list address-border" style="width: 150px">${record.phone}</div>
+                            <div class="main-top-list address-border" style="width: 150px">
+                                <a onclick="change()" style="cursor: pointer;">修改</a>|
+                                <a id="del" style="cursor: pointer;">删除</a>|
+                                <a style="cursor: pointer;">
+                                    <input type="submit" class="changeDefault" style="background-color:#fff;width: 65px;height: 30px;border: 0;outline: none;" value="设为默认"   >
+                                    </a>
+                            </div>
+                        </form>
+                    </c:forEach>
                 </div>
+
             </div>
         </div>
     </div>
-    <!--底部内容-->
+</div>
+<!--底部内容-->
+<div class="bottom-foot">
     <div class="order-bottom">
         <div class="bottom-main">
             <div class="bottom-main-list" style="font-size: 13pt;font-weight: bold;">购物指南</div><br>
@@ -199,8 +235,14 @@
         //把id传入后台调用servlet
         document.location = "../UserServlet?action=myCart";
     }
-    $(".add-cart").click(function () {
-        document.location = "../UserServlet?action=addCart";
+
+    $("#del").click(function(){
+        let aid = $("#aid").val();
+        $.post("${pageContext.request.contextPath}/UserServlet",{
+            action:"del",
+            aid:aid,
+        },)
     });
 </script>
 </html>
+

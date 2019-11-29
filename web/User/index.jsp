@@ -417,7 +417,7 @@
             </div>
         </div>
     </div>
-    ${user }
+    ${user.uid }
     <!-- 商品内容 -->
     <div style="width: 100%">
         <!--热门商品-->

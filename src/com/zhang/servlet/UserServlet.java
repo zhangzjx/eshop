@@ -34,6 +34,11 @@ public class UserServlet extends HttpServlet {
     public static final String ALL_GOODS = "allGoods";
     public static final String DESC = "desc";
     public static final String ASC = "asc";
+    public static final String CHANGE_ADDRESS = "changeAddress";
+    public static final String CHANGE_DEFAULT = "changeDefault";
+    public static final String DEL_ADDRESS = "delAddress";
+    public static final String ADD_ADDRESS = "addAddress";
+    public static final String FIND_ADDRESS = "findAddress";
 
     private UserService userService = new UserService();
 
@@ -70,9 +75,20 @@ public class UserServlet extends HttpServlet {
             findOne(request, response);
         } else if(ALL_GOODS.equals(action)||DESC.equals(action)||ASC.equals(action)) {
             allGoods(request, response);
+        } else if(ADD_ADDRESS.equals(action)){
+            addAddress(request, response);
+        } else if(CHANGE_ADDRESS.equals(action)){
+            changeAddress(request, response);
+        } else if(DEL_ADDRESS.equals(action)){
+            delAddress(request, response);
+        } else if(CHANGE_DEFAULT.equals(action)){
+            changeDefault(request, response);
+        } else if(FIND_ADDRESS.equals(action)){
+            findAddress(request, response);
         }
 
     }
+
 
     private void allGoods(HttpServletRequest request,
                           HttpServletResponse response) throws IOException {
@@ -296,6 +312,63 @@ public class UserServlet extends HttpServlet {
         //3.将请求转发到news_list.jsp页面
         response.sendRedirect(request.getContextPath()+"/User/goodsItem.jsp");
         //request.getRequestDispatcher("/User/goodsItem.jsp").forward(request, response);
+    }
+
+    private void addAddress(HttpServletRequest request, HttpServletResponse response) {
+        String uid = request.getParameter("uid");
+        String address = request.getParameter("address");
+        String status= request.getParameter("status");
+
+        User m = new User();
+
+        m.setUid(Integer.parseInt(uid));
+        m.setAddress(address);
+        m.setStatus(Integer.parseInt(status));
+        userService.updateAddress(m);
+    }
+
+    /******查看所有地址*******/
+    private void findAddress(HttpServletRequest request,
+                             HttpServletResponse response) throws IOException {
+        String uid = request.getParameter("uid");
+
+        request.getSession().setAttribute("allAddress",userService.allAddress(uid));
+        response.sendRedirect(request.getContextPath()+"/User/centerSettingAddress.jsp");
+    }
+    private void delAddress(HttpServletRequest request, HttpServletResponse response) {
+        String aid = request.getParameter("aid");
+        userService.delAddress(Integer.parseInt(aid));
+    }
+
+    private void changeDefault(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String aid = request.getParameter("aid");
+        String uid = request.getParameter("uid");
+        String status = request.getParameter("status");
+        System.out.println(aid+uid+status);
+        User m = new User();
+
+        m.setAid(Integer.parseInt(aid));
+        m.setUid(Integer.parseInt(uid));
+        m.setStatus(Integer.parseInt(status));
+
+        userService.updateDefault(m);
+        response.sendRedirect(request.getContextPath()+"/User/centerSettingAddress.jsp");
+    }
+
+    private void changeAddress(HttpServletRequest request, HttpServletResponse response) {
+
+        String aid = request.getParameter("aid");
+        String uid = request.getParameter("uid");
+        String address = request.getParameter("address");
+
+        System.out.println(aid+" "+uid+" "+address);
+        User m = new User();
+        m.setAid(Integer.parseInt(aid));
+        m.setUid(Integer.parseInt(uid));
+        m.setAddress(address);
+
+        userService.updateAddress(m);
+        //findAllGoods(request,response);
     }
     
 }

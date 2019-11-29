@@ -78,10 +78,30 @@ public class UserService {
 
     public List<Map<String,Object>> allGoods(String action) {
         return userDao.allGoods(action);
-
     }
 
     public List<Map<String,Object>> ascGoods() {
         return userDao.ascGoods();
     }
+
+    /******收货地址操作******/
+    public void addAddress(User m) {
+        userDao.addAddress(m);
+    }
+    /****查看所有地址****/
+    public List<Map<String,Object>> allAddress(String uid) {
+        return userDao.allAddress(uid);
+    }
+    public void updateAddress(User m) {
+        userDao.updateAddress(m);
+    }
+    public void updateDefault(User m) {
+        userDao.updateDefault(m);
+        userDao.updateDefaultTwo(m);
+
+    }
+    public void delAddress(int aid) {
+        userDao.delAddress(aid);
+    }
+
 }

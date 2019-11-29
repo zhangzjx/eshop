@@ -97,7 +97,7 @@ ul li {float: left;list-style: none;text-align: center;}
 }
 .content-left-bottom{
     width: 200px;
-    height: 350px;
+    height: 450px;
     background-color: #F5F5F5;
     margin-top: 30px;
 }
@@ -151,7 +151,6 @@ ul li {float: left;list-style: none;text-align: center;}
     width: 960px;
     height: 130px;
     margin-top: 30px;
-    border: #1aa5fb solid 1px;
 }
 .right-main-top{
     width: 960px;
