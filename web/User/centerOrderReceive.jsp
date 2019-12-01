@@ -1,15 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2019/11/22
-  Time: 9:30
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>待收货</title>
     <link rel="stylesheet" href="css/order.css">
+    <script type="text/javascript" src="js/order.js"></script>
     <script type="text/javascript" src="js/topHeader.js"></script>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="application/javascript">
@@ -83,17 +78,16 @@
                     <li><a href="centerOrder.jsp">我的订单</a></li>
                 </div>
                 <div class="content-left-list">
-                    <li><a href="centerOrderPay.jsp">待付款</a></li>
+                    <li><a onclick="orderPay()" href="centerOrderPay.jsp">待付款</a></li>
                 </div>
                 <div class="content-left-list">
-                    <li><a href="centerOrderSend.jsp">待发货</a></li>
-                </div>
-
-                <div class="content-left-list">
-                    <li><a href="centerOrderReceive.jsp">待收货</a></li>
+                    <li><a onclick="orderSend()" href="centerOrderSend.jsp">待发货</a></li>
                 </div>
                 <div class="content-left-list">
-                    <li><a href="centerOrderEvaluate.jsp">待评价</a></li>
+                    <li><a onclick="orderReceive()" href="centerOrderReceive.jsp">待收货</a></li>
+                </div>
+                <div class="content-left-list">
+                    <li><a onclick="orderEvaluate()" href="centerOrderEvaluate.jsp">待评价</a></li>
                 </div>
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">设置</div>
                 <div class="content-left-list">
@@ -124,12 +118,14 @@
 
                 </div>
                 <div class="main-content" >
-                    <div class="main-content-list" style="width: 350px">商品详情</div>
-                    <div class="main-content-list">单价</div>
-                    <div class="main-content-list">数量</div>
-                    <div class="main-content-list">商品操作</div>
-                    <div class="main-content-list">交易状态</div>
-                    <div class="main-content-list">交易操作</div>
+                    <c:forEach var="record" items="${order }">
+                        <div class="main-content-list" style="width: 350px">${record.content}</div>
+                        <div class="main-content-list">${record.price}</div>
+                        <div class="main-content-list">${record.quantity}</div>
+                        <div class="main-content-list">商品操作</div>
+                        <div class="main-content-list">交易状态</div>
+                        <div class="main-content-list">交易操作</div>
+                    </c:forEach>
                 </div>
             </div>
         </div>

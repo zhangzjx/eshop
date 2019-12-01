@@ -88,18 +88,20 @@
 
             <div class="content-item">
                 <form id="addForm" action="../UserServlet?action=addCart" method="post">
-                    <input type="hidden" id="uid" name="uid" value=${user.uid}>
-                    <input type="hidden" name="id" value=${record.id}>
-                    <img src="${record.img}" style="width: 238px;height: 200px;border: chocolate solid 1px;">
-                    <div class="item-inf">
-                            ${record.content}
-                    </div>
-                    <div class="item-bottom">
-                        <input type="hidden" name="quantity" value="1">
-                        <input type="hidden" name="price" value=${record.price}>
-                        <div class="goods-price" ><span>￥</span>${record.price}</div>
-                        <input type="submit" class="add-cart" value="" title="加购" >
-                    </div>
+                    <a href="<c:url value='/UserServlet?action=findOne&id=${record.id}'/>" >
+                        <input type="hidden" id="uid" name="uid" value=${user.uid}>
+                        <input type="hidden" name="id" value=${record.id}>
+                        <img src="${record.img}" style="width: 238px;height: 200px;border: chocolate solid 1px;">
+                        <div class="item-inf">
+                                ${record.content}
+                        </div>
+                        <div class="item-bottom">
+                            <input type="hidden" name="quantity" value="1">
+                            <input type="hidden" name="price" value=${record.price}>
+                            <div class="goods-price" ><span>￥</span>${record.price}</div>
+                            <input type="submit" class="add-cart" value="" title="加购" >
+                        </div>
+                    </a>
                 </form>
             </div>
         </c:forEach>

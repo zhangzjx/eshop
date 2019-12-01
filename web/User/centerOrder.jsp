@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>订单中心</title>
@@ -126,12 +127,14 @@
 
                 </div>
                 <div class="main-content" >
-                    <div class="main-content-list" style="width: 350px">商品详情</div>
-                    <div class="main-content-list">单价</div>
-                    <div class="main-content-list">数量</div>
+                    <c:forEach var="record" items="${order }">
+                    <div class="main-content-list" style="width: 350px">${record.content}</div>
+                    <div class="main-content-list">${record.price}</div>
+                    <div class="main-content-list">${record.quantity}</div>
                     <div class="main-content-list">商品操作</div>
                     <div class="main-content-list">交易状态</div>
                     <div class="main-content-list">交易操作</div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
@@ -202,6 +205,7 @@
 
 </body>
 <script type="application/javascript">
+
     function allAddress() {
         let uid = $("#uid").val();
         $.post("${pageContext.request.contextPath}/UserServlet",{

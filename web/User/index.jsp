@@ -449,7 +449,8 @@
                             <input type="hidden" name="id" value=${record.id}>
                             <a href="<c:url value='/UserServlet?action=findOne&id=${record.id}'/>" >
                                 <div class="goods-img">
-                                    <img src="${record.img}" style="width: 195px;height: 200px;">
+                                    <!--out/artifacts/eshop/WEB-INF/img/ip.jpg-->
+                                    <img src="/eshop/web/WEB-INF/img/${record.img}" style="width: 195px;height: 200px;">
                                 </div>
                                 <div class="goods-inf">
                                     <!--<img src="/img/${record.content}" style="width: 195px;height: 200px;">-->

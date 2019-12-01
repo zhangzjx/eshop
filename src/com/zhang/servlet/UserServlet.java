@@ -39,6 +39,13 @@ public class UserServlet extends HttpServlet {
     public static final String DEL_ADDRESS = "delAddress";
     public static final String ADD_ADDRESS = "addAddress";
     public static final String FIND_ADDRESS = "findAddress";
+    public static final String ORDER_PAY = "orderPay";
+    public static final String ZERO = "0";
+    public static final String ONE = "1";
+    public static final String TWO = "2";
+    public static final String THREE = "3";
+    public static final String FOUR = "4";
+
 
     private UserService userService = new UserService();
 
@@ -85,8 +92,30 @@ public class UserServlet extends HttpServlet {
             changeDefault(request, response);
         } else if(FIND_ADDRESS.equals(action)){
             findAddress(request, response);
+        } else if(ORDER_PAY.equals(action)){
+            orderStatus(request, response);
         }
 
+    }
+
+    /********查看订单状态*********/
+    private void orderStatus(HttpServletRequest request,
+                             HttpServletResponse response) throws IOException {
+        String uid = request.getParameter("uid");
+        String status = request.getParameter("status");
+        System.out.println(uid+" "+status);
+        request.getSession().setAttribute("order", userService.orderStatus(uid, status));
+        if(ZERO.equals(status)) {
+            response.sendRedirect(request.getContextPath() + "/User/centerOrderPay.jsp");
+        } else if(ONE.equals(status)) {
+            response.sendRedirect(request.getContextPath() + "/User/centerOrderPay.jsp");
+        } else if(TWO.equals(status)) {
+            response.sendRedirect(request.getContextPath() + "/User/centerOrderSend.jsp");
+        } else if(THREE.equals(status)) {
+            response.sendRedirect(request.getContextPath() + "/User/centerOrderReceive.jsp");
+        } else if(FOUR.equals(status)) {
+            response.sendRedirect(request.getContextPath() + "/User/centerOrderEvaluate.jsp");
+        }
     }
 
 

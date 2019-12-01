@@ -220,5 +220,10 @@ public class UserDao {
         return JdbcUtils.find(sql.toString()+"limit ?,?", startIndex, pageSize);
     }
 
-
+/*******查看订单状态*******/
+    public Object orderStatus(String uid, String status) {
+        String sql = "select a.goods_name,a.content,b.* from goods a,cart b" +
+                " where a.id=b.id and b.uid=? and status=?";
+        return JdbcUtils.find(sql,uid,status);
+    }
 }

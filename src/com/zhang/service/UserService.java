@@ -100,12 +100,16 @@ public class UserService {
     }
 
     public Page allGoods(int currentPage, String skey, String svalue, String sort, String sortKey) {
-        //根据用户id查询购物车商品数量及购物车搜索功能
+        //查询商品数量及搜索功能
         int totalSize = userDao.findCountAll(skey,svalue);
         Page page = new Page(currentPage,totalSize);
         List<Map<String,Object>> list = UserDao.findAllGoods(sort,sortKey,page.getStartIndex(),page.getPageSize(),skey,svalue);
         page.setList(list);
         System.out.println("页码"+page.getCurrentPage());
         return page;
+    }
+/******查看订单状态*****/
+    public Object orderStatus(String uid, String status) {
+        return userDao.orderStatus(uid,status);
     }
 }
