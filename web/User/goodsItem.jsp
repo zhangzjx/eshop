@@ -3,6 +3,7 @@
 <head>
     <title>商品详情页</title>
     <link  rel="stylesheet" href="css/goodsItem.css">
+    <script type="text/javascript" src="js/topHeader.js"></script>
     <link rel="stylesheet" type="text/css" href="css/magnifier.css">
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <style type="text/css">

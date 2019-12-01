@@ -10,6 +10,7 @@
 <head>
     <title>商城首页</title>
     <link rel="stylesheet" href="css/index.css">
+    <script type="text/javascript" src="js/topHeader.js"></script>
     <script type="text/javascript" src="js/lunBo.js"></script>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/toHide.js"></script>
@@ -556,22 +557,14 @@
     </div>
 </div>
 <script type="application/javascript">
-    function myCart() {
-        let uid=$("#uid").val();
-        //把id传入后台调用servlet
-        if (uid==null||uid==""){
-            alert("请先登录")
-        }else {
-            document.location = "../UserServlet?action=myCart&uid="+uid;
-        }
-    };
+
     $(".add-cart").click(function () {
         alert("已加入购物车");
         $("#addForm").submit();
     });
     function allGoods() {
         //把id传入后台调用servlet
-        document.location = "../UserServlet?action=allGoods";
+        document.location = "../UserServlet?action=allGoods&sort=desc&sortKey=price";
     }
 </script>
 </html>

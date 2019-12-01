@@ -10,6 +10,7 @@
 <head>
     <title>支付</title>
     <link rel="stylesheet" href="css/pay.css">
+    <script type="text/javascript" src="js/topHeader.js"></script>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 </head>
 <body>

@@ -10,6 +10,7 @@
 <head>
     <title>订单中心</title>
     <link rel="stylesheet" href="css/order.css">
+    <script type="text/javascript" src="js/topHeader.js"></script>
     <script type="text/javascript" src="js/order.js"></script>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="application/javascript">
@@ -85,17 +86,16 @@
                     <li><a href="">我的订单</a></li>
                 </div>
                 <div class="content-left-list">
-                    <li><a href="centerOrderPay.jsp">待付款</a></li>
+                    <li><a onclick="orderPay()" href="centerOrderPay.jsp">待付款</a></li>
                 </div>
                 <div class="content-left-list">
-                    <li><a href="centerOrderSend.jsp">待发货</a></li>
-                </div>
-
-                <div class="content-left-list">
-                    <li><a href="centerOrderReceive.jsp">待收货</a></li>
+                    <li><a onclick="orderSend()" href="centerOrderSend.jsp">待发货</a></li>
                 </div>
                 <div class="content-left-list">
-                    <li><a href="centerOrderEvaluate.jsp">待评价</a></li>
+                    <li><a onclick="orderReceive()" href="centerOrderReceive.jsp">待收货</a></li>
+                </div>
+                <div class="content-left-list">
+                    <li><a onclick="orderEvaluate()" href="centerOrderEvaluate.jsp">待评价</a></li>
                 </div>
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">设置</div>
                 <div class="content-left-list">

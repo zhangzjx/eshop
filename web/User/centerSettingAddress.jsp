@@ -4,6 +4,7 @@
 <head>
     <title>设置-个人信息</title>
     <link rel="stylesheet" href="css/order.css">
+    <script type="text/javascript" src="js/topHeader.js"></script>
     <script type="text/javascript" src="js/order.js"></script>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="application/javascript">
@@ -143,24 +144,55 @@
                 </div>
 
                 <div class="main-content" >
-                    <c:forEach var="record" items="${allAddress}">
-                        <form id="myForm" action="../UserServlet?action=changeDefault&uid=${user.uid}&status=0" method="post">
+                    <c:forEach var="record" items="${allAddress}" varStatus="st">
+                        <form name="myForm" class="myForm" id="myForm" action="../UserServlet?uid=${user.uid}&status=0" method="post">
+<script type="application/javascript">
+    let switcher = false;
+    function changeAddress(){
+
+        if(switcher = !switcher){
+            //第一次点击
+            $("#itxt").removeAttr("disabled");
+            document.getElementById("change").innerHTML = "保存";
+
+        }else{
+            //第二次点击
+            //修改地址
+            $(".action").attr("value","changeAddress");
+            let address = $("#itxt").val();
+            let aid = $("#aid").val();
+            let uid = $("#uid").val();
+
+            $.post("${pageContext.request.contextPath}/UserServlet",{
+                action:"changeAddress",
+                address:address,
+                aid:aid,
+                uid:uid,
+            },)
+
+            document.getElementById("change").innerHTML = "修改";
+            $("#itxt").attr("disabled","true");
+        }
+    };
+
+</script>
+                            <input type="hidden" class="action" name="action" value="">
                             <input type="hidden" name="aid" id="aid" value=${record.aid}>
                             <div class="main-top-list address-border" style="width: 100px;">${record.name}</div>
                             <div class="main-top-list address-border" style="width: 510px">
-                                <input type="text" id="itxt" disabled="true"
-                                       style="background-color: #fff;width: 400px;height: 30px;margin: 10px 0 10px 10px;border:0px;"
+                                <input type="text" id="itxt" name="itxt" disabled="true"
+                                style="background-color: #fff;width: 400px;height: 30px;margin: 10px 0 10px 10px;border:0px;"
                                        value=${record.address}>
                             </div>
                             <div class="main-top-list address-border" style="width: 150px">${record.phone}</div>
                             <div class="main-top-list address-border" style="width: 150px">
-                                <a onclick="change()" style="cursor: pointer;">修改</a>|
+                                <a id="change" onclick="changeAddress()" style="cursor: pointer;">修改</a>|
+                                |
                                 <a id="del" style="cursor: pointer;">删除</a>|
-                                <a style="cursor: pointer;">
-                                    <input type="submit" class="changeDefault" style="background-color:#fff;width: 65px;height: 30px;border: 0;outline: none;" value="设为默认"   >
-                                    </a>
+                             <input type="submit" onclick="changeDefault()" style="cursor: pointer;background-color:#fff;width: 65px;height: 30px;border: 0;outline: none;" value="设为默认">
                             </div>
                         </form>
+
                     </c:forEach>
                 </div>
 
@@ -231,18 +263,21 @@
 </div>
 </body>
 <script type="application/javascript">
-    function myCart() {
-        //把id传入后台调用servlet
-        document.location = "../UserServlet?action=myCart";
-    }
 
-    $("#del").click(function(){
+
+  function del(){
         let aid = $("#aid").val();
         $.post("${pageContext.request.contextPath}/UserServlet",{
             action:"del",
             aid:aid,
         },)
-    });
+    };
+
+  function changeDefault(){
+      $(".action").attr("value","changeDefault");
+  };
+
+
 </script>
 </html>
 

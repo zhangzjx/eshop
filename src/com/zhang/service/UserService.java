@@ -76,14 +76,9 @@ public class UserService {
         userDao.addGoods(goods);
     }
 
-    public List<Map<String,Object>> allGoods(String action) {
-        return userDao.allGoods(action);
-    }
-
     public List<Map<String,Object>> ascGoods() {
         return userDao.ascGoods();
     }
-
     /******收货地址操作******/
     public void addAddress(User m) {
         userDao.addAddress(m);
@@ -104,4 +99,13 @@ public class UserService {
         userDao.delAddress(aid);
     }
 
+    public Page allGoods(int currentPage, String skey, String svalue, String sort, String sortKey) {
+        //根据用户id查询购物车商品数量及购物车搜索功能
+        int totalSize = userDao.findCountAll(skey,svalue);
+        Page page = new Page(currentPage,totalSize);
+        List<Map<String,Object>> list = UserDao.findAllGoods(sort,sortKey,page.getStartIndex(),page.getPageSize(),skey,svalue);
+        page.setList(list);
+        System.out.println("页码"+page.getCurrentPage());
+        return page;
+    }
 }

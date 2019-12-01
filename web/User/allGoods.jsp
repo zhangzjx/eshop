@@ -15,9 +15,9 @@
                 $("#lg").show();
             }
             //显示所有商品
-            $.post("${pageContext.request.contextPath}/UserServlet",{
-                action:"allGoods",
-            },)
+            //$.post("${pageContext.request.contextPath}/UserServlet",{
+             //   action:"allGoods",
+            //},)
         });
     </script>
 </head>
@@ -74,15 +74,18 @@
             <a><span style="float: left;margin-left: 15px;">销量</span><img src="img/下降.png" class="item-img"></a>
         </div>
         <div id="it-3" class="top-item">
-            <a><span style="float: left;margin-left: 15px;">价格</span>
-                <img src="img/上下箭头.png" style="width: 14px;height: 14px;margin :8px 0 0 3px;float: left"></a>
+            <a><span style="float: left;margin-left: 15px;">价格升序</span></a>
         </div>
         <div id="it-4" class="top-item">
+            <a><span style="float: left;margin-left: 15px;">价格降序</span></a>
+        </div>
+        <div id="it-5" class="top-item">
             <a><span>上架时间</span></a>
         </div>
     </div>
     <div class="allGoods-content">
-        <c:forEach var="record" items="${allGoods}">
+        <c:forEach var="record" items="${allGoods.list}">
+
             <div class="content-item">
                 <form id="addForm" action="../UserServlet?action=addCart" method="post">
                     <input type="hidden" id="uid" name="uid" value=${user.uid}>
@@ -169,43 +172,35 @@
 
     $("#it-1").click(function () {
         $("#it-1").addClass("red")
-        $("#it-2,#it-3,#it-4").removeClass("red")
+        $("#it-2,#it-3,#it-4,#it-5").removeClass("red")
+        document.location = "../UserServlet?action=desc&sortKey=desc";
+        /**********
         $.post("${pageContext.request.contextPath}/UserServlet",{
-            action:"asc",
+            action:"allGoods",
         },)
+         ***********/
     });
     $("#it-2").click(function () {
         $("#it-2").addClass("red")
-        $("#it-1,#it-3,#it-4").removeClass("red")
-        $.post("${pageContext.request.contextPath}/UserServlet",{
-            action:"asc",
-        },)
+        $("#it-1,#it-3,#it-4,#it-5").removeClass("red")
+        document.location = "../UserServlet?action=desc&sort=desc&sortKey=price";
+
     });
 
-    //Web小功能1——jquery实现一个按钮两个功能（触发不同事件）
-    let switcher = false;
     $("#it-3").click(function () {
         $("#it-3").addClass("red");
-        $("#it-1,#it-2,#it-4").removeClass("red");
-        if(switcher = !switcher){
-            //点击第一次升序
-            $.post("${pageContext.request.contextPath}/UserServlet",{
-                action:"asc",
-            },)
-        }else{
-            //点击第二次降序
-            $.post("${pageContext.request.contextPath}/UserServlet",{
-                action:"desc",
-            },)
-        }
-
+        $("#it-1,#it-2,#it-4,#it-5").removeClass("red");
+        document.location = "../UserServlet?action=asc&sort=asc&sortKey=price";
     });
     $("#it-4").click(function () {
         $("#it-4").addClass("red");
-        $("#it-1,#it-2,#it-3").removeClass("red");
-        $.post("${pageContext.request.contextPath}/UserServlet",{
-            action:"asc",
-        },)
+        $("#it-1,#it-2,#it-3,#it-5").removeClass("red");
+        document.location = "../UserServlet?action=desc&sort=desc&sortKey=price";
+    });
+    $("#it-5").click(function () {
+        $("#it-5").addClass("red");
+        $("#it-1,#it-2,#it-3,#it-4").removeClass("red");
+        document.location = "../UserServlet?action=desc&sort=desc&sortKey=time";
     });
     function myCart() {
         //把id传入后台调用servlet

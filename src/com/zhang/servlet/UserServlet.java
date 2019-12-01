@@ -92,17 +92,30 @@ public class UserServlet extends HttpServlet {
 
     private void allGoods(HttpServletRequest request,
                           HttpServletResponse response) throws IOException {
-        String action = request.getParameter("action");
-        request.getSession().setAttribute("allGoods",userService.allGoods(action));
+        //String action = request.getParameter("action");
+
+        //request.getSession().setAttribute("allGoods",userService.allGoods(action));
+
+        String skey = request.getParameter("sKey");
+        String svalue=request.getParameter("sValue");
+        //sort排序规则-升序还是降序 sortKey根据哪一列排序
+        String sort = request.getParameter("sort");
+        String sortKey = request.getParameter("sortKey");
+        String current = request.getParameter("currentPage");
+        System.out.println(sortKey);
+        int currentPage = 1;
+        try{
+            currentPage = Integer.parseInt(current);
+        }catch(Exception e){
+            currentPage = 1;
+        }
+        //1.获取购物车内容列表，调用Service的findAll方法,
+        // 2.将获取的商品列表保存到request中
+        Page page = userService.allGoods(currentPage,skey,svalue,sort,sortKey);
+        request.getSession().setAttribute("allGoods",page);
         response.sendRedirect(request.getContextPath()+"/User/allGoods.jsp");
     }
-    /***
-    private void ascGoods(HttpServletRequest request,
-                          HttpServletResponse response) throws IOException {
-        request.getSession().setAttribute("allGoods",userService.ascGoods());
-        response.sendRedirect(request.getContextPath()+"/User/allGoods.jsp");
-    }
-     */
+
 
     /**
      * 加入购物车*/
@@ -355,7 +368,8 @@ public class UserServlet extends HttpServlet {
         response.sendRedirect(request.getContextPath()+"/User/centerSettingAddress.jsp");
     }
 
-    private void changeAddress(HttpServletRequest request, HttpServletResponse response) {
+    private void changeAddress(HttpServletRequest request,
+                               HttpServletResponse response) throws IOException {
 
         String aid = request.getParameter("aid");
         String uid = request.getParameter("uid");
@@ -368,7 +382,7 @@ public class UserServlet extends HttpServlet {
         m.setAddress(address);
 
         userService.updateAddress(m);
-        //findAllGoods(request,response);
+        response.sendRedirect(request.getContextPath()+"/User/centerSettingAddress.jsp");
     }
     
 }

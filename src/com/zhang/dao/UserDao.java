@@ -22,20 +22,19 @@ public class UserDao {
     }
     /******所有商品******/
     public List<Map<String, Object>> allGoods(String action) {
-        StringBuilder sql=new StringBuilder("select * from goods order by");
+        StringBuilder sql=new StringBuilder("select * from goods");
         if(ALL_GOODS.equals(action)){
-            sql.append(" price desc");
+            sql.append("");
             System.out.println("allGoods执行"+action);
         }else if(DESC.equals(action)){
-            sql.append(" price desc");
-            System.out.println("DESC执行"+action);
+            sql.append(" order by price desc");
+            System.out.println("DESC降序执行"+action);
         }else if(ASC.equals(action)){
-            sql.append(" price asc");
-            System.out.println("ASC执行"+action);
+            sql.append(" order by price asc");
+            System.out.println("ASC升序执行"+action);
         }
         return JdbcUtils.find(sql.toString());
     }
-
 
     public List<Map<String, Object>> ascGoods() {
         String sql = "select * from goods order by price asc";
@@ -200,5 +199,26 @@ public class UserDao {
         String sql = "delete from goods where aid=?";
         JdbcUtils.update(sql,aid);
     }
+
+    public int findCountAll(String skey, String svalue) {
+        StringBuilder sql=new StringBuilder("select count(*) from goods");
+        if(skey!=null&&skey.length()>0&&svalue!=null&&svalue.length()>0){
+            //'%123%'
+            sql.append(" where "+skey+" like \"%"+svalue+"%\" ");
+        }
+        return ((Number) JdbcUtils.selectScalar(sql.toString(), (Object[]) null)).intValue();
+    }
+
+    public static List<Map<String, Object>> findAllGoods(String sort,String sortKey, int startIndex, int pageSize, String skey, String svalue) {
+
+        StringBuilder sql=new StringBuilder("select * from goods");
+        if(skey!=null&&skey.length()>0&&svalue!=null&&svalue.length()>0) {
+            sql.append(" and a." + skey + " like \"%" + svalue + "%\" ");
+        }else if(sort!=null&&sort.length()>0&&sortKey!=null&&sortKey.length()>0){
+                sql.append(" order by "+sortKey+" "+sort+" ");
+        }
+        return JdbcUtils.find(sql.toString()+"limit ?,?", startIndex, pageSize);
+    }
+
 
 }

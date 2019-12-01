@@ -3,6 +3,7 @@
 <head>
     <title>支付成功</title>
     <link rel="stylesheet"  href="css/paySuccess.css">
+    <script type="text/javascript" src="js/topHeader.js"></script>
 
 </head>
 <body>
