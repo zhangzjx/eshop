@@ -102,8 +102,6 @@ public class PhotoServlet extends HttpServlet {
              productService.addBrand(photo);
              request.setAttribute("msg","添加成功");
 
-
-
         } catch (FileUploadException e) {
             e.printStackTrace();
         }

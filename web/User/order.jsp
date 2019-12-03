@@ -1,4 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    request.setCharacterEncoding("utf-8");
+    String cid = request.getParameter("cid");
+    //System.out.println("购物车id为"+cid);
+
+%>
 <html>
 <head>
     <title>确认订单信息</title>
@@ -29,21 +36,6 @@
                     $("#change").val("修改");
                 }
             });
-
-            /**无效代码
-             let i = 1;
-             $("#chang").click(function () {
-                i++;
-                if(i>2)i=1;
-                switch(i) {
-                    case 1:
-                        $("#itxt").removeAttr("readonly");
-                    case 2:
-                        $("#itxt").attr("readonly", "readonly");
-               }
-            });
-             **/
-
 
             $("#xianshang").click(function(){
                 $(this).addClass('check-box')
@@ -115,65 +107,76 @@
 <div class="order">
     <div class="all-order">
         <h4>填写并核对订单信息</h4>
-        <div class="order-main">
-            <div class="main-list">
-                <span>收件人信息</span><br>
-                <!--从数据库获取收货地址信息，把信息存入数组，根据数组下标设置点击事件，改变样式-->
-                <div id="1" class="main-list-item check-box" style="cursor:pointer;width: 120px;text-align: center;border: #d3d4d6 solid 1px;">张角</div>
-                <div class="main-list-item" >
-                    <input type="text" id="itxt" readonly="readonly" style="width: 400px;height: 30px;margin-left: 10px;border:0px;"
-                           value="北京市海淀区三环内中关村软件园9号楼 15932223201">
-                </div>
-                <div class="main-list-item" style="width: 100px;">
-                    默认地址
-                </div>
-                <div class="main-list-item" style="width: 100px;">
-                    <input type="button" id="change" style="height: 30px;width: 60px;background-color: cornflowerblue;" value="修改">
-                </div>
-                <div class="main-list-item" style="width: 100px;">
-                    删除
-                </div>
-                <br><br>
-                <div id="2" class="main-list-item" style="cursor:pointer;width: 120px;text-align: center;border: #d3d4d6 solid 1px;">张角</div>
-                <div class="main-list-item" style="width: 400px;margin-left: 10px;">
-                    北京市海淀区三环内中关村软件园9号楼 15932223201
-                </div>
-                <div class="main-list-item" style="width: 100px;">
-                    默认地址
-                </div>
 
-            </div>
-            <div class="main-list">
-                <span>支付方式</span><br><!--鼠标悬浮标手指形状-->
-                <div id="xianshang" class="main-list-item check-box" style="cursor:pointer;width: 120px;text-align: center;border: #d3d4d6 solid 1px;">
-                    在线支付</div>
-                <div id="xianxia" class="main-list-item" style="cursor:pointer;width: 120px;text-align: center;border: #d3d4d6 solid 1px;">
-                    货到付款</div>
-            </div>
-            <div class="main-list">
-                <span>送货清单</span><br>
-                <div class="t3">
+        <c:forEach var="record" items="${order }">
+            <form id="myForm" action="../UserServlet?action=subOrder" method="post" >
+                <input type="hidden" id="uid" name="uid" value=${user.uid}>
+                <input type="hidden" id="cid" name="cid" value=${record.cid}>
+                <input type="hidden" id="aphone" name="aphone" value=${record.aphone}>
+                <input type="hidden" id="address" name="address" value=${record.address}>
+                <input type="hidden" id="receiver" name="receiver" value=${record.receiver}>
+                <input type="hidden" id="totalPrice" name="totalPrice" value=${price }>
+                <input type="hidden" id="status" name="status" value=1>
+                <input type="hidden" id="id" name="id" value=${record.id}>
+                <input type="hidden" id="quantity" name="quantity" value=${record.quantity}>
+                <div class="order-main">
+                    <div class="main-list">
+                        <span>收件人信息</span><br>
+                        <!--从数据库获取收货地址信息，把信息存入数组，根据数组下标设置点击事件，改变样式-->
 
-                    <div class="cur">100元<i></i></div>
+                        <div id="1" class="main-list-item check-box" style="cursor:pointer;width: 120px;text-align: center;border: #d3d4d6 solid 1px;">${record.receiver}</div>
+                        <div class="main-list-item" >
+                            <input type="text" id="itxt" readonly="readonly" style="width: 400px;height: 30px;margin-left: 10px;border:0px;"
+                                   value=${record.address}>
+                        </div>
+                        <div class="main-list-item" style="width: 150px;">
+                            电话${record.aphone}
+                        </div>
+                        <div class="main-list-item" style="width: 100px;">
+                            默认地址
+                        </div>
+                        <div class="main-list-item" style="width: 100px;">
+                            <input type="button" id="change" style="height: 30px;width: 60px;background-color: cornflowerblue;" value="修改">
+                        </div>
+                        <div class="main-list-item" style="width: 100px;">
+                            删除
+                        </div>
+                        <!--
+                        <br><br>
+                        <div id="2" class="main-list-item" style="cursor:pointer;width: 120px;text-align: center;border: #d3d4d6 solid 1px;">张角</div>
+                        <div class="main-list-item" style="width: 400px;margin-left: 10px;">
+                            北京市海淀区三环内中关村软件园9号楼 15932223201
+                        </div>
+                        -->
+                    </div>
+                    <div class="main-list">
+                        <span>支付方式</span><br><!--鼠标悬浮标手指形状-->
+                        <div id="xianshang" class="main-list-item check-box" style="cursor:pointer;width: 120px;text-align: center;border: #d3d4d6 solid 1px;">
+                            在线支付</div>
+                        <div id="xianxia" class="main-list-item" style="cursor:pointer;width: 120px;text-align: center;border: #d3d4d6 solid 1px;">
+                            货到付款</div>
+                    </div>
+                    <div class="main-list">
+                        <span>送货清单</span><br>
+                        <div class="t3" style="height: 80px;border: #d4d4d4 solid 1px;margin-top: 30px">
+                            <div style="width: 200px;height: 80px;float: left;text-align: center;line-height:80px;">图片</div>
+                            <div style="width: 300px;height: 80px;float: left;text-align: center;line-height:80px;">${record.goods_name}</div>
+                            <div style="width: 300px;height: 80px;float: left;text-align: center;line-height:80px;">${record.price}</div>
+                            <div style="width: 300px;height: 80px;float: left;text-align: center;line-height:80px;">${record.quantity}</div>
 
-                    <div>200元</div>
-
-                    <div>500元</div>
-
-                    <div>1000元</div>
-
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="order-base">
-            <div class="base-item">
-                <br>
-                应付金额：<span >未知</span><br>
-                寄送至：<span>太阳系地球村</span>
-
-            </div>
-            <input type="submit" class="base-item-sub el-button" value="提交订单">
-        </div>
+                <div class="order-base">
+                    <div class="base-item">
+                        <br>
+                        应付金额：￥<span class=".total_text">${price }</span><br>
+                        寄送至：<span>${record.address}</span>
+                    </div>
+                    <input type="submit" class="base-item-sub el-button" value="提交订单">
+                </div>
+            </form>
+        </c:forEach>
     </div>
 
     <!--底部内容-->
@@ -240,4 +243,17 @@
 </div>
 
 </body>
+<script type="application/javascript">
+
+    $(document).ready(function() {
+        // 页面加载后任何需要执行的js特效
+        let name = $("#name").val();
+        if (name != null && name != "") {
+            $("#logout").show()
+        } else {
+            $("#lg").show();
+        }
+    })
+
+</script>
 </html>

@@ -28,6 +28,7 @@
 </head>
 <body>
 <input type="hidden" id="name" value="${name }">
+<input type="hidden" id="uid" name="uid" value=${user.uid}>
 <!-- 头部栏位 -->
 <!--页面顶部-->
 <div class="cart-header">
@@ -109,9 +110,10 @@
                         <div class="order_content">
                             <%--@elvariable id="myCart" type="javax.swing.plaf.basic.ComboPopup"--%>
                             <c:forEach var="record" items="${myCart.list}">
-                                <ul class="order_lists"  >
+                                <ul class="order_lists" >
                                     <li class="cart-u-2" style="width: 6%;">
-                                        <input type="checkbox" id="checkbox_2" class="son_check">
+
+                                        <input type="checkbox" id="checkbox_2" class="son_check" name="course" value=${record.cid}>
                                         <label for="checkbox_2"></label>
                                     </li>
                                     <li class="cart-u-2" style="width: 25%;">
@@ -204,7 +206,7 @@
             <div class="bar-wrapper">
                 <div class="bar-right">
                     <div class="piece">已选商品<strong class="piece_num">0</strong>件</div>
-                    <div class="totalMoney">共计: <strong class="total_text">0.00</strong></div>
+                    <div class="totalMoney">共计:￥<strong class="total_text">0.00</strong></div>
                     <a><input class="calBtn" id="calBtn" type="button" value="结算" onclick="go()"/></a>
                     <!--<div class="calBtn"><a href="javascript:return false;" style="opacity: 0.2">结算</a></div>-->
                 </div>
@@ -300,7 +302,37 @@
     })
     //验证表单合法性
     function go(){
-        $("#myForm").submit();
+        //获取所有名字为ck的编号组件
+        const ck = document.getElementsByName("course");
+        const cm = document.getElementsByName("course").values();
+        //ids字符串
+        let s = "";
+        //循环ck数组
+        for(let i = 0 ; i < ck.length ; i ++)
+        {   //如果被选择的选中
+            if(ck[i].checked)
+            {//编号字符串累加
+                s+=ck[i].value+",";
+            }
+        }
+        //确认选项
+        let ok = window.confirm("确定要提交["+s+"] 记录吗？");
+        //如果确认选择
+        if(ok) {
+            //把ids传入后台调用servlet
+            let price = $(".total_text").text();
+            document.location = "../UserServlet?action=addOrder&uid=${user.uid}&price="+price+"&ids="+s;
+        }
+        //document.location = "ProductServlet?action=delGoMor&ids="+s;
+
+
+        /********
+         $.post("${pageContext.request.contextPath}/UserServlet",{
+           action:"addOrder",
+            uid:2,
+            cid:12,
+            },)
+         *******/
     }
 </script>
 <!--只能加减，没有计算

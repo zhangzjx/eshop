@@ -2,6 +2,7 @@ package com.zhang.servlet;
 
 import com.zhang.dom.Product;
 import com.zhang.service.ProductService;
+import com.zhang.utils.DateUtils;
 import com.zhang.utils.Lsh;
 import com.zhang.utils.Page;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Map;
 
@@ -106,7 +108,12 @@ public class ProductServlet extends HttpServlet {
         goods.setSku(sku);
         goods.setContent(content);
         goods.setBid(Integer.parseInt(bid));
-        goods.setPublishedDate(new Date());
+        try {
+            goods.setPublishedDate(DateUtils.nowTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         //4.调用Service中add方法添加一条新闻
         productService.addGoods(goods);
         //返回添加成功的信息
@@ -127,7 +134,11 @@ public class ProductServlet extends HttpServlet {
 
         goods.setBrandName(brandName);
         goods.setBrandFirst(brandFirst);
-        goods.setPublishedDate(new Date());
+        try {
+            goods.setPublishedDate(DateUtils.nowTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         //4.调用Service中add方法添加一条新闻
         productService.addGoods(goods);
         //返回添加成功的信息
@@ -237,7 +248,11 @@ public class ProductServlet extends HttpServlet {
             goods.setPrice(price);
             goods.setSkey(skey);
             goods.setSku(sku);
-            goods.setPublishedDate(new Date());
+            try {
+                goods.setPublishedDate(DateUtils.nowTime());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             productService.update(goods,action);
             findAllGoods(request,response);
         }else if(UPDATE_BR.equals(action)){

@@ -14,7 +14,7 @@ import java.util.Map;
 public class JdbcUtils {
 
 	private static String driver="com.mysql.cj.jdbc.Driver";
-	private static String url="jdbc:mysql://localhost:3306/shop?serverTimezone=UTC&useSSL=false";
+	private static String url="jdbc:mysql://localhost:3306/shop?&serverTimezone=GMT%2B8&useSSL=false";
 	private static String name="root";;
 	private static String password="zhangjiaxin";
 	

@@ -76,9 +76,6 @@ public class UserService {
         userDao.addGoods(goods);
     }
 
-    public List<Map<String,Object>> ascGoods() {
-        return userDao.ascGoods();
-    }
     /******收货地址操作******/
     public void addAddress(User m) {
         userDao.addAddress(m);
@@ -108,7 +105,26 @@ public class UserService {
         System.out.println("页码"+page.getCurrentPage());
         return page;
     }
-/******查看订单状态*****/
+
+    /*****添加订单第一步，获取商品信息及地址信息******/
+    public Object addOrder(String uid, String cid) {
+        return userDao.addOrder(uid, cid);
+    }
+    /*****添加订单第二步，提交商品信息及地址信息******/
+    public void subOrder(Cart order,int cid) {
+        //添加订单信息
+        userDao.subOrder(order);
+        //删除购物表记录
+        userDao.delCart(cid);
+    }
+    public void subOrderItem(Cart orderItem) {
+        userDao.subOrderItem(orderItem);
+    }
+    /*****添加订单第三步，付款成功，等待发货******/
+    public void payOrder(Cart order) {
+        userDao.payOrder(order);
+    }
+    /******查看订单状态*****/
     public Object orderStatus(String uid, String status) {
         return userDao.orderStatus(uid,status);
     }

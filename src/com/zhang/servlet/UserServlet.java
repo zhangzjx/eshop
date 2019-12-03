@@ -4,6 +4,7 @@ import com.zhang.dom.Cart;
 import com.zhang.dom.User;
 import com.zhang.exception.UserException;
 import com.zhang.service.UserService;
+import com.zhang.utils.DateUtils;
 import com.zhang.utils.MD5;
 import com.zhang.utils.Page;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -45,6 +47,9 @@ public class UserServlet extends HttpServlet {
     public static final String TWO = "2";
     public static final String THREE = "3";
     public static final String FOUR = "4";
+    public static final String ADD_ORDER = "addOrder";
+    public static final String SUB_ORDER = "subOrder";
+    public static final String PAY_ORDER = "payOrder";
 
 
     private UserService userService = new UserService();
@@ -94,8 +99,92 @@ public class UserServlet extends HttpServlet {
             findAddress(request, response);
         } else if(ORDER_PAY.equals(action)){
             orderStatus(request, response);
+        } else if(ADD_ORDER.equals(action)){
+            addOrder(request, response);
+        } else if(SUB_ORDER.equals(action)){
+            subOrder(request, response);
+        } else if(PAY_ORDER.equals(action)){
+            payOrder(request, response);
         }
 
+    }
+    /*****添加订单第一步，获取商品信息及地址信息******/
+    private void addOrder(HttpServletRequest request,
+                          HttpServletResponse response) throws IOException {
+        String uid = request.getParameter("uid");
+        String[] cids = request.getParameter("ids").split(",");
+        String cid = cids[0];
+        String price = request.getParameter("price");
+        System.out.println("用户id"+uid);
+        System.out.println("购物车id为"+cid);
+        System.out.println("商品总价"+price);
+        HttpSession session = request.getSession();
+        session.setAttribute("price", price);
+
+        request.getSession().setAttribute("order", userService.addOrder(uid, cid));
+        response.sendRedirect(request.getContextPath() + "/User/order.jsp");
+    }
+    /*****添加订单第二步，提交商品信息及地址信息，等待付款******/
+    private void subOrder(HttpServletRequest request,
+                          HttpServletResponse response) throws IOException {
+        int uid = Integer.parseInt(request.getParameter("uid"));
+        int cid = Integer.parseInt(request.getParameter("cid"));
+        double totalPrice= Double.parseDouble(request.getParameter("totalPrice"));
+        int aphone = Integer.parseInt(request.getParameter("aphone"));
+        String address= request.getParameter("address");
+        String receiver = request.getParameter("receiver");
+        int status = Integer.parseInt(request.getParameter("status"));
+        int id = Integer.parseInt(request.getParameter("id"));
+        int quantity=Integer.parseInt(request.getParameter("quantity"));
+        System.out.println(uid+" "+totalPrice+" "+aphone+" "+address+" "+receiver+" "+status);
+
+        Cart order = new Cart();
+        Cart orderItem = new Cart();
+        try {
+            String oid = DateUtils.nowTimeName();
+            order.setOid(oid);
+            orderItem.setOid(oid);
+            //oid存入session
+            HttpSession session = request.getSession();
+            session.setAttribute("oid", oid);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        order.setUid(uid);
+
+        order.setPrice(totalPrice);
+        order.setAphone(aphone);
+        order.setAddress(address);
+        order.setReceiver(receiver);
+        order.setStatus(status);
+        try {
+            order.setAddTime(DateUtils.nowTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        orderItem.setId(id);
+        orderItem.setQuantity(quantity);
+        //4.调用Service中add方法添加一条新闻
+        userService.subOrder(order,cid);
+        userService.subOrderItem(orderItem);
+        //返回添加成功的信息
+
+        request.setAttribute("msg","添加成功");
+        response.sendRedirect(request.getContextPath()+"/User/pay.jsp");
+    }
+    /*****添加订单第三步，付款成功，等待发货******/
+    private void payOrder(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String oid = request.getParameter("oid");
+        String status = request.getParameter("status");
+        System.out.println(oid+status);
+        Cart order = new Cart();
+
+        order.setOid(oid);
+        order.setStatus(Integer.parseInt(status));
+
+        userService.payOrder(order);
+        response.sendRedirect(request.getContextPath()+"/User/centerSettingAddress.jsp");
     }
 
     /********查看订单状态*********/
@@ -121,9 +210,6 @@ public class UserServlet extends HttpServlet {
 
     private void allGoods(HttpServletRequest request,
                           HttpServletResponse response) throws IOException {
-        //String action = request.getParameter("action");
-
-        //request.getSession().setAttribute("allGoods",userService.allGoods(action));
 
         String skey = request.getParameter("sKey");
         String svalue=request.getParameter("sValue");
@@ -169,7 +255,11 @@ public class UserServlet extends HttpServlet {
         goods.setId(id);
         goods.setQuantity(quantity);
         goods.setPrice(price);
-        goods.setAddTime(new Date());
+        try {
+            goods.setAddTime(DateUtils.nowTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         //4.调用Service中add方法添加一条新闻
         userService.addCart(goods);
         //返回添加成功的信息

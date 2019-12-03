@@ -89,7 +89,7 @@
             </div>
 
             <div class="submit">
-                <a class="sui-btn" href="paySuccess.jsp" target="_blank">立即支付</a>
+                <a class="sui-btn" href="" target="_blank" onclick="payOrder()">立即支付</a>
             </div>
 
         </div>
@@ -157,4 +157,9 @@
     </div>
 </div>
 </body>
+<script type="application/javascript">
+    function payOrder(){
+        document.location = "../UserServlet?action=payOrder&status=2&oid=${oid }";
+    }
+</script>
 </html>

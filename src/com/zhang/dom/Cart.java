@@ -7,6 +7,7 @@ import java.util.Date;
  * @date 2019/11/25 21:32
  */
 public class Cart {
+
     public int getId() {
         return id;
     }
@@ -21,6 +22,22 @@ public class Cart {
 
     public void setUid(int uid) {
         this.uid = uid;
+    }
+
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
+    }
+
+    public String getOid() {
+        return oid;
+    }
+
+    public void setOid(String oid) {
+        this.oid = oid;
     }
 
     public int getQuantity() {
@@ -47,20 +64,66 @@ public class Cart {
         this.addTime = addTime;
     }
 
+    public int getAphone() {
+        return aphone;
+    }
+
+    public void setAphone(int aphone) {
+        this.aphone = aphone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Cart{" +
                 "id=" + id +
                 ", uid=" + uid +
+                ", cid=" + cid +
+                ", oid='" + oid + '\'' +
                 ", quantity=" + quantity +
                 ", price=" + price +
                 ", addTime=" + addTime +
+                ", aphone=" + aphone +
+                ", address='" + address + '\'' +
+                ", receiver='" + receiver + '\'' +
+                ", status=" + status +
                 '}';
     }
 
     private int id;
     private int uid;
+    private int cid;
+    private String oid;
     private int quantity;
     private double price;
     private Date addTime;
+    private int aphone ;
+    private String address;
+    private String receiver;
+    private int status;
+
+
 }

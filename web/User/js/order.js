@@ -2,10 +2,13 @@
 /******我的订单*******/
 function myOrder(){
     let uid = $("#uid").val();
+    document.location = "../UserServlet?action=orderPay&uid="+uid;
+    /*******8
     $.post("${pageContext.request.contextPath}/UserServlet",{
         action:"myOrder",
         uid:uid,
     },)
+     ***********/
 }
 /******待付款*******/
 function orderPay(){

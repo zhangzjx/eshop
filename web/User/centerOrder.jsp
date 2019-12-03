@@ -83,28 +83,14 @@
             </div>
             <div class="content-left-bottom">
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">订单中心</div>
-                <div class="content-left-list">
-                    <li><a href="">我的订单</a></li>
-                </div>
-                <div class="content-left-list">
-                    <li><a onclick="orderPay()" href="centerOrderPay.jsp">待付款</a></li>
-                </div>
-                <div class="content-left-list">
-                    <li><a onclick="orderSend()" href="centerOrderSend.jsp">待发货</a></li>
-                </div>
-                <div class="content-left-list">
-                    <li><a onclick="orderReceive()" href="centerOrderReceive.jsp">待收货</a></li>
-                </div>
-                <div class="content-left-list">
-                    <li><a onclick="orderEvaluate()" href="centerOrderEvaluate.jsp">待评价</a></li>
-                </div>
+                    <li class="content-left-list"><a href="">我的订单</a></li>
+                    <li class="content-left-list"><a onclick="orderPay()" href=" ">待付款</a></li>
+                    <li class="content-left-list"><a onclick="orderSend()" href=" ">待发货</a></li>
+                    <li class="content-left-list"><a onclick="orderReceive()" href=" ">待收货</a></li>
+                    <li class="content-left-list"><a onclick="orderEvaluate()" href=" ">待评价</a></li>
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">设置</div>
-                <div class="content-left-list">
-                    <li><a href="centerOrder.jsp">个人信息</a></li>
-                </div>
-                <div class="content-left-list">
-                    <li onclick="allAddress()"><a href="centerSettingAddress.jsp" style="cursor: pointer">地址管理</a></li>
-                </div>
+                    <li class="content-left-list"><a href="centerOrder.jsp">个人信息</a></li>
+                    <li class="content-left-list" onclick="allAddress()"><a href=" " style="cursor: pointer">地址管理</a></li>
             </div>
         </div>
         <!--右侧主内容-->
@@ -129,7 +115,7 @@
                 <div class="main-content" >
                     <c:forEach var="record" items="${order }">
                     <div class="main-content-list" style="width: 350px">${record.content}</div>
-                    <div class="main-content-list">${record.price}</div>
+                    <div class="main-content-list">${record.totalprice}</div>
                     <div class="main-content-list">${record.quantity}</div>
                     <div class="main-content-list">商品操作</div>
                     <div class="main-content-list">交易状态</div>

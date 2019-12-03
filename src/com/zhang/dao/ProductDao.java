@@ -1,5 +1,6 @@
 package com.zhang.dao;
 
+import com.zhang.dom.Cart;
 import com.zhang.dom.Photo;
 import com.zhang.dom.Product;
 import com.zhang.utils.JdbcUtils;
@@ -25,7 +26,7 @@ public class ProductDao {
                 goods.getSkey(),
                 goods.getSku(),
                 goods.getContent(),
-                new java.sql.Date(goods.getPublishedDate().getTime()),
+                goods.getPublishedDate(),
                 goods.getBid()
         };
         JdbcUtils.insert(sql, params);
@@ -37,7 +38,7 @@ public class ProductDao {
                 photo.getBrandName(),
                 photo.getBrandFirst(),
                 photo.getFilePath(),
-                new java.sql.Date(photo.getFileTime().getTime()),
+                photo.getFileTime(),
         };
         JdbcUtils.insert(sql, params);
     }
@@ -48,10 +49,10 @@ public class ProductDao {
     }
 
     /**查找所有记录
-    public static List<Map<String, Object>> findAllGoods() {
-        String sql = "select * from goods";
-        return JdbcUtils.find(sql);
-    }
+     public static List<Map<String, Object>> findAllGoods() {
+     String sql = "select * from goods";
+     return JdbcUtils.find(sql);
+     }
      */
     /**查找一条数据*/
     public static Map<String, Object> findOne(int id) {
@@ -84,7 +85,7 @@ public class ProductDao {
                     goods.getPrice(),
                     goods.getSkey(),
                     goods.getSku(),
-                    new java.sql.Date(goods.getPublishedDate().getTime()),
+                    goods.getPublishedDate(),
                     goods.getId(),
             };
             JdbcUtils.update(sql, params);
@@ -95,7 +96,7 @@ public class ProductDao {
                     goods.getSkey(),
                     goods.getSku(),
                     goods.getContent(),
-                    new java.sql.Date(goods.getPublishedDate().getTime()),
+                    goods.getPublishedDate(),
             };
             JdbcUtils.update(sql, params);
         }
@@ -114,13 +115,13 @@ public class ProductDao {
     }
     /**开始记录的索引*/
     /**开始记录的索引（搜索结果）skey代表哪一列，svalue是具体的值
-    /**select a.*,b.brand_name from goods a,goods_brand b where a.bid=b.id
+     /**select a.*,b.brand_name from goods a,goods_brand b where a.bid=b.id
      * and a.gid like 100000001 limit 0,3 条件是a.bid=b。id和当a.gid=100000001时
      * */
     public static List<Map<String, Object>> findAllGoods(int startIndex, int pageSize,
                                                          String skey,String svalue) {
         StringBuilder sql=new StringBuilder("select a.*,b.name,b.first from" +
-                             " goods a,goods_brand b where a.bid=b.id");
+                " goods a,goods_brand b where a.bid=b.id");
         if(skey!=null&&skey.length()>0&&svalue!=null&&svalue.length()>0){
             sql.append(" and a."+skey+" like \"%"+svalue+"%\" limit ?,?");
         }else{
