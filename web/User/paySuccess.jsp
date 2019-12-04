@@ -3,14 +3,18 @@
 <head>
     <title>支付成功</title>
     <link rel="stylesheet"  href="css/paySuccess.css">
+    <link rel="stylesheet" href="css/topFoot.css">
     <script type="text/javascript" src="js/topHeader.js"></script>
 
 </head>
 <body>
-<div class="index-header">
+<input type="hidden" id="name" value="${name }">
+<input type="hidden" id="uid" value="${user.uid }">
+<!--页面顶部-->
+<div class="all-header">
     <!--顶部导航-->
     <div style="width: 100%; background-color: #EEE5DE;">
-        <div class="index-top">
+        <div class="top">
             <div class="top-left">
                 <ul class="ul-left">
                     <li >青橙欢迎您！</li>
@@ -24,7 +28,7 @@
                 <ul class="ul-right">
                     <li ><span><a href="centerOrder.jsp" >我的订单</a></span></li>
                     <li><span><a href=""  target="_blank" onclick="myCart()">我的购物车</a></span></li>
-                    <li><span><a href="home.html" target="_blank">我的青橙</a></span></li>
+                    <li><span><a href="myInf.jsp" target="_blank">我的青橙</a></span></li>
                     <li><span>青橙会员</span></li>
                     <li><span>企业采购</span></li>
                     <li><span>关注青橙</span></li>
@@ -63,7 +67,7 @@
 </div>
 <!--底部内容-->
 <div class="bottom-foot">
-    <div class="order-bottom">
+    <div class="bottom">
         <div class="bottom-main">
             <div class="bottom-main-list" style="font-size: 13pt;font-weight: bold;">购物指南</div><br>
             <div class="bottom-main-list">购物流程</div>
@@ -106,7 +110,7 @@
             <div class="bottom-main-list">品优购通信</div>
         </div>
     </div>
-    <div class="order-foot">
+    <div class="foot">
         <ul>
             <li>关于我们</li>
             <li>联系我们</li>
