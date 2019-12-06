@@ -111,8 +111,7 @@
             </div>
         </div>
         <!--商品参数-->
-        <!---->
-        <input type="hidden" name="id" value=${map.id}
+        <!--<input type="hidden" name="id" value=${map.id}-->
         <div class="main-top-right">
             <div class="top-right-item" style="font-family: 微软雅黑">${map.goods_name}</div>
             <div class="top-right-item">
@@ -328,7 +327,7 @@
             magnifier: "#magnifier1",//最外层的大容器
             width: 350,//承载容器宽
             height: 405,//承载容器高
-            moveWidth: null,//如果设置了移动盒子的宽度，则不计算缩放比例
+            moveWidth: 120,//如果设置了移动盒子的宽度，则不计算缩放比例
             zoom: 5//缩放比例
         };
 

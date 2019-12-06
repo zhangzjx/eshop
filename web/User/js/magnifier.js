@@ -1,30 +1,30 @@
 (function($){
 
-	var fnName = 'magnifier';
-	var magnifier = {
-		magnifier : ".magnifier",//最外层的大容器
+	const fnName = 'magnifier';
+	const magnifier = {
+		magnifier: ".magnifier",//最外层的大容器
 
-		container : ".magnifier-container",//选择当前主图的承载容器
+		container: ".magnifier-container",//选择当前主图的承载容器
 
-		containerImg : '.images-cover',//图片的容器
+		containerImg: '.images-cover',//图片的容器
 
-		view : ".magnifier-view",//图片放大后承载容器
+		view: ".magnifier-view",//图片放大后承载容器
 
-		width : 400,//图片放大后承载容器宽度
+		width: 400,//图片放大后承载容器宽度
 
-		height : 400,//图片放大后承载容器高度
+		height: 400,//图片放大后承载容器高度
 
-		moveView : ".move-view",//跟随鼠标移动的容器
+		moveView: ".move-view",//跟随鼠标移动的容器
 
-		moveWidth : null,//如果设置了移动盒子的宽度，则不计算缩放比例
+		moveWidth: null,//如果设置了移动盒子的宽度，则不计算缩放比例
 
-		zoom : 4,//缩放比例
+		zoom: 4,//缩放比例
 
-		thumbnail : ".magnifier-line > ul",//缩略图容器
+		thumbnail: ".magnifier-line > ul",//缩略图容器
 
-		assembly : ".magnifier-btn",//按钮组
+		assembly: ".magnifier-btn",//按钮组
 
-		index : 0//当前图片的索引
+		index: 0//当前图片的索引
 	};
 
 
@@ -33,13 +33,13 @@
 		//设置属性值
 		if(typeof(magnifierAttr) == "object"){
 
-			for( var n in magnifierAttr){
+			for(const n in magnifierAttr){
 
 				magnifier[n] = magnifierAttr[n];
 			}
 		}
 
-		var _this = this;
+		const _this = this;
 		//绑定容器
 		_this.magnifier = $(magnifier.magnifier);
 		_this.container = _this.magnifier.find(magnifier.container);
@@ -48,7 +48,7 @@
 		_this.thumbnail = _this.magnifier.find(magnifier.thumbnail);
 		_this.assembly = _this.magnifier.find(magnifier.assembly);
 		_this.containerImg = _this.magnifier.find(magnifier.containerImg);
-		var imgBox = _this.containerImg;
+		const imgBox = _this.containerImg;
 
 		//設置寬高
 		_this.magnifier.css({
@@ -63,7 +63,7 @@
 			"height" : magnifier.height
 		});
 
-		var boxMoveViewWidth,boxMoveViewHeight;
+		let boxMoveViewWidth, boxMoveViewHeight;
 		if(magnifier.moveWidth){
 
 			boxMoveViewWidth = magnifier.moveWidth;
@@ -79,7 +79,7 @@
 		});
 
 		//计算体积碰撞的变量
-		var deviationXl,
+		let deviationXl,
 			deviationXr,
 			deviationYt,
 			deviationYb,
@@ -89,7 +89,7 @@
 
 		_this.eqImg = function(){
 
-			var img = new Image(),
+			const img = new Image(),
 				src = _this.thumbnail.find("img").eq(magnifier.index).attr('src');
 
 			img.src = src;
@@ -107,7 +107,7 @@
 					img.onload = imgLoadEnd;
 				}
 
-				var styleCss;
+				let styleCss;
 				if(img.width > img.height){
 
 					imgWidth = magnifier.width;
@@ -144,8 +144,8 @@
 
 		_this.moveFn = function(e){
 
-			var X = (e.clientX-_this.magnifier.offset().left)-boxMoveViewWidth/2,
-				Y = (e.clientY-_this.magnifier.offset().top + $(document).scrollTop())-boxMoveViewHeight/2;
+			const X = (e.clientX - _this.magnifier.offset().left) - boxMoveViewWidth / 2,
+				Y = (e.clientY - _this.magnifier.offset().top + $(document).scrollTop()) - boxMoveViewHeight / 2;
 
 			endX = (X > deviationXl) ? (X < deviationXr) ? X : deviationXr : deviationXl;
 			endY = (Y > deviationYt) ? (Y < deviationYb) ? Y : deviationYb : deviationYt;
@@ -179,20 +179,20 @@
 			_this.view.hide();
 		});
 
-		var thumbnailImg = _this.thumbnail.find('>*'),
+		const thumbnailImg = _this.thumbnail.find('>*'),
 			lineLenght = thumbnailImg.length;
 		_this.imgMove = function(_boole){
 
 			(_boole) ? magnifier.index++ : magnifier.index--;
 
-			var _deviation = Math.ceil(magnifier.width / thumbnailImg.width() /2);
+			const _deviation = Math.ceil(magnifier.width / thumbnailImg.width() / 2);
 			if(lineLenght < _deviation){
 				return false;
 			}
 
 			(magnifier.index < 0) ? magnifier.index = 0 : (magnifier.index > lineLenght-_deviation) ? magnifier.index = lineLenght - _deviation : magnifier.index;
 
-			var endLeft = (thumbnailImg.width() * magnifier.index) - thumbnailImg.width();
+			const endLeft = (thumbnailImg.width() * magnifier.index) - thumbnailImg.width();
 
 			_this.thumbnail.css({
 
