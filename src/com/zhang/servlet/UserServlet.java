@@ -195,14 +195,19 @@ public class UserServlet extends HttpServlet {
         System.out.println(uid+" "+status);
         request.getSession().setAttribute("order", userService.orderStatus(uid, status));
         if(ZERO.equals(status)) {
-            response.sendRedirect(request.getContextPath() + "/User/centerOrderPay.jsp");
+            System.out.println("转发第一个页面，所有订单");
+            response.sendRedirect(request.getContextPath() + "/User/centerOrder.jsp");
         } else if(ONE.equals(status)) {
+            System.out.println("转发第二个页面，待付款");
             response.sendRedirect(request.getContextPath() + "/User/centerOrderPay.jsp");
         } else if(TWO.equals(status)) {
+            System.out.println("转发第三个页面，代发货");
             response.sendRedirect(request.getContextPath() + "/User/centerOrderSend.jsp");
         } else if(THREE.equals(status)) {
+            System.out.println("转发第四个页面，待收货");
             response.sendRedirect(request.getContextPath() + "/User/centerOrderReceive.jsp");
         } else if(FOUR.equals(status)) {
+            System.out.println("转发第四个页面，待评价");
             response.sendRedirect(request.getContextPath() + "/User/centerOrderEvaluate.jsp");
         }
     }

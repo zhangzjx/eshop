@@ -19,7 +19,6 @@ a:active {text-decoration:underline;}
 .main-top-left{
     width: 350px;
     height: 500px;
-    border: solid 1px;
     float: left;
 }
 .main-top-right{
@@ -37,10 +36,47 @@ a:active {text-decoration:underline;}
     padding-left: 50px;
     border: #0abdfe solid 1px;
 }
+.item{
+    font-family: 微软雅黑;
+    font-size: 10pt;
+    float: left;
+}
+.item-inf{
+    height: 34px;
+    height: auto;
+    border: #d4d4d4 solid 1px;
+    font-family: 微软雅黑;
+    font-size: 10pt;
+    text-align: center;
+    line-height: 34px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 8px 0 0 10px;
+    float: left;
+}
+.item-inf:hover{
+    border: red solid 1px;
+    cursor: pointer;
+}
+/**购物车加减**/
+.increment{
+    width: 30px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16pt;
+    float: left;
+}
+.sum{
+    height: 30px;
+    width: 40px;
+    text-align: center;
+    line-height: 40px;
+    float: left;
+}
 /****主要信息****/
 .main-inf{
     width: 1200px;
-    height: auto;
+    height: 500px;
 }
 /**左侧**/
 .main-inf-left{
@@ -60,31 +96,35 @@ a:active {text-decoration:underline;}
 }
 /**左侧详细信息**/
 .change-left{
-    width: 98px;
+    width: 100px;
     height: 50px;
     float: left;
-    border-top:#d4d4d4 solid 1px;
-    border-left:#d4d4d4 solid 1px;
+}
+.change-border{
+    width: 99px;
+    height: 50px;
+    float: left;
+}
+.change-borderLeft{
+    width: 99px;
+    height: 50px;
+    float: left;
     border-right:#d4d4d4 solid 1px;
+    border-bottom:#d4d4d4 solid 1px;
 }
-.change-borderAll{
-    width: 97px;
+.change-borderRight{
+    width: 99px;
     height: 50px;
     float: left;
-    border:#d4d4d4 solid 1px;
-}
-.change-borderTlr{
-    width: 97px;
-    height: 50px;
-    float: left;
-    border-top:#d4d4d4 solid 1px;
     border-left:#d4d4d4 solid 1px;
-    border-right:#d4d4d4 solid 1px;
+    border-bottom:#d4d4d4 solid 1px;
 }
+
 .change-right{
-    width: 98px;
+    width: 99px;
     height: 50px;
-    border:#d4d4d4 solid 1px;
+    border-left:#d4d4d4 solid 1px;
+    border-bottom:#d4d4d4 solid 1px;
     float: left;
 }
 .tab-pane{

@@ -94,8 +94,10 @@ a:active {text-decoration:underline;}
     background-color: #F5F5F5;
 }
 .main-top-list{
-    width: 200px;
+    width: 220px;
     float: left;
+    text-align: left;
+    padding-left: 15px;
 }
 .main-content{
     width: 960px;
@@ -105,4 +107,10 @@ a:active {text-decoration:underline;}
 .main-content-list{
     width: 100px;
     float: left;
+    /**对超出容器的部分强制截取，高度不确定则换行*/
+    overflow: hidden;
+    /**显示省略符号来代表被修剪的文本。*/
+    text-overflow: ellipsis;
+    /**禁止换行*/
+    white-space: nowrap;
 }

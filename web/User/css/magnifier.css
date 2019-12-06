@@ -28,8 +28,8 @@
 }
 /****跟随鼠标移动的盒子****/
 .move-view{
-	width: 200px;
-	height: 200px;
+	width: 100px;
+	height: 100px;
 	position: absolute;
 	background-image: url('../image/move-box.png');
 }

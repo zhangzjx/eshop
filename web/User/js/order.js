@@ -21,7 +21,6 @@ function orderPay(){
         status:4,
     },)
      ***********/
-
 }
 /******代发货*******/
 function orderSend(){

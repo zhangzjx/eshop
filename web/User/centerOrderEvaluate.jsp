@@ -76,14 +76,14 @@
             </div>
             <div class="content-left-bottom">
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">订单中心</div>
-                <li class="content-left-list"><a onclick="myOrder()" href="">我的订单</a></li>
-                <li class="content-left-list"><a onclick="orderPay()" href=" ">待付款</a></li>
-                <li class="content-left-list"><a onclick="orderSend()" href=" ">待发货</a></li>
-                <li class="content-left-list"><a onclick="orderReceive()" href=" ">待收货</a></li>
-                <li class="content-left-list"><a  href="">待评价</a></li>
+                <li class="content-left-list"><a onclick="myOrder()" href="centerOrder.jsp">我的订单</a></li>
+                <li class="content-left-list"><a onclick="orderPay()" href="centerOrderPay.jsp">待付款</a></li>
+                <li class="content-left-list"><a onclick="orderSend()" href="centerOrderSend.jsp">待发货</a></li>
+                <li class="content-left-list"><a onclick="orderReceive()" href="centerOrderReceive.jsp">待收货</a></li>
+                <li class="content-left-list"><a href="centerOrderEvaluate.jsp">待评价</a></li>
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">设置</div>
                 <li class="content-left-list"><a href="centerOrder.jsp">个人信息</a></li>
-                <li class="content-left-list" onclick="allAddress()"><a href=" " style="cursor: pointer">地址管理</a></li>
+                <li class="content-left-list" onclick="allAddress()"><a href="centerSettingAddress.jsp" style="cursor: pointer">地址管理</a></li>
             </div>
         </div>
         <!--右侧主内容-->
@@ -230,8 +230,6 @@
         //把id传入后台调用servlet
         document.location = "../UserServlet?action=myCart";
     }
-    $(".add-cart").click(function () {
-        document.location = "../UserServlet?action=addCart";
-    });
+
 </script>
 </html>

@@ -58,19 +58,98 @@
     </div>
 </div>
 <div class="body-main">
-
     <!--图片及参数-->
     <div class="main-top">
         <div class="main-top-left">
             <!--放大镜效果-->
+            <div class="magnifier" id="magnifier1">
+                <div class="magnifier-container">
+                    <div class="images-cover"></div>
+                    <!--当前图片显示容器-->
+                    <div class="move-view"></div>
+                    <!--跟随鼠标移动的盒子-->
+                </div>
+                <div class="magnifier-assembly">
+                    <div class="magnifier-btn">
+                        <span class="magnifier-btn-left">&lt;</span>
+                        <span class="magnifier-btn-right">&gt;</span>
+                    </div>
+                    <!--按钮组-->
+                    <div class="magnifier-line">
+                        <ul class="clearfix animation03"   style="margin-left: -45px;">
+                            <li>
+                                <div class="small-img" >
+                                    <img src="image/1.png" />
+                                </div>
+                            </li>
+                            <li>
+                                <div class="small-img">
+                                    <img src="image/2.png" />
+                                </div>
+                            </li>
+                            <li>
+                                <div class="small-img">
+                                    <img src="image/3.png" />
+                                </div>
+                            </li>
+                            <li>
+                                <div class="small-img">
+                                    <img src="image/4.png" />
+                                </div>
+                            </li>
+                            <li>
+                                <div class="small-img">
+                                    <img src="image/1.png" />
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--缩略图-->
+                </div>
+                <div class="magnifier-view"></div>
+                <!--经过放大的图片显示容器-->
+            </div>
         </div>
+        <!--商品参数-->
+        <!---->
+        <input type="hidden" name="id" value=${map.id}
         <div class="main-top-right">
             <div class="top-right-item" style="font-family: 微软雅黑">${map.goods_name}</div>
-            <div class="top-right-item"><span>价格￥</span>${map.price}</div>
-            <div class="top-right-item"><span>价格￥</span></div>
-            <div class="top-right-item"><span>价格￥</span></div>
-            <div class="top-right-item"><span>价格￥</span></div>
-            <div class="top-right-item"><span>加入购物车</span></div>
+            <div class="top-right-item">
+                <span class="item">价格￥</span>
+                <b  style="font-size: 15pt;color: red">${map.price}</b>
+            </div>
+            <div class="top-right-item">
+                <span class="item">重量</span>
+
+            </div>
+            <div class="top-right-item">
+                <span class="item">选择颜色</span>
+                <div class="item-inf">黑色</div>
+                <div class="item-inf">白色</div>
+                <div class="item-inf">黄色</div>
+            </div>
+            <div class="top-right-item">
+                <span class="item">选择版本</span>
+                <div class="item-inf">64G</div>
+                <div class="item-inf">128G</div>
+                <div class="item-inf">256G</div>
+
+            </div>
+            <div class="top-right-item">
+                <span class="item">分期付款</span>
+                <div class="item-inf">不分期</div>
+                <div class="item-inf">3期</div>
+                <div class="item-inf">6期</div>
+                <div class="item-inf">12期</div>
+            </div>
+            <div  style="margin: 30px 0 0 100px">
+                <div class="amount_box" style="margin-top: 30px;">
+                    <a href="javascript:;" class="reduce increment">-</a>
+                    <input type="text" value="1" class="sum">
+                    <a href="javascript:;" class="plus increment">+</a>
+                </div>
+                <input type="button" class="el-button" value="加入购物车"></div>
         </div>
     </div>
 
@@ -173,10 +252,7 @@
             </div>
 
         </div>
-    </div>
-
-    <!--占位-->
-<div style="height: 500px;width: 1200px;"></div>
+    </div>-
 
 </div>
 <!--底部内容-->
@@ -244,18 +320,40 @@
 
 </body>
 <script type="text/javascript" src="js/magnifier.js"></script>
+
 <script type="text/javascript">
+    $(function() {
+
+        const magnifierConfig = {
+            magnifier: "#magnifier1",//最外层的大容器
+            width: 350,//承载容器宽
+            height: 405,//承载容器高
+            moveWidth: null,//如果设置了移动盒子的宽度，则不计算缩放比例
+            zoom: 5//缩放比例
+        };
+
+        const _magnifier = magnifier(magnifierConfig);
+
+        /*magnifier的内置函数调用*/
+        /*
+            //设置magnifier函数的index属性
+            _magnifier.setIndex(1);
+
+            //重新载入主图,根据magnifier函数的index属性
+            _magnifier.eqImg();
+        */
+    });
     $(".change-left").click(function () {
         document.getElementById('recommend').className = "tab-pane";
         document.getElementById('sort').className = "tab-pane active";
-        document.getElementById('change-left').className = "change-borderTlr";
-        document.getElementById('change-right').className = "change-borderAll";
+        document.getElementById('change-left').className = "change-border";
+        document.getElementById('change-right').className = "change-borderRight";
     });
     $(".change-right").click(function () {
         document.getElementById('sort').className = "tab-pane";
         document.getElementById('recommend').className = "tab-pane active";
-        document.getElementById('change-right').className = "change-borderTlr";
-        document.getElementById('change-left').className = "change-borderAll";
+        document.getElementById('change-right').className = "change-border";
+        document.getElementById('change-left').className = "change-borderLeft";
     });
 
     $("#change-first").click(function () {
@@ -275,5 +373,13 @@
         document.getElementById('three').className = "tab-pane active";
     });
 
+    $("#xianshang").click(function(){
+        $(this).addClass('check-box')
+        $("#xianxia").removeClass('check-box');
+    });
+    $("#xianxia").click(function(){
+        $(this).addClass('check-box')
+        $("#xianshang").removeClass('check-box');
+    });
 </script>
 </html>
