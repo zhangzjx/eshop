@@ -42,8 +42,11 @@ function orderEvaluate(){
 
 function allAddress() {
     let uid = $("#uid").val();
+    document.location = "../UserServlet?action=findAddress&uid="+uid;
+    /******
     $.post("${pageContext.request.contextPath}/UserServlet",{
         action:"findAddress",
         uid:uid,
     },)
+     *****/
 };

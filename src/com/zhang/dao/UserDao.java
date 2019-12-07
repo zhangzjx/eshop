@@ -153,10 +153,12 @@ public class UserDao {
     }
     /*****添加地址******/
     public void addAddress(User m) {
-        String sql = "insert into address values(null,?,?,?)";
+        String sql = "insert into address values(null,?,?,?,?,?)";
         Object[] params ={
                 m.getUid(),
                 m.getAddress(),
+                m.getName(),
+                m.getPhone(),
                 m.getStatus(),
         };
         JdbcUtils.insert(sql, params);
@@ -197,7 +199,7 @@ public class UserDao {
 
     /*****删除地址******/
     public void delAddress(int aid) {
-        String sql = "delete from goods where aid=?";
+        String sql = "delete from address where aid=?";
         JdbcUtils.update(sql,aid);
     }
 

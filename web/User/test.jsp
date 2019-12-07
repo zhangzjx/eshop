@@ -4,81 +4,106 @@
 <head>
     <meta charset="UTF-8">
     <title>测试</title>
-    <link rel="stylesheet" href="css/magnifier.css.css">
+    <link rel="stylesheet" href="css/magnifier.css">
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-<body >
 
-<div class="magnifier" id="magnifier1">
-    <div class="magnifier-container">
-        <div class="images-cover"></div>
-        <!--当前图片显示容器-->
-        <div class="move-view"></div>
-        <!--跟随鼠标移动的盒子-->
-    </div>
-    <div class="magnifier-assembly">
-        <div class="magnifier-btn">
-            <span class="magnifier-btn-left">&lt;</span>
-            <span class="magnifier-btn-right">&gt;</span>
-        </div>
-        <!--按钮组-->
-        <div class="magnifier-line">
-            <ul class="clearfix animation03">
-                <li>
-                    <div class="small-img">
-                        <img src="images/1.png" />
-                    </div>
-                </li>
-                <li>
-                    <div class="small-img">
-                        <img src="images/2.png" />
-                    </div>
-                </li>
-                <li>
-                    <div class="small-img">
-                        <img src="images/3.png" />
-                    </div>
-                </li>
-                <li>
-                    <div class="small-img">
-                        <img src="images/4.png" />
-                    </div>
-                </li>
-                <li>
-                    <div class="small-img">
-                        <img src="images/1.png" />
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <!--缩略图-->
-    </div>
-    <div class="magnifier-view"></div>
-    <!--经过放大的图片显示容器-->
-</div>
+</head>
+<body>
+<h2>省市区三级菜单联动</h2>
+请选择：
+<select name='province'></select>
+<select name='city'></select>
+<select name='area'></select>
+
 </body>
-<script src="js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="js/magnifier.js"></script>
+
 <script type="text/javascript">
     $(function() {
+        // 初始化省市区
+        initAddress();
+        // 更改省份后的操作
+        $("select[name='province']").change(function() {
 
-        const magnifierConfig = {
-            magnifier: "#magnifier1",//最外层的大容器
-            width: 500,//承载容器宽
-            height: 500,//承载容器高
-            moveWidth: null,//如果设置了移动盒子的宽度，则不计算缩放比例
-            zoom: 5//缩放比例
-        };
+            const provCode = $("select[name='province']").val();
+            getCity(provCode);
 
-        const _magnifier = magnifier(magnifierConfig);
+        });
 
-        /*magnifier的内置函数调用*/
-        /*
-            //设置magnifier函数的index属性
-            _magnifier.setIndex(1);
+        // 更改城市后的操作
+        $("select[name='city']").change(function() {
+            const cityCode = $("select[name='city']").val();
+            getArea(cityCode);
+        });
 
-            //重新载入主图,根据magnifier函数的index属性
-            _magnifier.eqImg();
-        */
     });
+
+    function initAddress() {
+
+        let firstProvCode;
+        // ajax请求所有省份
+        $.get("/airticleMgr/address", {
+            method : "initProvince"
+        }, function(data) {
+
+            $.each(data, function(i, d) {
+                $("select[name='province']").append(
+                    "<option value='"+d.provinceCode+"'>" + d.provinceName
+                    + "</option>");
+            });
+
+            // 获取第一个省份的code
+            firstProvCode = data[0].provinceCode;
+            // 根据第一个省份code获取对应城市列表
+            getCity(firstProvCode);
+        }, 'json');
+
+    }
+
+    //获取对应城市列表（里面包括获取第一个城市的区县列表）
+    function getCity(provCode) {
+
+        var firstCityCode;
+
+        // ajax请求所有市级单位
+        $.get("/airticleMgr/address", {
+            method : "getCity",
+            provCode : provCode
+        }, function(data) {
+
+            // 先清空城市下拉框
+            $("select[name='city']").empty();
+
+            $.each(data, function(i, d) {
+                $("select[name='city']").append(
+                    "<option value='"+d.cityCode+"'>" + d.cityName
+                    + "</option>");
+            });
+
+            // 获取第一个城市的code
+            firstCityCode = data[0].cityCode;
+            // 根据第一个城市code获取对应区县列表
+            getArea(firstCityCode);
+
+        }, 'json');
+    }
+
+    function getArea(cityCode) {
+
+        // ajax请求所有区县单位
+        $.get("/airticleMgr/address", {
+            method : "getArea",
+            cityCode : cityCode
+        }, function(data) {
+
+            // 先清空区县下拉框
+            $("select[name='area']").empty();
+            $.each(data, function(i, d) {
+                $("select[name='area']").append(
+                    "<option value='"+d.areaCode+"'>" + d.areaName
+                    + "</option>");
+            });
+        }, 'json');
+    }
+
 </script>
 </html>

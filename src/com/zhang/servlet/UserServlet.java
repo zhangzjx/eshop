@@ -13,9 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.awt.geom.Area;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,6 +55,7 @@ public class UserServlet extends HttpServlet {
     public static final String PAY_ORDER = "payOrder";
 
 
+
     private UserService userService = new UserService();
 
     @Override
@@ -71,6 +75,7 @@ public class UserServlet extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         //获取action的值
         String action = request.getParameter("action");
+
         if(REGIST.equals(action)){
             regist(request,response);
         } else if(VALIDATE_NAME.equals(action)){
@@ -108,6 +113,8 @@ public class UserServlet extends HttpServlet {
         }
 
     }
+
+
     /*****添加订单第一步，获取商品信息及地址信息******/
     private void addOrder(HttpServletRequest request,
                           HttpServletResponse response) throws IOException {
@@ -451,30 +458,40 @@ public class UserServlet extends HttpServlet {
         //request.getRequestDispatcher("/User/goodsItem.jsp").forward(request, response);
     }
 
-    private void addAddress(HttpServletRequest request, HttpServletResponse response) {
+    private void addAddress(HttpServletRequest request,
+                            HttpServletResponse response) throws IOException {
         String uid = request.getParameter("uid");
-        String address = request.getParameter("address");
+        String a= request.getParameter("a");
+        String b= request.getParameter("b");
+        String address = a+b;
+        String name = request.getParameter("receiver");
+        String phone= request.getParameter("phone");
         String status= request.getParameter("status");
-
+        System.out.println("传入的数据"+uid+address+name+phone);
         User m = new User();
 
         m.setUid(Integer.parseInt(uid));
         m.setAddress(address);
+        m.setName(name);
+        m.setPhone(Integer.parseInt(phone));
         m.setStatus(Integer.parseInt(status));
-        userService.updateAddress(m);
+        userService.addAddress(m);
+        this.findAddress( request, response);
     }
+
 
     /******查看所有地址*******/
     private void findAddress(HttpServletRequest request,
                              HttpServletResponse response) throws IOException {
         String uid = request.getParameter("uid");
-
         request.getSession().setAttribute("allAddress",userService.allAddress(uid));
         response.sendRedirect(request.getContextPath()+"/User/centerSettingAddress.jsp");
     }
-    private void delAddress(HttpServletRequest request, HttpServletResponse response) {
+    private void delAddress(HttpServletRequest request,
+                            HttpServletResponse response) throws IOException {
         String aid = request.getParameter("aid");
         userService.delAddress(Integer.parseInt(aid));
+        this.findAddress( request, response);
     }
 
     private void changeDefault(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -85,7 +85,7 @@
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">订单中心</div>
                 <li class="content-left-list"><a onclick="myOrder()" href="centerOrder.jsp">我的订单</a></li>
                 <li class="content-left-list"><a onclick="orderPay()" href="centerOrderPay.jsp">待付款</a></li>
-                <li class="content-left-list"><a href="centerOrderSend.jsp">待发货</a></li>
+                <li class="content-left-list"><a onclick="orderSend()" href="centerOrderSend.jsp">待发货</a></li>
                 <li class="content-left-list"><a onclick="orderReceive()" href="centerOrderReceive.jsp">待收货</a></li>
                 <li class="content-left-list"><a onclick="orderEvaluate()" href="centerOrderEvaluate.jsp">待评价</a></li>
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">设置</div>

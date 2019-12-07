@@ -97,3 +97,31 @@ ol li{
     background-color: #fff137;
     margin-top: 30px;
 }
+/****paySuccess****/
+/*******主要内容*******/
+.paySuccess{
+    width: 1200px;
+    margin:  0 auto;;
+    font-family: 微软雅黑;
+    border: #d4d4d4 solid 1px;
+}
+.success{
+    width: 400px;
+    height: 300px;
+    margin: 50px 0 0 400px;
+}
+.payDetail{
+    width: 300px;
+    height: 200px;
+    margin:  5px 0 0 50px;
+}
+.button{
+    margin-top: 30px;
+}
+.pay-sui-btn{
+    text-align: center;
+    margin: 10px 0 0 0;
+    padding:10px 20px 10px 20px;
+    border: cornflowerblue solid 1px;
+    background-color: #fff137;
+}

@@ -78,7 +78,7 @@
             <div class="content-left-bottom">
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">订单中心</div>
                 <li class="content-left-list"><a onclick="myOrder()" href="centerOrder.jsp">我的订单</a></li>
-                <li class="content-left-list"><a href="centerOrderPay.jsp">待付款</a></li>
+                <li class="content-left-list"><a onclick="orderPay()" href="centerOrderPay.jsp">待付款</a></li>
                 <li class="content-left-list"><a onclick="orderSend()" href="centerOrderSend.jsp">待发货</a></li>
                 <li class="content-left-list"><a onclick="orderReceive()" href="centerOrderReceive.jsp">待收货</a></li>
                 <li class="content-left-list"><a onclick="orderEvaluate()" href="centerOrderEvaluate.jsp">待评价</a></li>
@@ -120,50 +120,7 @@
             </div>
         </div>
     </div>
-    <!--底部内容-->
-    <div class="order-bottom">
-        <div class="bottom-main">
-            <div class="bottom-main-list" style="font-size: 13pt;font-weight: bold;">购物指南</div><br>
-            <div class="bottom-main-list">购物流程</div>
-            <div class="bottom-main-list">会员介绍</div>
-            <div class="bottom-main-list">生活旅行/团购</div>
-            <div class="bottom-main-list">常见问题</div>
-            <div class="bottom-main-list">购物指南</div>
-        </div>
-        <div class="bottom-main">
-            <div class="bottom-main-list" style="font-size: 13pt;font-weight: bold;">配送方式</div><br>
-            <div class="bottom-main-list">上门自提</div>
-            <div class="bottom-main-list">211限时达</div>
-            <div class="bottom-main-list">配送服务查询</div>
-            <div class="bottom-main-list">配送费收取标准</div>
-            <div class="bottom-main-list">海外配送</div>
-        </div>
-        <div class="bottom-main">
-            <div class="bottom-main-list" style="font-size: 13pt;font-weight: bold;">支付方式</div><br>
-            <div class="bottom-main-list">货到付款</div>
-            <div class="bottom-main-list">在线支付</div>
-            <div class="bottom-main-list">分期付款</div>
-            <div class="bottom-main-list">邮局汇款</div>
-            <div class="bottom-main-list">公司转账</div>
 
-        </div>
-        <div class="bottom-main">
-            <div class="bottom-main-list" style="font-size: 13pt;font-weight: bold;">售后服务</div><br>
-            <div class="bottom-main-list">售后政策</div>
-            <div class="bottom-main-list">价格保护</div>
-            <div class="bottom-main-list">退款说明</div>
-            <div class="bottom-main-list">返修/退换货</div>
-            <div class="bottom-main-list">取消订单</div>
-        </div>
-        <div class="bottom-main">
-            <div class="bottom-main-list" style="font-size: 13pt;font-weight: bold;">特色服务</div><br>
-            <div class="bottom-main-list">夺宝岛</div>
-            <div class="bottom-main-list">DIY装机</div>
-            <div class="bottom-main-list">延保服务</div>
-            <div class="bottom-main-list">品优购E卡</div>
-            <div class="bottom-main-list">品优购通信</div>
-        </div>
-    </div>
 </div>
 <!--底部内容-->
 <div class="bottom-foot">

@@ -107,19 +107,19 @@
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">订单中心</div>
                 <li class="content-left-list"><a onclick="myOrder()" href="centerOrder.jsp">我的订单</a></li>
                 <li class="content-left-list"><a onclick="orderPay()" href="centerOrderPay.jsp">待付款</a></li>
-                <li class="content-left-list"><a  onclick="orderSend()" href="centerOrderSend.jsp">待发货</a></li>
+                <li class="content-left-list"><a onclick="orderSend()" href="centerOrderSend.jsp">待发货</a></li>
                 <li class="content-left-list"><a onclick="orderReceive()" href="centerOrderReceive.jsp">待收货</a></li>
                 <li class="content-left-list"><a onclick="orderEvaluate()" href="centerOrderEvaluate.jsp">待评价</a></li>
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">设置</div>
                 <li class="content-left-list"><a href="centerOrder.jsp">个人信息</a></li>
-                <li class="content-left-list"><a href="centerSettingAddress.jsp" style="cursor: pointer">地址管理</a></li>
+                <li class="content-left-list" onclick="allAddress()"><a href="centerSettingAddress.jsp" style="cursor: pointer">地址管理</a></li>
             </div>
         </div>
         <!--右侧主内容-->
         <div class="content-right">
             <div class="right-top" style="height: 50px; line-height: 50px;">
                 <div  style="width: 100px;height: 50px;float: left;">地址管理</div>
-                <input type="button" class="addressBtn" value="添加新地址">
+                <a href="addAddress.jsp"><input type="button" class="addressBtn" value="添加新地址"></a>
             </div>
             <div style="height: 50px"></div>
             <div class="right-main" >
@@ -133,49 +133,20 @@
                 <div class="main-content" >
                     <c:forEach var="record" items="${allAddress}" varStatus="st">
                         <form name="myForm" class="myForm" id="myForm" action="../UserServlet?uid=${user.uid}&status=0" method="post">
-<script type="application/javascript">
-    let switcher = false;
-    function changeAddress(){
 
-        if(switcher = !switcher){
-            //第一次点击
-            $("#itxt").removeAttr("disabled");
-            document.getElementById("change").innerHTML = "保存";
-
-        }else{
-            //第二次点击
-            //修改地址
-            $(".action").attr("value","changeAddress");
-            let address = $("#itxt").val();
-            let aid = $("#aid").val();
-            let uid = $("#uid").val();
-
-            $.post("${pageContext.request.contextPath}/UserServlet",{
-                action:"changeAddress",
-                address:address,
-                aid:aid,
-                uid:uid,
-            },)
-
-            document.getElementById("change").innerHTML = "修改";
-            $("#itxt").attr("disabled","true");
-        }
-    };
-
-</script>
                             <input type="hidden" class="action" name="action" value="">
                             <input type="hidden" name="aid" id="aid" value=${record.aid}>
-                            <div class="main-top-list address-border" style="width: 100px;">${record.name}</div>
+                            <div class="main-top-list address-border" style="width: 100px;">${record.receiver}</div>
                             <div class="main-top-list address-border" style="width: 510px">
                                 <input type="text" id="itxt" name="itxt" disabled="true"
                                 style="background-color: #fff;width: 400px;height: 30px;margin: 10px 0 10px 10px;border:0px;"
                                        value=${record.address}>
                             </div>
-                            <div class="main-top-list address-border" style="width: 150px">${record.phone}</div>
+                            <div class="main-top-list address-border" style="width: 150px">${record.aphone}</div>
                             <div class="main-top-list address-border" style="width: 150px">
                                 <a id="change" onclick="changeAddress()" style="cursor: pointer;">修改</a>|
-                                |
-                                <a id="del" style="cursor: pointer;">删除</a>|
+                                <a onclick="del()" href="<c:url value='/UserServlet?action=delAddress&aid=${record.aid}'/>" >删除</a>
+                              |
                              <input type="submit" onclick="changeDefault()" style="cursor: pointer;background-color:#fff;width: 65px;height: 30px;border: 0;outline: none;" value="设为默认">
                             </div>
                         </form>
@@ -250,14 +221,63 @@
 </div>
 </body>
 <script type="application/javascript">
+    setTimeout("refresh()",500);
+    $(document).ready(function(){
+        // 页面加载后任何需要执行的js特效
+        let uid = $("#uid").val();
+        //显示首页商品
+        $.post("${pageContext.request.contextPath}/UserServlet",{
+            action:"findAddress",
+            uid:uid,
+        },)
+    });
+    /*****加载后页面只刷新一次******/
+    function refresh(){
+        if(location.href.indexOf("?reload=true")<0){
+            location.href+="?reload=true";
+        }
+    }
+    setTimeout("refresh()",500);
+
+    let switcher = false;
+    function changeAddress(){
+
+        if(switcher = !switcher){
+            //第一次点击
+            $("#itxt").removeAttr("disabled");
+            document.getElementById("change").innerHTML = "保存";
+
+        }else{
+            //第二次点击
+            //修改地址
+            $(".action").attr("value","changeAddress");
+            let address = $("#itxt").val();
+            let aid = $("#aid").val();
+            let uid = $("#uid").val();
+
+            $.post("${pageContext.request.contextPath}/UserServlet",{
+                action:"changeAddress",
+                address:address,
+                aid:aid,
+                uid:uid,
+            },)
+
+            document.getElementById("change").innerHTML = "修改";
+            $("#itxt").attr("disabled","true");
+        }
+    };
+
 
   function del(){
-        let aid = $("#aid").val();
+      alert("删除成功！");
+      /************
         $.post("${pageContext.request.contextPath}/UserServlet",{
             action:"del",
             aid:aid,
         },)
+       *************/
     };
+
 
   function changeDefault(){
       $(".action").attr("value","changeDefault");

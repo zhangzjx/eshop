@@ -16,6 +16,20 @@
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/toHide.js"></script>
     <script type="application/javascript">
+        /******页面根据时间间隔刷新
+         function refresh()
+         {
+            history.go(0);
+        }
+         setTimeout("refresh()",1000);
+         *****/
+        /*****加载后页面只刷新一次******/
+        function refresh(){
+            if(location.href.indexOf("?reload=true")<0){
+                location.href+="?reload=true";
+            }
+        }
+        setTimeout("refresh()",500);
         $(document).ready(function(){
             // 页面加载后任何需要执行的js特效
             let name = $("#name").val();

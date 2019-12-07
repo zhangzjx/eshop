@@ -1,15 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>支付成功</title>
-    <link rel="stylesheet"  href="css/paySuccess.css">
+    <title>添加地址</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/topFoot.css">
-    <script type="text/javascript" src="js/topHeader.js"></script>
 
 </head>
 <body>
 <input type="hidden" id="name" value="${name }">
-<input type="hidden" id="uid" value="${user.uid }">
+
 <!--页面顶部-->
 <div class="all-header">
     <!--顶部导航-->
@@ -53,18 +53,50 @@
         </div>
     </div>
 </div>
-<!--主内容-->
-<div class="paysuccess">
-    <div class="success">
-        <h3><img src="./img/_/right.png" width="48" height="48">　恭喜您，支付成功啦！</h3>
-        <div class="paydetail">
-            <p>支付方式：支付宝</p>
-            <p>支付金额：￥1006.00元</p>
-            <p class="button"><a href="myOrder.jsp" class="sui-btn">查看订单</a>
-                <a href="index.jsp" class="sui-btn">继续购物</a></p>
-        </div>
-    </div>
+
+<div style="width: 1200px;margin: 0 auto;">
+    <fieldset>
+        <legend style="padding-left: 200px;padding-right: 220px ">添加地址</legend>
+        <form id="myForm" action="../UserServlet?action=addAddress&status=1" method="post">
+            <input type="hidden" name="uid" id="uid" value=${user.uid }>
+            <label for="addr-show">您选择的是：
+                <input type="text"  name="a" value="" id="addr-show">
+                <input type="hidden"  value="" id="addr-show2">
+            </label>
+            <br/>
+
+            <!--省份选择-->
+            <select id="prov" onchange="showCity(this)">
+                <option>=请选择省份=</option>
+
+            </select>
+
+            <!--城市选择-->
+            <select id="city" onchange="showCountry(this)">
+                <option>=请选择城市=</option>
+            </select>
+
+            <!--县区选择-->
+            <select id="country" onchange="selecCountry(this)">
+                <option>=请选择县区=</option>
+            </select>
+
+            <!--详细地址及电话-->
+            <div style="margin: 10px 0;"><span style="width: 100px; ">详细地址</span>
+                <input type="text" name="b" style="width: 200px;height: 25px;margin:0 0 10px 20px;">
+            </div>
+            <div style="margin: 10px 0;">收件人姓名
+                <input type="text" name="receiver"  style="width: 200px;height: 25px;margin:0 0 10px 4px;">
+            </div>
+            <div style="margin: 10px 0;">联系电话
+                <input type="text" name="phone" style="width: 200px;height: 25px;margin:0 0 10px 20px;">
+            </div>
+            <button type="button" class="btn met1" onClick="showAddr()" style="margin-left: 150px">确定</button>
+            <button type="button" class="btn met1" onclick="go()">提交</button>
+        </form>
+    </fieldset>
 </div>
+
 <!--底部内容-->
 <div class="bottom-foot">
     <div class="bottom">
@@ -126,5 +158,37 @@
         </div>
     </div>
 </div>
+
+<script src="js/city.js"></script>
+
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/method01.js"></script>
+<script type="text/javascript" src="js/topHeader.js"></script>
+
+<script type="application/javascript">
+    $(document).ready(function(){
+        // 页面加载后任何需要执行的js特效
+        let name = $("#name").val();
+        if(name != null&&name != ""){
+            $("#logout").show()
+        }else {
+            $("#lg").show();
+        }
+    })
+    function go(){
+        const a = document.getElementsByName("a").value;
+        const b = document.getElementsByName("b").value;
+        const  receiver = document.getElementsByName("receiver").value;
+        const phone = document.getElementsByName("phone").value;
+        if(phone==""||phone==null||a==""||a==null||
+            b==""||b==null||receiver=="" ||receiver==null){
+            alert("请填写完整内容");
+            $(this).next('input').focus();
+            return false;
+        }
+        $("#myForm").submit();
+    }
+</script>
+
 </body>
 </html>
