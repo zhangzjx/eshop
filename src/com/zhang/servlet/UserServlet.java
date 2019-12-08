@@ -53,7 +53,8 @@ public class UserServlet extends HttpServlet {
     public static final String ADD_ORDER = "addOrder";
     public static final String SUB_ORDER = "subOrder";
     public static final String PAY_ORDER = "payOrder";
-
+    public static final String FIND_ALL_ORDER = "findAllOrder";
+    public static final String ORDER_STATUS = "orderStatus";
 
 
     private UserService userService = new UserService();
@@ -102,18 +103,19 @@ public class UserServlet extends HttpServlet {
             changeDefault(request, response);
         } else if(FIND_ADDRESS.equals(action)){
             findAddress(request, response);
-        } else if(ORDER_PAY.equals(action)){
-            orderStatus(request, response);
         } else if(ADD_ORDER.equals(action)){
             addOrder(request, response);
         } else if(SUB_ORDER.equals(action)){
             subOrder(request, response);
         } else if(PAY_ORDER.equals(action)){
             payOrder(request, response);
+        } else if(FIND_ALL_ORDER.equals(action)){
+            findAllOrder(request, response);
+        } else if(ORDER_STATUS.equals(action)){
+            orderStatus(request, response);
         }
 
     }
-
 
     /*****添加订单第一步，获取商品信息及地址信息******/
     private void addOrder(HttpServletRequest request,
@@ -195,31 +197,36 @@ public class UserServlet extends HttpServlet {
     }
 
     /********查看订单状态*********/
+    private void findAllOrder(HttpServletRequest request,
+                             HttpServletResponse response) throws IOException {
+        String uid = request.getParameter("uid");
+        System.out.println("转发第一个页面");
+        request.getSession().setAttribute("order", userService.findAllOrder(uid));
+        response.sendRedirect(request.getContextPath() + "/User/centerOrder.jsp");
+    }
     private void orderStatus(HttpServletRequest request,
                              HttpServletResponse response) throws IOException {
         String uid = request.getParameter("uid");
-        String status = request.getParameter("status");
-        System.out.println(uid+" "+status);
-        request.getSession().setAttribute("order", userService.orderStatus(uid, status));
-        if(ZERO.equals(status)) {
-            System.out.println("转发第一个页面，所有订单");
-            response.sendRedirect(request.getContextPath() + "/User/centerOrder.jsp");
-        } else if(ONE.equals(status)) {
+        String status = request.getParameter("status");        
+        if(ONE.equals(status)) {
             System.out.println("转发第二个页面，待付款");
+            request.getSession().setAttribute("order", userService.orderStatus(uid, status));
             response.sendRedirect(request.getContextPath() + "/User/centerOrderPay.jsp");
         } else if(TWO.equals(status)) {
             System.out.println("转发第三个页面，代发货");
+            request.getSession().setAttribute("order", userService.orderStatus(uid, status));
             response.sendRedirect(request.getContextPath() + "/User/centerOrderSend.jsp");
         } else if(THREE.equals(status)) {
             System.out.println("转发第四个页面，待收货");
+            request.getSession().setAttribute("order", userService.orderStatus(uid, status));
             response.sendRedirect(request.getContextPath() + "/User/centerOrderReceive.jsp");
         } else if(FOUR.equals(status)) {
             System.out.println("转发第四个页面，待评价");
+            request.getSession().setAttribute("order", userService.orderStatus(uid, status));
             response.sendRedirect(request.getContextPath() + "/User/centerOrderEvaluate.jsp");
         }
     }
-
-
+    
     private void allGoods(HttpServletRequest request,
                           HttpServletResponse response) throws IOException {
 
@@ -478,7 +485,6 @@ public class UserServlet extends HttpServlet {
         userService.addAddress(m);
         this.findAddress( request, response);
     }
-
 
     /******查看所有地址*******/
     private void findAddress(HttpServletRequest request,

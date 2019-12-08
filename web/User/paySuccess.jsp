@@ -1,31 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>待付款</title>
-    <link rel="stylesheet" href="css/order.css">
-    <link rel="stylesheet" href="css/topFoot.css">
-    <script type="text/javascript" src="js/order.js"></script>
+    <title>支付成功</title>
+    <link rel="stylesheet"  href="css/pay.css">
+    <link rel="stylesheet"  href="css/topFoot.css">
     <script type="text/javascript" src="js/topHeader.js"></script>
-    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <script type="application/javascript">
-        /*****加载后页面只刷新一次******/
-        function refresh(){
-            if(location.href.indexOf("?reload=true")<0){
-                location.href+="?reload=true";
-            }
-        }
-        setTimeout("refresh()",50);
-        $(document).ready(function(){
-            // 页面加载后任何需要执行的js特效
-            let name = $("#name").val();
-            if(name != null&&name != ""){
-                $("#logout").show()
-            }else {
-                $("#lg").show();
-            }
-        })
-    </script>
+
 </head>
 <body>
 <input type="hidden" id="name" value="${name }">
@@ -47,7 +27,7 @@
             <div class="top-right">
                 <ul class="ul-right">
                     <li ><span><a href="centerOrder.jsp" >我的订单</a></span></li>
-                    <li><span><a href=""  target="_blank" onclick="myCart()">我的购物车</a></span></li>
+                    <li><span><a href="#"  target="_blank" onclick="myCart()">我的购物车</a></span></li>
                     <li><span><a href="myInf.jsp" target="_blank">我的青橙</a></span></li>
                     <li><span>青橙会员</span></li>
                     <li><span>企业采购</span></li>
@@ -73,73 +53,19 @@
         </div>
     </div>
 </div>
-<!--主要内容-->
-<div class="main">
-    <div class="content-main">
-        <!--左侧主内容-->
-        <div class="content-left">
-            <div class="content-left-top">
-                <img src="img/头像.png" alt="头像" style="width: 70px;height: 70px;float: left;">
-                <span style=" font-size: 11pt;">name</span><br><br><span style=" font-size: 11pt;">账户安全</span>
-            </div>
-            <div class="content-left-bottom">
-                <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">订单中心</div>
-                <li class="content-left-list"><a onclick="myOrder()" href="#">我的订单</a></li>
-                <li class="content-left-list"><a onclick="orderPay()" href="#">待付款</a></li>
-                <li class="content-left-list"><a onclick="orderSend()" href="#">待发货</a></li>
-                <li class="content-left-list"><a onclick="orderReceive()" href="#">待收货</a></li>
-                <li class="content-left-list"><a onclick="orderEvaluate()" href="#">待评价</a></li>
-                <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">设置</div>
-                <li class="content-left-list"><a href="centerOrder.jsp">个人信息</a></li>
-                <li class="content-left-list" onclick="allAddress()"><a href="#" style="cursor: pointer">地址管理</a></li>
-            </div>
-        </div>
-        <!--右侧主内容-->
-        <div class="content-right">
-            <div class="right-top">
-                <div class="right-top-list" style="width: 350px">宝贝</div>
-                <div class="right-top-list" >单价</div>
-                <div class="right-top-list" >数量</div>
-                <div class="right-top-list" >商品操作</div>
-                <div class="right-top-list" >实付款</div>
-                <div class="right-top-list" >交易状态</div>
-                <div class="right-top-list" >交易操作</div>
-            </div>
-
-            <div class="right-main" >
-                <c:forEach var="record" items="${order }">
-                    <div class="right-main-top">
-                        <div class="main-top-list">订单时间：${record.ordertime}</div>
-                        <div class="main-top-list">订单编号：${record.oid}</div>
-                        <div class="main-top-list">店铺</div>
-                    </div>
-                    <div class="main-content" >
-                        <div class="main-content-list" title="${record.content}" style="width: 346px">${record.content}</div>
-                        <div class="main-content-list">
-                                ${record.price}
-                        </div>
-                        <div class="main-content-list">
-                                ${record.buycount}
-                        </div>
-                        <div class="main-content-list" style="line-height: 35px">
-                            <td>待支付<br>
-                                <a href="#">取消订单</a></td>
-                        </div>
-                        <div class="main-content-list">
-                                ${record.totalprice}
-                        </div>
-                        <div class="main-content-list">
-                            待支付
-                        </div>
-                        <div class="main-content-list">
-                            <a href="#">支付</a>
-                        </div>
-                    </div>
-                </c:forEach>
-            </div>
+<!--主内容-->
+<div class="paySuccess">
+    <div class="success">
+        <h3><img src="./img/_/right.png" width="48" height="48">　恭喜您，支付成功啦！</h3>
+        <br>
+        <h4 id="show" style="margin: -10px 0 0 67px">&nbsp;</h4>
+        <div class="payDetail">
+            <p>支付方式：支付宝</p>
+            <p>支付金额：￥1006.00元</p>
+            <p class="button"><a href="centerOrder.jsp" class="pay-sui-btn">查看订单</a>
+                <a href="index.jsp" class="pay-sui-btn">继续购物</a></p>
         </div>
     </div>
-
 </div>
 <!--底部内容-->
 <div class="bottom-foot">
@@ -203,5 +129,15 @@
     </div>
 </div>
 </body>
-
+<script>
+    let t = 10;//设定跳转的时间
+    setInterval("refer()",1000); //启动1秒定时
+    function refer(){
+        if(t==0){
+            location="centerOrder.jsp"; //#设定跳转的链接地址
+        }
+        document.getElementById('show').innerHTML=""+t+"秒后跳转到我的订单"; // 显示倒计时
+        t--; // 计数器递减
+    }
+</script>
 </html>

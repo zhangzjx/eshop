@@ -125,9 +125,13 @@ public class UserService {
         userDao.payOrder(order);
     }
     /******查看订单状态*****/
+    public Object findAllOrder(String uid) {
+        return userDao.findAllOrder(uid);
+    }
     public Object orderStatus(String uid, String status) {
         return userDao.orderStatus(uid,status);
     }
+
 
 
 }

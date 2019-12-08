@@ -250,12 +250,19 @@ public class UserDao {
     }
 
     /*******查看所有订单状态*******/
+    public Object findAllOrder(String uid) {
+        String sql = "select a.goods_name,a.content,b.oid,b.ordertime,b.totalprice,b.status," +
+                "c.id,c.price,c.buycount,c.total from goods a,orderinf b,orderitem c " +
+                "where a.id=c.id and b.oid=c.oid and b.uid=?";
+        return JdbcUtils.find(sql,uid);
+    }
     public Object orderStatus(String uid, String status) {
         String sql = "select a.goods_name,a.content,b.oid,b.ordertime,b.totalprice,b.status," +
                 "c.id,c.price,c.buycount,c.total from goods a,orderinf b,orderitem c " +
                 "where a.id=c.id and b.oid=c.oid and b.uid=? and b.status=?";
         return JdbcUtils.find(sql,uid,status);
     }
+
     /****
      * String sql = "select a.goods_name,a.content,b.oid,b.totalprice,b.status,c.id,c.price " +
      *                 "from goods a,orderinf b,orderitem c " +

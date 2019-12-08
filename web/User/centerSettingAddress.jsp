@@ -105,14 +105,14 @@
             </div>
             <div class="content-left-bottom">
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">订单中心</div>
-                <li class="content-left-list"><a onclick="myOrder()" href="centerOrder.jsp">我的订单</a></li>
-                <li class="content-left-list"><a onclick="orderPay()" href="centerOrderPay.jsp">待付款</a></li>
-                <li class="content-left-list"><a onclick="orderSend()" href="centerOrderSend.jsp">待发货</a></li>
-                <li class="content-left-list"><a onclick="orderReceive()" href="centerOrderReceive.jsp">待收货</a></li>
-                <li class="content-left-list"><a onclick="orderEvaluate()" href="centerOrderEvaluate.jsp">待评价</a></li>
+                <li class="content-left-list"><a onclick="myOrder()" href="#">我的订单</a></li>
+                <li class="content-left-list"><a onclick="orderPay()" href="#">待付款</a></li>
+                <li class="content-left-list"><a onclick="orderSend()" href="#">待发货</a></li>
+                <li class="content-left-list"><a onclick="orderReceive()" href="#">待收货</a></li>
+                <li class="content-left-list"><a onclick="orderEvaluate()" href="#">待评价</a></li>
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">设置</div>
                 <li class="content-left-list"><a href="centerOrder.jsp">个人信息</a></li>
-                <li class="content-left-list" onclick="allAddress()"><a href="centerSettingAddress.jsp" style="cursor: pointer">地址管理</a></li>
+                <li class="content-left-list" onclick="allAddress()"><a href="#" style="cursor: pointer">地址管理</a></li>
             </div>
         </div>
         <!--右侧主内容-->
@@ -121,7 +121,6 @@
                 <div  style="width: 100px;height: 50px;float: left;">地址管理</div>
                 <a href="addAddress.jsp"><input type="button" class="addressBtn" value="添加新地址"></a>
             </div>
-            <div style="height: 50px"></div>
             <div class="right-main" >
                 <div class="right-main-top">
                     <div class="main-top-list address-border" style="width: 100px;">姓名</div>
@@ -221,7 +220,7 @@
 </div>
 </body>
 <script type="application/javascript">
-    setTimeout("refresh()",500);
+
     $(document).ready(function(){
         // 页面加载后任何需要执行的js特效
         let uid = $("#uid").val();
@@ -237,7 +236,7 @@
             location.href+="?reload=true";
         }
     }
-    setTimeout("refresh()",500);
+    setTimeout("refresh()",50);
 
     let switcher = false;
     function changeAddress(){

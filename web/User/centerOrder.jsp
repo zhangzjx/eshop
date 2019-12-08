@@ -85,14 +85,14 @@
             </div>
             <div class="content-left-bottom">
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">订单中心</div>
-                <li class="content-left-list"><a onclick="myOrder()" href="centerOrder.jsp">我的订单</a></li>
-                <li class="content-left-list"><a onclick="orderPay()" href="centerOrderPay.jsp">待付款</a></li>
-                <li class="content-left-list"><a onclick="orderSend()" href="centerOrderSend.jsp">待发货</a></li>
-                <li class="content-left-list"><a onclick="orderReceive()" href="centerOrderReceive.jsp">待收货</a></li>
-                <li class="content-left-list"><a onclick="orderEvaluate()" href="centerOrderEvaluate.jsp">待评价</a></li>
+                <li class="content-left-list"><a onclick="myOrder()" href="#">我的订单</a></li>
+                <li class="content-left-list"><a onclick="orderPay()" href="#">待付款</a></li>
+                <li class="content-left-list"><a onclick="orderSend()" href="#">待发货</a></li>
+                <li class="content-left-list"><a onclick="orderReceive()" href="#">待收货</a></li>
+                <li class="content-left-list"><a onclick="orderEvaluate()" href="#">待评价</a></li>
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">设置</div>
                 <li class="content-left-list"><a href="centerOrder.jsp">个人信息</a></li>
-                <li class="content-left-list" onclick="allAddress()"><a href="centerSettingAddress.jsp" style="cursor: pointer">地址管理</a></li>
+                <li class="content-left-list" onclick="allAddress()"><a href="#" style="cursor: pointer">地址管理</a></li>
             </div>
         </div>
         <!--右侧主内容-->
@@ -106,24 +106,89 @@
                 <div class="right-top-list" >交易状态</div>
                 <div class="right-top-list" >交易操作</div>
             </div>
-            <div style="height: 50px"></div>
-            <div class="right-main" >
-                <div class="right-main-top">
-                    <div class="main-top-list">订单时间</div>
-                    <div class="main-top-list">订单编号</div>
-                    <div class="main-top-list">店铺</div>
 
-                </div>
-                <div class="main-content" >
-                    <c:forEach var="record" items="${order }">
-                    <div class="main-content-list" title="${record.content}" style="width: 350px">${record.content}</div>
-                    <div class="main-content-list">${record.totalprice}</div>
-                    <div class="main-content-list">${record.quantity}</div>
-                    <div class="main-content-list">商品操作</div>
-                    <div class="main-content-list">交易状态</div>
-                    <div class="main-content-list">交易操作</div>
-                    </c:forEach>
-                </div>
+            <div class="right-main" >
+                <c:forEach var="record" items="${order }">
+                    <div class="right-main-top">
+                        <div class="main-top-list">订单时间：${record.ordertime}</div>
+                        <div class="main-top-list">订单编号：${record.oid}</div>
+                        <div class="main-top-list">店铺</div>
+                    </div>
+                    <div class="main-content" >
+                        <div class="main-content-list" title="${record.content}" style="width: 346px">${record.content}</div>
+                        <div class="main-content-list">
+                                ${record.price}
+                        </div>
+                        <div class="main-content-list">
+                                ${record.buycount}
+                        </div>
+                        <div class="main-content-list" style="line-height: 35px">
+                            <c:choose>
+                                <c:when test="${record.status == '1'}"><!-- 如果 -->
+                                    待支付<br>
+                                    <a href="#">取消订单</a>
+                                </c:when>
+                                <c:when test="${record.status == '2'}"><!-- 如果 -->
+                                    待发货<br>
+                                    <a href="#">退货/退款</a>
+                                </c:when>
+
+                                <c:when test="${record.status == '3'}"><!-- 如果 -->
+                                    待收货<br>
+                                    <a href="#">退货/退款</a>
+                                </c:when>
+                                <c:when test="${record.status == '4'}"><!-- 如果 -->
+                                    <td>评价</td>
+                                </c:when>
+                                <c:otherwise> <!-- 否则 -->
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                        <div class="main-content-list">
+                                ${record.totalprice}
+                        </div>
+                        <div class="main-content-list">
+                            <c:choose>
+                                <c:when test="${record.status == '1'}"><!-- 如果 -->
+                                    <td> 待支付</td>
+                                </c:when>
+                                <c:when test="${record.status == '2'}"><!-- 如果 -->
+                                    <td>待发货</td>
+                                </c:when>
+
+                                <c:when test="${record.status == '3'}"><!-- 如果 -->
+                                    <td>待收货</td>
+                                </c:when>
+                                <c:when test="${record.status == '4'}"><!-- 如果 -->
+                                    <td>评价</td>
+                                </c:when>
+                                <c:otherwise> <!-- 否则 -->
+                                </c:otherwise>
+                            </c:choose>
+
+                        </div>
+                        <div class="main-content-list">
+                            <c:choose>
+                                <c:when test="${record.status == '1'}"><!-- 如果 -->
+                                    <a href="#">支付</a>
+                                </c:when>
+                                <c:when test="${record.status == '2'}"><!-- 如果 -->
+                                    <a href="#">提醒发货</a>
+                                </c:when>
+
+                                <c:when test="${record.status == '3'}"><!-- 如果 -->
+                                    <a href="#">确认收货</a>
+                                </c:when>
+                                <c:when test="${record.status == '4'}"><!-- 如果 -->
+                                    <a href="#">评价</a>>
+                                </c:when>
+                                <c:otherwise> <!-- 否则 -->
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+
+                    </div>
+                </c:forEach>
             </div>
         </div>
     </div>
@@ -191,13 +256,23 @@
 </div>
 </body>
 <script type="application/javascript">
+    $(document).ready(function(){
+        // 页面加载后任何需要执行的js特效
+        let uid = $("#uid").val();
 
-    function myCart() {
-        //把id传入后台调用servlet
-        document.location = "../UserServlet?action=myCart";
-    }
-    $(".add-cart").click(function () {
-        document.location = "../UserServlet?action=addCart";
+        $.post("${pageContext.request.contextPath}/UserServlet",{
+            action:"findAllOrder",
+            uid:uid,
+        },)
+
     });
+    /*****加载后页面只刷新一次******/
+    function refresh(){
+        if(location.href.indexOf("?reload=true")<0){
+            location.href+="?reload=true";
+        }
+    }
+    setTimeout("refresh()",50);
+
 </script>
 </html>
