@@ -2,6 +2,7 @@ package com.zhang.servlet;
 
 import com.zhang.dom.Photo;
 import com.zhang.service.ProductService;
+import com.zhang.utils.DateUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -61,7 +62,9 @@ public class PhotoServlet extends HttpServlet {
             InputStream inputStream1 = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
             InputStream inputStream2 = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
 
-            String path = request.getServletContext().getRealPath("/WEB-INF/img/"+photoName);
+            //String path = request.getServletContext().getRealPath("/WEB-INF/img/"+photoName);
+            String path = "F:/IdeaProjects/eshop/web/WEB-INF/img/";
+            String dataPath = "F:/IdeaProjects/eshop/web/WEB-INF/img/"+photoName;
             File file = new File(path);
             if (!file.exists() || !file.isDirectory()) {
                 file.mkdirs();
@@ -81,19 +84,12 @@ public class PhotoServlet extends HttpServlet {
             photo.setBrandName(brandName);
             photo.setBrandFirst(brandFirst);
             photo.setPhotoName(photoName);
-            photo.setFilePath(path);
-            //photo.setFileTime(new Date());
-            Date date = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String filetime = sdf.format(date);
-
-            Date d = null;
+            photo.setFilePath(dataPath);
             try {
-                d = (Date) sdf.parse(filetime);
+                photo.setFileTime(DateUtils.nowTime());
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-            photo.setFileTime(d);
 
             System.out.println(inputStream2);
             System.out.println(path);
@@ -110,17 +106,3 @@ public class PhotoServlet extends HttpServlet {
     }
 
 }
-            /**
-             *
-            Date date = new Date();
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String filetime = sdf.format(date);
-
-            Date d = null;
-            try {
-                d = (Date) sdf.parse(filetime);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            photo.setFileTime((d);
-             */

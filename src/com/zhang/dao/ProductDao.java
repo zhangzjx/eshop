@@ -33,10 +33,11 @@ public class ProductDao {
     }
     /**添加品牌信息*/
     public static void addBrand(Photo photo) {
-        String sql = "insert into goods_brand values(null,?,?,?,?,null)";
+        String sql = "insert into goods_brand values(null,?,?,?,?,?,null)";
         Object[] params ={
                 photo.getBrandName(),
                 photo.getBrandFirst(),
+                photo.getPhotoName(),
                 photo.getFilePath(),
                 photo.getFileTime(),
         };

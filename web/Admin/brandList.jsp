@@ -159,7 +159,8 @@
             <div class="a-2">${record.id}</div>
             <div class="a-2" style="width: 27.5%;">${record.name}</div>
             <div class="a-2">${record.first}</div>
-            <div class="a-2" title=${record.image}>${record.image}</div>
+            <div class="a-2" title=${record.imgname}>
+                    <img src="/uploadImg/${record.imgname}"></div>
 
             <div class="a-2">
                 <a href="<c:url value='/ProductServlet?action=updateBeforeBr&id=${record.id}'/>">修改</a>|

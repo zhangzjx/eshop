@@ -93,7 +93,7 @@
                     <a href="<c:url value='/UserServlet?action=findOne&id=${record.id}'/>" >
                         <input type="hidden" id="uid" name="uid" value=${user.uid}>
                         <input type="hidden" name="id" value=${record.id}>
-                        <img src="${record.img}" style="width: 238px;height: 200px;border: chocolate solid 1px;">
+                        <img src="/uploadImg/${record.img}" style="width: 238px;height: 200px;border: chocolate solid 1px;">
                         <div class="item-inf">
                                 ${record.content}
                         </div>
@@ -211,7 +211,9 @@
         document.location = "../UserServlet?action=myCart";
     };
     $(".add-cart").click(function () {
+        alert("已加入购物车！");
         document.location = "../UserServlet?action=addCart";
+
     });
 </script>
 </html>

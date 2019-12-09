@@ -11,9 +11,10 @@
     <title>商城首页</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/topFoot.css">
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/topHeader.js"></script>
     <script type="text/javascript" src="js/lunBo.js"></script>
-    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+
     <script type="text/javascript" src="js/toHide.js"></script>
     <script type="application/javascript">
         /******页面根据时间间隔刷新
@@ -151,24 +152,25 @@
         <!--中部轮播图-->
         <div class="type-center" id="type-center">
             <div class="box">
-                <div class="box-1">
-                    <ul>
-                        <li><img src="img/1.jpg" alt="这里是第一张图片"></img></li>
-                        <li><img src="img/2.jpg" alt="这里是第二张图片"></img></li>
-                        <li><img src="img/3.jpg" alt="这里是第三张图片"></img></li>
-                        <li><img src="img/4.jpg" alt="这里是第四张图片"></img></li>
-                        <li><img src="img/5.jpg" alt="这里是第五张图片"></img></li>
-                        <li><img src="img/6.jpg" alt="这里是第六张图片"></img></li>
-                        <li><img src="img/7.jpg" alt="这里是第七张图片"></img></li>
-                    </ul>
-                </div>
-                <div class="box-2">
-                    <ul></ul>
-                </div>
-                <div class="box-3">
-                    <span class="prev"> < </span>
-                    <span class="next"> > </span>
-                </div>
+                <ul class="image">
+                    <li><img src="img/1.jpg" alt="这里是第一张图片"></img></li>
+                    <li><img src="img/2.jpg" alt="这里是第二张图片"></img></li>
+                    <li><img src="img/3.jpg" alt="这里是第三张图片"></img></li>
+                    <li><img src="img/4.jpg" alt="这里是第四张图片"></img></li>
+                    <li><img src="img/5.jpg" alt="这里是第五张图片"></img></li>
+                    <li><img src="img/6.jpg" alt="这里是第六张图片"></img></li>
+                </ul>
+                <ul class="num">
+                    <li class="current">1</li>
+                    <li>2</li>
+                    <li>3</li>
+                    <li>4</li>
+                    <li>5</li>
+                    <li>6</li>
+
+                </ul>
+                <div class="left arrow">&lt;</div>
+                <div class="right arrow">&gt;</div>
             </div>
         </div>
         <!--左侧菜单详情-->
@@ -368,8 +370,8 @@
         </div>
         <div class="type-right">
             <div class="right-top">
-                <div style="width: 260px;height:30px;margin:0 5px;line-height: 30px;border-bottom: #dfe4ed solid 1px">
-                    <span>商城快报</span><a href="#"><span style="margin-left: 110px;">更多</span>&nbsp;></a>
+                <div style="width: 225px;height:30px;margin:0 5px;line-height: 30px;border-bottom: #dfe4ed solid 1px">
+                    <span>商城快报</span><a href="#"><span style="margin-left: 100px;">更多</span>&nbsp;></a>
                 </div>
                 <div style="margin-top: 10px;font-size: 10pt;">
                     <a href="#" ><span style="margin-left: 15px;">【HOT】小米含泪清库存</span><br></a>
@@ -433,6 +435,7 @@
             </div>
         </div>
     </div>
+    <br>
     ${user.uid }
     <!-- 商品内容 -->
     <div style="width: 100%">
@@ -463,9 +466,8 @@
                             <input type="hidden" id="uid" name="uid" value=${user.uid}>
                             <input type="hidden" name="id" value=${record.id}>
                             <a href="<c:url value='/UserServlet?action=findOne&id=${record.id}'/>" >
-                                <div class="goods-img">
-                                    <!--out/artifacts/eshop/WEB-INF/img/ip.jpg-->
-                                    <img src="/eshop/web/WEB-INF/img/${record.img}" style="width: 195px;height: 200px;">
+                                <div>
+                                    <img src="/uploadImg/${record.img}"  class="goods-img">
                                 </div>
                                 <div class="goods-inf">
                                     <!--<img src="/img/${record.content}" style="width: 195px;height: 200px;">-->
@@ -510,7 +512,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <!--底部内容-->
 <div class="bottom-foot">
