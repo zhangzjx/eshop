@@ -13,11 +13,41 @@
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="js/SecondaryLinkage.js"></script>
     <style type="text/css">
-        .go-button{
+
+        #imgPreview {
+            width: 160px;
+            height: 160px;
+            margin: 10px auto 0px 0;
+            border: 1px dashed black;
+            text-align: center;
+        }
+        #prompt {
+            width: 100%;
+            height: 160px;
+            text-align: center;
+            position: relative;
+        }
+        #imgSpan {
+            position: absolute;
+            top: 60px;
+            left: 50px;
+        }
+        .filepath {
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+        }
+        #img {
+            height: 100%;
+            width: 100%;
+            display: none;
+        }
+        .go-button {
             width: 60px;
             height: 30px;
+            margin: 180px 100px 0 0;
             background: url(img/u445.png);
-            margin-top: 10px;
+
         }
     </style>
     <script type="application/javascript">
@@ -26,7 +56,7 @@
             const brandName = $("#brand_name").val();
             const brandFirst = $("#brand_name").val();
 
-            if(brandName==""||brandName==null||brandFirst==""||brandFirst==null||){
+            if(brandName==""||brandName==null||brandFirst==""||brandFirst==null){
                 alert("表单内容不完整");
                 $(this).next('input').focus();
                 return false;
@@ -48,7 +78,18 @@
             <div class="table_a_1" >品牌首字母：</div>
             <div class="table_a_2" ><input type="text" id="brand_first" name="brand_first" class="el-input"/> </div>
             <div class="table_a_1" >*品牌LOGO：</div>
-            <div class="table_a_2" ><input  type="file" id="photo" name="photo" class="el-input"/> </div>
+            <div class="table_a_2">
+                <span style="margin-right: 190px">仅支持上传JPG，JPEG，PNG格式图片</span>
+                <div id="imgPreview">
+                    <div id="prompt">
+                        <span id="imgSpan">点击上传	</span>
+                        <input  type="file" id="photo" name="photo" class="filepath" onchange="changepic(this)"
+                                accept="image/jpg,image/jpeg,image/png"/>
+                        <!--当vaule值改变时执行changepic函数，规定上传的文件只能是图片-->
+                    </div>
+                    <img src="#" id="img" />
+                </div>
+            </div>
 
             <div class="table_a_3" >
                 <input type="submit" value="添加" class="go-button" /></div>
@@ -56,4 +97,16 @@
     </form>
 </div>
 </body>
+<script type="application/javascript">
+    function changepic() {
+        $("#prompt").css("display", "none");
+        var reads = new FileReader();
+        f = document.getElementById('photo').files[0];
+        reads.readAsDataURL(f);
+        reads.onload = function(e) {
+            document.getElementById('img').src = this.result;
+            $("#img").css("display", "block");
+        };
+    }
+</script>
 </html>

@@ -21,11 +21,11 @@
     <title>主页面</title>
 </head>
 
-<frameset rows="10%,*" frameborder="no" border="0" framespacing="0">
-    <frame src="Main/top.jsp" name="top" noresize="noresize"/>
+<frameset rows="7%,*" frameborder="no" border="0" framespacing="0">
+    <frame src="top.jsp" name="top" noresize="noresize"/>
     <frameset cols="14%,86%" frameborder="no" border="0" framespacing="0" >
-        <frame src="Main/manageLeftFirst.jsp" noresize="noresize" name="left"/>
-        <frame src="Main/main.jsp" noresize="noresize" name="right"/>
+        <frame src="manageLeftFirst.jsp" noresize="noresize" name="left"/>
+        <frame src="manageHome.jsp" noresize="noresize" name="right"/>
     </frameset>
 </frameset>
 

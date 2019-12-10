@@ -31,7 +31,9 @@
   <body>
   <div id="head-1">
       <div class="head-3" >
-          <span style="font-size: 14pt">青橙</span>
+          <a href="manageLeftFirst.jsp" target="left">
+              <span style="font-size: 14pt">青橙</span>
+          </a>
       </div>
       <div class="head-3">
           <a href="manageLeftFirst.jsp" target="left">首页</a>
@@ -57,32 +59,18 @@
   </div>
 
   <div id="head-2">
-      <div class ="head-4" title="账户信息" style="margin-left: 30%;">
-          <img id="u1378_img" class="img" src="images/top-1.png"/>
-      </div>
-      <div style="height: 40px;width: 32px;float: left;">
-          <img src="images/top-6.png"/>
-      </div>
-      <div class ="head-4"  title="系统首页">
-          <a href=""><img id="top-2" src="images/top-2.png"/></a>
-      </div>
-      <div style="height: 40px;width: 32px;float: left;">
-          <img src="images/top-6.png"/>
-      </div>
-      <div id = "top-3" class = "head-4" title="常用菜单"  >
-          <img id = "top-31" src="images/top-3.png"/>
-      </div>
-      <div style="height: 40px;width: 32px;float: left;">
-          <img src="images/top-6.png"/>
-      </div>
-      <div class = "head-4" title="订单提示"  >
-          <img src="images/top-4.png"/>
-      </div>
-      <div style="height: 40px;width: 32px;float: left;">
-          <img src="images/top-6.png"/>
-      </div>
-      <div class ="head-4"  title="退出" >
-          <a href="/eshop/logout.jsp" target="_top"><img src="images/top-5.png"/></a>
+          <img id="u1378_img" class="img" style="margin-left: 280px;" title="账户信息"
+               src="img/top-1.png"/>
+          <img  class="img" src="img/top-6.png"/>
+          <a href=""><img  src="img/top-2.png" id="top-2" class="img" title="系统首页"/></a>
+          <img src="img/top-6.png"  class="img" />
+          <img id = "top-31" src="img/top-3.png"  class="img" title="常用菜单"/>
+          <img src="img/top-6.png" class="img" />
+          <img src="img/top-4.png"  class="img" title="订单提示"/>
+          <img src="img/top-6.png" class="img" />
+          <a href="../logout.jsp" target="_top">
+              <img src="img/top-5.png" class="img"  title="退出"/>
+          </a>
       </div>
   </div>
   <div id="top-43">

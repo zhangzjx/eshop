@@ -36,16 +36,19 @@
 <div id="a">
     <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">系统首页</div>
     <div class="left-a">
-        <li><a href="../updateGoods.jsp" target="right">系统首页</a></li>
+        <li><a href="manageHome.jsp" target="right">系统首页</a></li>
     </div>
     <div class="left-a">
-        <li><a href="<c:url value='/AdminServlet?action=findAllGoods'/>" target="right">账户设置</a></li>
+        <li><a href="accountSettings.jsp" target="right">账户设置</a></li>
     </div>
     <div class="left-a">
         <li><a href="../Manage/editteacher.jsp" target="right">系统信息</a></li>
     </div>
     <div class="left-a">
-        <li><a href="<c:url value='/AdminServlet?action=findAllTea'/>" target="right">登录日志</a></li>
+
+        <li><a href="loginInf.jsp" target="right">登录日志</a></li>
+        <!--<li><a href="<c:url value='/AdminServlet?action=findAllTea'/>" target="right">登录日志</a></li>
+    -->
     </div>
 </div>
 <% }}%>

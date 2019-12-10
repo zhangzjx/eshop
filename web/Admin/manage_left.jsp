@@ -30,12 +30,12 @@
                <div id="a">
 				   <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">商品管理</div>
 				   <div class="left-a">
-					   <li><a href="../addNewBrand.jsp" target="right">添加新品牌</a></li>
+					   <li><a href="addNewBrand.jsp" target="right">添加新品牌</a></li>
 				   </div>
 				   <div class="left-a">
 					   <!--<li><a href="<c:url value='/ProductServlet?action=findBrand'/>"
 					   target="right">添加商品</a></li>-->
-					   <li><a href="../addGoodsLink.jsp" target="right">添加商品</a></li>
+					   <li><a href="addGoodsLink.jsp" target="right">添加商品</a></li>
 				   </div>
 				   <div class="left-a">
 					   <li><a href="<c:url value='/ProductServlet?action=findAllGoods'/>" target="right">商品列表</a></li>
@@ -50,13 +50,13 @@
 
 				   <div style="font-size: 12pt;text-align: center;margin: 15px 0px">添加配置</div>
 				   <div class="left-a">
-					   <li><a href="../Main/file_upload.jsp" target="right">商品分类</a></li>
+					   <li><a href="Main/file_upload.jsp" target="right">商品分类</a></li>
 				   </div>
 				   <div class="left-a">
                        <li><a href="<c:url value='/ProductServlet?action=findAllBrand'/>" target="right">品牌管理</a></li>
 				   </div>
 				   <div class="left-a">
-					   <li><a href="../Main/video_upload.jsp" target="right">规格参数</a></li>
+					   <li><a href="Main/video_upload.jsp" target="right">规格参数</a></li>
 				   </div>
 				   <div class="left-a">
 					   <li><a href="<c:url value='/ProductServlet?action=findAllVideo'/>" target="right">图片库管理</a></li>
