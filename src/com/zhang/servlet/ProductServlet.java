@@ -37,6 +37,10 @@ public class ProductServlet extends HttpServlet {
     public static final String UPDATE_BEFORE_BR = "updateBeforeBr";
     public static final String UPDATE_GO = "updateGo";
     public static final String UPDATE_BR = "updateBr";
+    public static final String FIND_ALL_ORDER = "findAllOrder";
+    public static final String SEARCH_ORDER= "searchOrder";
+    public static final String ORDER_STATUS = "orderStatus";
+
 
     private static final ServletRequest SESSION = null;
     private ProductService productService = new ProductService();
@@ -79,7 +83,70 @@ public class ProductServlet extends HttpServlet {
             updateBefore(request, response);
         }else if(UPDATE_GO.equals(action)||UPDATE_BR.equals(action)) {
             update(request, response);
+        }else if(FIND_ALL_ORDER.equals(action)||SEARCH_ORDER.equals(action)){
+            findAllOrder(request, response);
+        } else if(ORDER_STATUS.equals(action)){
+            orderStatus(request, response);
         }
+
+    }
+
+    /********查看订单状态*********/
+    private void orderStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String s = request.getParameter("status");
+        String current = request.getParameter("currentPage");
+        System.out.println(s);
+        int status = 0;
+        int currentPage = 1;
+        try{
+            status = Integer.parseInt(s);
+            currentPage = Integer.parseInt(current);
+        }catch(Exception e){
+            currentPage = 1;
+        }
+        //1.获取商品列表，调用Service的findAll方法,2.将获取的商品列表保存到request中
+        /**Page page = productService.findAll(currentPage);*/
+        Page page = productService.orderStatus(currentPage,status);
+        System.out.println("servlet执行");
+        request.setAttribute("myOrder",page);
+        /**request.setAttribute("myList", ProductService.findAllGoods());*/
+        //3.将请求转发到news_list.jsp页面
+        request.getRequestDispatcher("/Admin/orderList.jsp").forward(request, response);
+    }
+
+    /**查询数据并分页,查找订单
+     * 根据关键词查找数据并传递到另一个页面(搜索功能)
+     */
+    private void findAllOrder(HttpServletRequest request,
+                              HttpServletResponse response) throws ServletException, IOException {
+        /**1.获取当前页码，如无当前页码默认为1
+         * 2.获取商品列表，调用Service的findAll方法
+         *   2.1调用Service层根据页码来获取Page对象
+         * 3.将获取的商品列表保存到request中
+         *   3.1将Page对象保存到request中
+         * 4.将请求转发到goods_list.jsp页面
+         */
+        String s = request.getParameter("status");
+        String skey = request.getParameter("sKey");
+        String svalue = request.getParameter("sValue");
+        String current = request.getParameter("currentPage");
+        System.out.println(s);
+        int status = 0;
+        int currentPage = 1;
+        try{
+            status = Integer.parseInt(s);
+            currentPage = Integer.parseInt(current);
+        }catch(Exception e){
+            status = 0;
+            currentPage = 1;
+        }
+        //1.获取商品列表，调用Service的findAll方法,2.将获取的商品列表保存到request中
+        /**Page page = productService.findAll(currentPage);*/
+        Page page = productService.findAllOrder(currentPage,skey,svalue,status);
+        request.setAttribute("myOrder",page);
+        /**request.setAttribute("myList", ProductService.findAllGoods());*/
+        //3.将请求转发到news_list.jsp页面
+        request.getRequestDispatcher("/Admin/orderList.jsp").forward(request, response);
     }
 
     private void addGoods(javax.servlet.http.HttpServletRequest request,

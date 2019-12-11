@@ -62,7 +62,7 @@
 <div id="a">
     <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">订单管理</div>
     <div class="left-a">
-        <li><a href="updateGoods.jsp" target="right">订单列表</a></li>
+        <li><a href="<c:url value='/ProductServlet?action=findAllOrder'/>" target="right">订单列表</a></li>
     </div>
     <div style="font-size: 12pt;text-align: center;margin: 15px 0px">退款及退货</div>
     <div class="left-a">

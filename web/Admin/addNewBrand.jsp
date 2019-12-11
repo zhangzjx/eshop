@@ -83,7 +83,7 @@
                 <div id="imgPreview">
                     <div id="prompt">
                         <span id="imgSpan">点击上传	</span>
-                        <input  type="file" id="photo" name="photo" class="filepath" onchange="changepic(this)"
+                        <input  type="file" id="photo" name="photo" class="filepath" onchange="changePic(this)"
                                 accept="image/jpg,image/jpeg,image/png"/>
                         <!--当vaule值改变时执行changepic函数，规定上传的文件只能是图片-->
                     </div>
@@ -98,10 +98,10 @@
 </div>
 </body>
 <script type="application/javascript">
-    function changepic() {
+    function changePic() {
         $("#prompt").css("display", "none");
-        var reads = new FileReader();
-        f = document.getElementById('photo').files[0];
+        const reads = new FileReader();
+        const f = document.getElementById('photo').files[0];
         reads.readAsDataURL(f);
         reads.onload = function(e) {
             document.getElementById('img').src = this.result;

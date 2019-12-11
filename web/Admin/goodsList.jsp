@@ -206,14 +206,19 @@
             </c:choose>
         </div>
         <div style="float: left">
-            跳至<input id="currentPage" name="currentPage" style="height: 20px;width: 30px;" >页
-            <a href="<c:url value='/ProductServlet?action=findAllGoods'/>">确定</a>
+            跳至<input  type="text" id="num" name="currentPage" style="height: 20px;width: 30px;">页
+            <input type="button" onclick="gk()" style="border: none;background-color: #fff" value="确定">
         </div>
     </div>
 
 </div>
 </body>
 <script type="application/javascript">
+
+    function gk() {
+        const num = document.getElementById("num").value;
+        document.location = "ProductServlet?action=findAllGoods&currentPage="+num;
+    }
     function del() {
         const msg = "确定要删除吗？\n请确认！";
         if (confirm(msg)==true){

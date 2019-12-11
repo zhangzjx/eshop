@@ -54,6 +54,26 @@ public class ProductService {
         return page;
     }
 
+    /**查询订单数目及分页，查询搜索结果数目及分页（搜索功能）*/
+    public Page findAllOrder(int currentPage, String skey, String svalue, int status) {
+        int totalSize = productDao.findCountOrder(skey,svalue,status);
+        Page page = new Page(currentPage,totalSize);
+        List<Map<String,Object>> list = ProductDao.findAllOrder(page.getStartIndex(),page.getPageSize(),skey,svalue,status);
+        page.setList(list);
+        System.out.println("页码"+page.getCurrentPage());
+        return page;
+    }
+    /********查看订单状态*********/
+    public Page orderStatus(int currentPage, int status) {
+        int totalSize = productDao.CountStatus(status);
+        Page page = new Page(currentPage,totalSize);
+        List<Map<String,Object>> list = ProductDao.allOrderStatus(page.getStartIndex(),page.getPageSize(),status);
+        page.setList(list);
+        System.out.println("service执行");
+        return page;
+    }
+
+
     /**删除一条数据*/
     public  void delete(int id){
         ProductDao.delete(id);

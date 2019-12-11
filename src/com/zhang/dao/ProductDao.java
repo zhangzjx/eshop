@@ -141,6 +141,59 @@ public class ProductDao {
         return JdbcUtils.find(sql, startIndex, pageSize);
     }
 
+    /**搜索结果总记录数*/
+    public int findCountOrder(String skey,String svalue,int status) {
+        StringBuilder sql=new StringBuilder("select count(*) from orderinf a,orderitem b " +
+                "where a.oid=b.oid");
+        if(skey!=null&&skey.length()>0&&svalue!=null&&svalue.length()>0){
+            //'%123%'
+            if (skey.equals("id")){
+                sql.append(" and b."+skey+" like \"%"+svalue+"%\" ");
+            }else {
+                sql.append(" and a."+skey+" like \"%"+svalue+"%\" ");
+            }
+        }
+        return ((Number) JdbcUtils.selectScalar(sql.toString(), (Object[]) null)).intValue();
+    }
+    /**开始记录的索引*/
+    /**开始记录的索引（搜索结果）skey代表哪一列，svalue是具体的值
+     /**select a.*,b.brand_name from goods a,goods_brand b where a.bid=b.id
+     * and a.gid like 100000001 limit 0,3 条件是a.bid=b。id和当a.gid=100000001时
+     * */
+    public static List<Map<String, Object>> findAllOrder(int startIndex, int pageSize,
+                                                         String skey,String svalue,int status) {
+        StringBuilder sql=new StringBuilder("select a.*,b.* from" +
+                " orderinf a,orderitem b where a.oid=b.oid");
+        if(skey!=null&&skey.length()>0&&svalue!=null&&svalue.length()>0){
+            //sql.append(" and (a.oid="+svalue+" or b.id="+svalue+") limit ?,?");
+            if ("id".equals(skey)){
+                sql.append(" and b."+skey+" like \"%"+svalue+"%\" limit ?,?");
+                //sql.append(" and (a.receiver=\"%"+svalue+"%\" or a.aphone=\"%"+svalue+"%\") limit ?,?");
+            }else {
+                sql.append(" and a."+skey+" like \"%"+svalue+"%\" limit ?,?");
+            }
+        }else {
+            sql.append(" limit ?,?");
+        }
+
+        return JdbcUtils.find(sql.toString(), startIndex, pageSize);
+    }
+
+    /*****订单状态*****/
+    public int CountStatus(int status) {
+        StringBuilder sql=new StringBuilder("select count(*) from orderinf a,orderitem b " +
+                " where a.oid=b.oid and a.status="+status );
+        return ((Number) JdbcUtils.selectScalar(sql.toString(),(Object[]) null)).intValue();
+    }
+
+    public static List<Map<String, Object>> allOrderStatus(int startIndex, int pageSize,
+                                                           int status) {
+        System.out.println("到层"+status);
+        StringBuilder sql=new StringBuilder("select a.*,b.* from" +
+                " orderinf a,orderitem b where a.oid=b.oid and a.status="+status+" limit ?,?");
+        return JdbcUtils.find(sql.toString(), startIndex, pageSize);
+    }
+
     /**删除*/
     public static void delete(int id){
         String sql = "delete from goods where id=?";
