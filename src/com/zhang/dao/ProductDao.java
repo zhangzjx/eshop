@@ -15,6 +15,8 @@ import static com.zhang.servlet.ProductServlet.*;
  * @date 2019/11/4 8:54
  */
 public class ProductDao {
+    /*********************添加*********************************/
+    /**添加商品信息*/
     public static void addGoods(Product goods) {
         String sql = "insert into goods values(null,?,?,?,?,?,?,?,?,null,null,?,?)";
         Object[] params ={
@@ -43,19 +45,21 @@ public class ProductDao {
         };
         JdbcUtils.insert(sql, params);
     }
+
+    /*********************查找*********************************/
+
     /**查找品牌信息*/
     public static List<Map<String, Object>> findBrand() {
         String sql = "select * from goods_brand";
         return JdbcUtils.find(sql);
     }
-
     /**查找所有记录
      public static List<Map<String, Object>> findAllGoods() {
      String sql = "select * from goods";
      return JdbcUtils.find(sql);
      }
      */
-    /**查找一条数据*/
+    /**查找一条商品数据*/
     public static Map<String, Object> findOne(int id) {
         String sql = "select * from goods where id=?";
         List<Map<String, Object>> list=JdbcUtils.find(sql, id);
@@ -75,35 +79,6 @@ public class ProductDao {
         }
         return null;
     }
-
-
-    /**根据传递的Notice对象更新一条数据*/
-    public void update(Product goods, Object action) {
-        String sql="";
-        if(UPDATE_GO.equals(action)){
-            sql="update goods set price=?,skey=?,sku=?,time=? where id=?";
-            Object []params={
-                    goods.getPrice(),
-                    goods.getSkey(),
-                    goods.getSku(),
-                    goods.getPublishedDate(),
-                    goods.getId(),
-            };
-            JdbcUtils.update(sql, params);
-        }else if(UPDATE_BR.equals(action)){
-            sql="update goods set price=?,key=?,sku=?,content=?,time=? where id=?";
-            Object []params={
-                    goods.getPrice(),
-                    goods.getSkey(),
-                    goods.getSku(),
-                    goods.getContent(),
-                    goods.getPublishedDate(),
-            };
-            JdbcUtils.update(sql, params);
-        }
-    }
-
-
     /**商品总记录数*/
     /**搜索结果总记录数*/
     public int findCountGoods(String skey,String svalue) {
@@ -193,13 +168,49 @@ public class ProductDao {
                 " orderinf a,orderitem b where a.oid=b.oid and a.status="+status+" limit ?,?");
         return JdbcUtils.find(sql.toString(), startIndex, pageSize);
     }
+    /********查看一条订单*********/
+    public static Map<String, Object> findOneOrder(String oid) {
+        String sql = "select a.goods_name,a.img,b.*, c.id,c.price,c.buycount,c.total,d.phone,d.lasttime " +
+                "from goods a,orderinf b,orderitem c,user d " +
+                "where a.id=c.id and b.oid=c.oid and b.uid=d.uid and b.oid=? ";
+        List<Map<String, Object>> list=JdbcUtils.find(sql, oid);
+        return list.get(0);
+    }
 
-    /**删除*/
+    /*********************更新记录*********************************/
+
+    /**根据传递的Notice对象更新一条数据*/
+    public void update(Product goods, Object action) {
+        String sql="";
+        if(UPDATE_GO.equals(action)){
+            sql="update goods set price=?,skey=?,sku=?,time=? where id=?";
+            Object []params={
+                    goods.getPrice(),
+                    goods.getSkey(),
+                    goods.getSku(),
+                    goods.getPublishedDate(),
+                    goods.getId(),
+            };
+            JdbcUtils.update(sql, params);
+        }else if(UPDATE_BR.equals(action)){
+            sql="update goods set price=?,key=?,sku=?,content=?,time=? where id=?";
+            Object []params={
+                    goods.getPrice(),
+                    goods.getSkey(),
+                    goods.getSku(),
+                    goods.getContent(),
+                    goods.getPublishedDate(),
+            };
+            JdbcUtils.update(sql, params);
+        }
+    }
+
+    /**删除一个商品*/
     public static void delete(int id){
         String sql = "delete from goods where id=?";
         JdbcUtils.update(sql,id);
     }
-    /**删除多条数据*/
+    /**删除多个商品*/
     public static void delMore(String[] ids,Object action) {
         String sql="";
         if(DEL_GO_MOR.equals(action)){

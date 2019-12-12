@@ -11,11 +11,11 @@ a:active {text-decoration:underline;}
     font-family: 微软雅黑;
 }
 .main-top{
-    width: 96%;
-    height: 60px;
+    width: 1100px;
+    height: 50px;
     font-size: 16px;
     line-height:50px;
-    //margin:0 2%;
+    margin: 0 auto;
     border: solid 1px #dddddd;
     background-color: #d2d2d2;
 }
@@ -29,7 +29,6 @@ a:active {text-decoration:underline;}
     height: 70px;
     font-size: 10pt;
     line-height: 70px;
-
 }
 .order-item{
     width: 100px;
@@ -89,9 +88,9 @@ a:active {text-decoration:underline;}
 .order-mainInf{
     width: 1100px;
     font-size: 10pt;
-    border: solid 1px #dddddd;
-    border-top: solid 2px #dddddd;
-    border-left: solid 2px #dddddd;
+
+    border-top: solid 1px #dddddd;
+    border-left: solid 1px #dddddd;
     margin-top: 20px;
     float: left;
 }
@@ -102,12 +101,11 @@ a:active {text-decoration:underline;}
     text-align: center;
     border-bottom: solid 1px #dddddd;
     border-right: solid 1px #dddddd;
-    background-color: rgba(222,209,165,0.45);
     float: left;
 }
 /***分页功能***/
 .pagination{
-    width: 100%;
+    width: 1099px;
     height: 40px;
     line-height:40px;
     text-align: center;
@@ -123,3 +121,145 @@ a:active {text-decoration:underline;}
 /*************退货申请处理*************/
 /*************退款申请处理*************/
 /*************退货原因设置*************/
+/*************订单详情样式*************/
+.left-border{
+    border-left:#d4d4d4 solid 1px;
+}
+.top-border{
+    border-top: #d4d4d4 solid 1px;
+}
+.right-border{
+    border-right:#d4d4d4 solid 1px;
+}
+.bottom-border{
+    border-bottom: #d4d4d4 solid 1px;
+}
+.font-details{
+    font-weight: bold;
+    font-size: 10pt;
+}
+/**订单状态**/
+.details-top{
+    width: 900px;
+    height: 150px;
+    font-size: 10pt;
+    padding: 0 100px;
+    margin-top: 20px;
+}
+.details-top-item{
+    width: 64px;
+    height: 120px;
+    font-size: 9pt;
+    text-align: center;
+    margin: 25px -4px 0 -3px;
+    float: left;
+}
+.item-margin-right{
+    margin-right: 0;
+}
+.details-top-border{
+    width: 150px;
+    height: 2px;
+    float: left;
+    margin: 74px 0;
+    background-color: green;
+}
+.border-color{
+    background-color: #d4d4d4;
+}
+.details-top-img{
+    width: 64px;
+    height: 64px;
+    margin: 18px 0 0 0;
+}
+/**订单信息**/
+.order-details{
+    width: 1100px;
+    height: auto;
+    font-size: 10pt;
+    border: solid 1px #d4d4d4;
+    margin: 30px 0 100px 0;
+}
+.details-1{
+    width: 1100px;
+    height: 60px;
+    font-size: 10pt;
+    line-height:60px;
+    background-color: rgba(222,209,165,0.45);
+    float: left;
+}
+.details-item{
+    width: 100px;
+    height: 30px;
+    margin: 15px 15px 0 0 ;
+    text-align: center;
+    cursor: pointer;
+    float: left;
+    border: #d4d4d4 solid 1px;
+    line-height: 30px;
+}
+.details-item:hover{
+    border: blue solid 1px;
+}
+/****基本信息*****/
+.details-2{
+    width: 1000px;
+    height: 260px;
+    font-size: 9pt;
+    margin-top: 100px;
+    padding: 0 50px;
+}
+.details-item-2{
+    width: 165px;
+    height: 50px;
+    text-align: center;
+    cursor: pointer;
+    float: left;
+    border-right:#d4d4d4 solid 1px;
+    border-bottom:#d4d4d4 solid 1px;
+    line-height: 50px;
+}
+/****收货人信息*****/
+.details-3{
+    width: 1000px;
+    height: 150px;
+    font-size: 9pt;
+    margin: 30px 0 0 0;
+    padding: 0 50px;
+}
+.details-item-3{
+    width: 330px;
+    height: 50px;
+    text-align: center;
+    cursor: pointer;
+    float: left;
+    border-right: #d4d4d4 solid 1px;
+    border-bottom: #d4d4d4 solid 1px;
+    line-height: 50px;
+}
+/****商品信息*****/
+.details-4{
+    width: 1000px;
+    height:150px;
+    font-size: 9pt;
+    margin: 30px 0 0  0;
+    padding: 0 50px;
+}
+.details-item-4{
+    width: 150px;
+    height: 50px;
+    text-align: center;
+    cursor: pointer;
+    float: left;
+    border-right: #d4d4d4 solid 1px;
+    border-bottom: #d4d4d4 solid 1px;
+    line-height: 50px;
+}
+/****费用信息*****/
+.details-5{
+    width: 1000px;
+    height: 260px;
+    font-size: 9pt;
+    margin-top: 30px;
+    padding: 0 50px;
+}

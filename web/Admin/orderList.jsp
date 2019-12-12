@@ -7,9 +7,6 @@
     <link rel="stylesheet" href="css/orderManage.css">
     <link rel="stylesheet" href="./Admin/css/orderManage.css">
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <style type="text/css">
-
-    </style>
 </head>
 <body>
 <!--系统首页-->
@@ -21,7 +18,7 @@
             全部订单
         </div>
         <div id="2" class="order-item" onclick="gkd2()">
-            待付款
+            待支付
         </div>
         <div id="3" class="order-item" onclick="gkd3()">
             待发货
@@ -60,16 +57,16 @@
     </div>
     <!--主要内容-->
     <div class="order-mainInf" >
-        <div class="main-item" style="width: 77px;font-weight: bold;">
+        <div class="main-item" style="width: 77px;font-weight: bold;background-color: rgba(222,209,165,0.45);">
             <span>批量操作</span>
         </div>
-        <div class="main-item" style="font-weight: bold;">订单编号</div>
-        <div class="main-item" style="width: 175px; font-weight: bold;">提交时间</div>
-        <div class="main-item" style="font-weight: bold;">用户账号</div>
-        <div class="main-item" style="font-weight: bold;">订单金额</div>
-        <div class="main-item" style="font-weight: bold;">订单状态</div>
-        <div class="main-item" style="font-weight: bold;">支付方式</div>
-        <div class="main-item" style="font-weight: bold;">操作</div>
+        <div class="main-item" style="font-weight: bold;background-color: rgba(222,209,165,0.45);">订单编号</div>
+        <div class="main-item" style="width: 175px; font-weight: bold;background-color: rgba(222,209,165,0.45);">提交时间</div>
+        <div class="main-item" style="font-weight: bold;background-color: rgba(222,209,165,0.45);">用户账号</div>
+        <div class="main-item" style="font-weight: bold;background-color: rgba(222,209,165,0.45);">订单金额</div>
+        <div class="main-item" style="font-weight: bold;background-color: rgba(222,209,165,0.45);">订单状态</div>
+        <div class="main-item" style="font-weight: bold;background-color: rgba(222,209,165,0.45);">支付方式</div>
+        <div class="main-item" style="font-weight: bold;background-color: rgba(222,209,165,0.45);">操作</div>
 
         <c:forEach var="record" items="${myOrder.list}">
             <div class="main-item" style="width:77px;">
@@ -88,7 +85,7 @@
                         待发货
                     </c:when>
                     <c:when test="${record.status == '3'}"><!-- 如果 -->
-                        已收货
+                        已发货
                     </c:when>
                     <c:when test="${record.status == '4'}"><!-- 如果 -->
                         待评价
@@ -99,7 +96,7 @@
             </div>
             <div class="main-item">支付宝</div>
             <div class="main-item">
-                <a href="<c:url value='/ProductServlet?action=findOneOrder&oid=${record.oid}'/>" >查看订单</a>|
+                <a href="<c:url value='/ProductServlet?action=findOneOrder&oid=${record.oid}&status=${record.status}'/>" >查看订单</a>|
                 <a onclick="javascript:return del()" href="<c:url value='/ProductServlet?action=deleteGo&oid=${record.oid}'/>" >关闭订单</a>
             </div>
         </c:forEach>

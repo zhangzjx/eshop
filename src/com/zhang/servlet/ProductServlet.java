@@ -40,6 +40,11 @@ public class ProductServlet extends HttpServlet {
     public static final String FIND_ALL_ORDER = "findAllOrder";
     public static final String SEARCH_ORDER= "searchOrder";
     public static final String ORDER_STATUS = "orderStatus";
+    public static final String ONE = "1";
+    public static final String TWO = "2";
+    public static final String THREE = "3";
+    public static final String FOUR = "4";
+    public static final String FIND_ONE_ORDER = "findOneOrder";
 
 
     private static final ServletRequest SESSION = null;
@@ -87,6 +92,8 @@ public class ProductServlet extends HttpServlet {
             findAllOrder(request, response);
         } else if(ORDER_STATUS.equals(action)){
             orderStatus(request, response);
+        }else if(FIND_ONE_ORDER.equals(action)){
+            findOneOrder(request, response);
         }
 
     }
@@ -147,6 +154,30 @@ public class ProductServlet extends HttpServlet {
         /**request.setAttribute("myList", ProductService.findAllGoods());*/
         //3.将请求转发到news_list.jsp页面
         request.getRequestDispatcher("/Admin/orderList.jsp").forward(request, response);
+    }
+    /********查看一条订单*********/
+    private void findOneOrder(HttpServletRequest request,
+                              HttpServletResponse response) throws ServletException, IOException {
+        String oid = request.getParameter("oid");
+        String status = request.getParameter("status");
+        System.out.println("订单id"+oid+"订单状态"+status);
+        Map<String, Object> map = productService.findOneOrder(oid);
+        request.getSession().setAttribute("map",map);
+        //1.获取商品列表，调用Service的findAll方法,
+        //2.将获取的商品列表保存到request中
+        //3.将请求转发到news_list.jsp页面
+        if(ONE.equals(status)) {
+            response.sendRedirect(request.getContextPath() + "/Admin/orderDetails.jsp");
+            //request.getRequestDispatcher("/Admin/orderDetails.jsp").forward(request, response);
+        } else if(TWO.equals(status)) {
+            response.sendRedirect(request.getContextPath() + "/Admin/orderDetailsOne.jsp");
+        } else if(THREE.equals(status)) {
+            response.sendRedirect(request.getContextPath() + "/Admin/orderDetailsTwo.jsp");
+        } else if(FOUR.equals(status)) {
+            response.sendRedirect(request.getContextPath() + "/Admin/orderDetailsThree.jsp");
+        } else if("66".equals(status)) {
+            response.sendRedirect(request.getContextPath() + "/Admin/orderDetailsClose.jsp");
+        }
     }
 
     private void addGoods(javax.servlet.http.HttpServletRequest request,

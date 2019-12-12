@@ -72,7 +72,10 @@ public class ProductService {
         System.out.println("service执行");
         return page;
     }
-
+    /********查看一条订单*********/
+    public Map<String, Object> findOneOrder(String oid) {
+        return ProductDao.findOneOrder(oid);
+    }
 
     /**删除一条数据*/
     public  void delete(int id){
