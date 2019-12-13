@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>账户设置</title>
-
     <link rel="stylesheet" href="css/manageHome.css">
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 </head>

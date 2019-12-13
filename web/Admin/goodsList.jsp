@@ -4,120 +4,22 @@
 <html>
 <head>
     <title>goodList</title>
+    <link rel="stylesheet" href="css/goodsManage.css">
+    <link rel="stylesheet" href="./Admin/css/goodsManage.css">
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="css/link.css" charset="utf-8">
 
-    <style type="text/css">
-        #a{
-            width: 100%;
-            border: solid 1px #dddddd;
-            border-top: solid 2px #dddddd;
-            border-right: solid 2px #dddddd;
-            margin-top: 20px;
-            float: left;
-        }
-        .a-1{
-            width: 10%;
-            height: 40px;
-            line-height:40px;
-            text-align: center;
-            font-family: 微软雅黑;
-            border-bottom: solid 1px #dddddd;
-            border-left: solid 1px #dddddd;
-            background-color: rgba(222,209,165,0.45);
-            float: left;
-        }
-        .a-2{
-            width: 10%;
-            height: 50px;
-            line-height:50px;
-            text-align: center;
-            font-family: 微软雅黑;
-            font-size: 10pt;
-            border-bottom: solid 1px #dddddd;
-            border-left: solid 1px #dddddd;
-            float: left;
-            /**对超出容器的部分强制截取，高度不确定则换行*/
-            overflow: hidden;
-            /**显示省略符号来代表被修剪的文本。*/
-            text-overflow: ellipsis;
-            /**禁止换行*/
-            white-space: nowrap;
-        }
-        .a-3{
-            width: 100%;
-            height: 40px;
-            line-height:40px;
-            text-align: center;
-            font-family: 微软雅黑;
-            font-size: 9pt;
-            border-bottom: solid 1px #dddddd;
-            border-left: solid 1px #dddddd;
-            border-right: solid 1px #dddddd;
-            float: left;
-        }
-        .main-top{
-            width: 100%;
-            height: 60px;
-            font-size: 14pt;
-            line-height:50px;
-            border: solid 1px #dddddd;
-            background-color: #d2d2d2;
-            float: left;
-        }
-        .serach_1{
-            width: 100%;
-            height: 120px;
-            border: solid 1px #dddddd;
-        }
-        .serach_2{
-            width: 100%;
-            height: 60px;
-            font-size: 12pt;
-            line-height:50px;
-            background-color: rgba(222,209,165,0.45);
-            float: left;
-        }
-        .serach_3{
-            width: 32.3%;
-            height: 60px;
-            text-align: center;
-            line-height:60px;
-            font-size: 14pt;
-            margin-left: 1%;
-            float: left;
-        }
-        .el-input{
-            width: 60%;
-            height: 40px;
-            margin-top: 10px;
-        }
-        .el-select{
-            width: 25%;
-            height: 40px;
-            font-size: 10pt;
-            margin-top: 10px;
-        }
-        .el-button{
-            width: 60px;
-            height: 30px;
-            margin-top: 15px;
-            margin-left: 75%;
-            float: left;
-        }
-
-    </style>
 </head>
 <body>
-<div style="margin: 0px 20px;">
-    <div class="main-top"><span style="margin-left: 10px">商品列表</span></div>
-    <div class="serach_1">
 
+<div class="main-top"><span style="margin-left: 10px">商品列表</span></div>
+<!--商品列表-->
+<div class="goods-main">
+    <div class="serach_1">
         <form  action="<c:url value='/ProductServlet?action=searchGo'/>" method="post">
             <div class="serach_2"><span style="margin-left: 10px;float: left;">筛选查询</span>
-                <input type="submit" class="el-button" value="查 询">
-                <input type="button" class="el-button" style="margin-left: 2%;width: 70px;"
-                       value="批量删除" onclick="delAll()">
+                <input type="submit" class="le-button" value="查 询" style="  margin-left: 810px;">
+                <input type="button" class="le-button" value="批量删除" onclick="delAll()">
             </div>
             <div class="serach_3">
                 <span style="font-size: 12pt">输入搜索：</span>
@@ -133,41 +35,41 @@
             </div>
         </form>
     </div>
-    <div id="a" >
-        <div class="a-1" style="width: 9.1%;">
+    <div id="goods-list-top" >
+        <div class="top-item" style="width: 9%;">
             <span>批量操作</span>
         </div>
-        <div class="a-1">编号</div>
-        <div class="a-1">商品名称</div>
-        <div class="a-1">价格/货号</div>
-        <div class="a-1">分类</div>
-        <div class="a-1">品牌</div>
-        <div class="a-1">SKU库存</div>
-        <div class="a-1">销量</div>
-        <div class="a-1">审核状态</div>
-        <div class="a-1">操作</div>
+        <div class="top-item">编号</div>
+        <div class="top-item">商品名称</div>
+        <div class="top-item">价格/货号</div>
+        <div class="top-item">分类</div>
+        <div class="top-item">品牌</div>
+        <div class="top-item">SKU库存</div>
+        <div class="top-item">销量</div>
+        <div class="top-item">审核状态</div>
+        <div class="top-item">操作</div>
 
         <c:forEach var="record" items="${myList.list}">
-                <div class="a-2" style="width: 9.1%;">
-                    <input style="width: 60%;height: 20px;margin-top: 10px;" type="checkbox" name="course" value=${record.id} >
-                </div>
-                <div class="a-2">${record.gid}</div>
-                <div class="a-2" title=${record.goods_name}>${record.goods_name}</div>
-                <div class="a-2">${record.price}</div>
-                <div class="a-2">${record.Categories_two}</div>
-                <div class="a-2">${record.name}</div>
-                <div class="a-2">${record.sku}</div>
-                <div class="a-2">${record.sales}</div>
-                <div class="a-2" style="line-height:25px">待审核<br><a href="">审核详情</a></div>
-                <div class="a-2">
-                    <a href="<c:url value='/ProductServlet?action=findOne&id=${record.id}'/>" >查看</a>|
-                    <a href="<c:url value='/ProductServlet?action=updateBeforeGo&id=${record.id}'/>">修改</a>|
-                    <a onclick="javascript:return del()" href="<c:url value='/ProductServlet?action=deleteGo&id=${record.id}'/>" >删除</a>
-                </div>
+            <div class="top-item-2" style="width: 9%;">
+                <input style="width: 60%;height: 20px;margin-top: 10px;" type="checkbox" name="course" value=${record.id} >
+            </div>
+            <div class="top-item-2">${record.gid}</div>
+            <div class="top-item-2" title=${record.goods_name}>${record.goods_name}</div>
+            <div class="top-item-2">${record.price}</div>
+            <div class="top-item-2">${record.Categories_two}</div>
+            <div class="top-item-2">${record.name}</div>
+            <div class="top-item-2">${record.sku}</div>
+            <div class="top-item-2">${record.sales}</div>
+            <div class="top-item-2" style="line-height:25px">待审核<br><a href="">审核详情</a></div>
+            <div class="top-item-2">
+                <a href="<c:url value='/ProductServlet?action=findOne&id=${record.id}'/>" >查看</a>|
+                <a href="<c:url value='/ProductServlet?action=updateBeforeGo&id=${record.id}'/>">修改</a>|
+                <a onclick="javascript:return del()" href="<c:url value='/ProductServlet?action=deleteGo&id=${record.id}'/>" >删除</a>
+            </div>
         </c:forEach>
     </div>
 
-    <div class="a-3">
+    <div class="pagination">
         <div style="width: 70%;text-align: left;margin-left: 20px;float: left">
             共找到${myList.totalSize}条记录，每页${myList.pageSize}条，共${myList.totalPage }页，当前第${myList.currentPage }页
         </div>
@@ -207,7 +109,7 @@
         </div>
         <div style="float: left">
             跳至<input  type="text" id="num" name="currentPage" style="height: 20px;width: 30px;">页
-            <input type="button" onclick="gk()" style="border: none;background-color: #fff" value="确定">
+            <a href="#" onclick="gk()" >确定</a>
         </div>
     </div>
 

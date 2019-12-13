@@ -176,6 +176,35 @@ public class ProductDao {
         List<Map<String, Object>> list=JdbcUtils.find(sql, oid);
         return list.get(0);
     }
+    /********查看商品分类*********/
+    public int countSort(String sort_level,String id) {
+        //if(){}
+        StringBuilder sql=new StringBuilder("select count(*) from ");
+        if(sort_level.equals("1")){
+            sql.append(" sortfirst ");
+        }else if("2".equals(sort_level)){
+            sql.append(" sortsecond where sort_id="+id);
+        }else if (sort_level.equals("3")) {
+            sql.append(" sortthree where sort_second="+id);
+        }
+        return ((Number) JdbcUtils.selectScalar(sql.toString(),(Object[]) null)).intValue();
+    }
+    public static List<Map<String, Object>> sortStatus(int startIndex, int pageSize, String sort_level,String id) {
+        StringBuilder sql=new StringBuilder("select * from ");
+        if(sort_level.equals("1")){
+            sql.append(" sortfirst limit ?,?");
+        }else if (sort_level.equals("2")) {
+            sql.append(" sortsecond where sort_id="+id+" limit ?,?");
+        }else if (sort_level.equals("3")) {
+            sql.append(" sortthree where sort_second="+id+" limit ?,?");
+        }
+        return JdbcUtils.find(sql.toString(), startIndex, pageSize);
+    }
+    /********查看分类*********/
+    public Object findSort() {
+        String sql = "select * from sortfirst";
+        return JdbcUtils.find(sql);
+    }
 
     /*********************更新记录*********************************/
 

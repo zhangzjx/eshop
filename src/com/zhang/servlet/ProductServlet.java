@@ -45,6 +45,8 @@ public class ProductServlet extends HttpServlet {
     public static final String THREE = "3";
     public static final String FOUR = "4";
     public static final String FIND_ONE_ORDER = "findOneOrder";
+    public static final String FIND_ALL_SORT = "findAllSort";
+    public static final String FIND_SORT = "findSort";
 
 
     private static final ServletRequest SESSION = null;
@@ -94,10 +96,46 @@ public class ProductServlet extends HttpServlet {
             orderStatus(request, response);
         }else if(FIND_ONE_ORDER.equals(action)){
             findOneOrder(request, response);
+        } else if(FIND_ALL_SORT.equals(action)){
+            findAllSort(request, response);
+        } else if(FIND_SORT.equals(action)){
+            findSort(request, response);
         }
 
     }
+    /********查看分类*********/
+    private void findSort(HttpServletRequest request,
+                          HttpServletResponse response) throws IOException {
+        request.getSession().setAttribute("sort", productService.findSort());
+        response.sendRedirect(request.getContextPath() + "/Admin/addSort.jsp");
+    }
+    /********查看商品分类*********/
 
+    private void findAllSort(HttpServletRequest request,
+                             HttpServletResponse response) throws ServletException, IOException {
+        String sort_level = request.getParameter("sort_level");
+        String id = request.getParameter("id");
+        String current = request.getParameter("currentPage");
+        System.out.println("级别为"+sort_level);
+        System.out.println("页码为"+current);
+        System.out.println("id为"+id);
+        int currentPage = 1;
+        try{
+            currentPage = Integer.parseInt(current);
+        }catch(Exception e){
+            currentPage = 1;
+        }
+        //1.获取商品列表，调用Service的findAll方法,2.将获取的商品列表保存到request中
+        Page page = productService.sort(currentPage,sort_level,id);
+        request.getSession().setAttribute("sort", page);
+        if(ONE.equals(sort_level)) {
+            response.sendRedirect(request.getContextPath() + "/Admin/goodsSort.jsp");
+        }else if(TWO.equals(sort_level)) {
+            response.sendRedirect(request.getContextPath() + "/Admin/goodsSortSecond.jsp");
+        }else if(THREE.equals(sort_level)) {
+            response.sendRedirect(request.getContextPath() + "/Admin/goodsSortThird.jsp");
+        }
+    }
     /********查看订单状态*********/
     private void orderStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String s = request.getParameter("status");

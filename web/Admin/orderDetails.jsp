@@ -13,7 +13,7 @@
 <body>
 <!--系统首页-->
 <div class="main-top"><span style="margin-left: 30px">订单详情</span></div>
-<!--主要内容-->商品
+<!--主要内容-->
 <div class="order-main">
     <!--订单状态-->
     <div class="details-top">

@@ -1,12 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>系统首页</title>
     <link rel="stylesheet" href="css/manageHome.css">
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
-    <style type="text/css">
-
-    </style>
 
 </head>
 <body >
@@ -16,6 +14,7 @@
 <div class="manage-main" >
     <div class="home-top">
         <div class="top_item">
+
             <img src="img/home-1.png" class="item-img">
             <span class="item-inf">今日订单总数</span><br><br>
             <strong class="item-num">200</strong>
@@ -43,13 +42,13 @@
         </div>
 
         <li class="pending-item">
-            <a href="#">
+            <a href="<c:url value='/ProductServlet?action=orderStatus&status=1'/>">
                 <span style="float: left">待付款订单</span>
                 <span style="float: right">(10)</span>
             </a>
         </li>
         <li class="pending-item">
-            <a href="#">
+            <a href="<c:url value='/ProductServlet?action=orderStatus&status=4'/>">
                 <span style="float: left">已完成订单</span>
                 <span style="float: right">(10)</span>
             </a>
@@ -61,7 +60,7 @@
             </a>
         </li>
         <li class="pending-item">
-            <a href="#">
+            <a href="<c:url value='/ProductServlet?action=orderStatus&status=2'/>">
                 <span style="float: left">待发货订单</span>
                 <span style="float: right">(10)</span>
             </a>
@@ -79,7 +78,7 @@
             </a>
         </li>
         <li class="pending-item">
-            <a href="#">
+            <a href="<c:url value='/ProductServlet?action=orderStatus&status=3'/>">
                 <span style="float: left">已发货订单</span>
                 <span style="float: right">(10)</span>
             </a>
@@ -103,12 +102,16 @@
             <span style="margin-left: 25px">运营快捷入口</span>
         </div>
         <li class="operation-item">
-            <img src="img/home-5.png" class="operation-img">
-            <span>添加商品</span>
+            <a href="addGoodsLink.jsp">
+                <img src="img/home-5.png" class="operation-img">
+                <span>添加商品</span>
+            </a>
         </li>
         <li class="operation-item">
-            <img src="img/home-6.png" class="operation-img">
-            <span>订单列表</span>
+            <a href="<c:url value='/ProductServlet?action=findAllOrder'/>">
+                <img src="img/home-6.png" class="operation-img">
+                <span>订单列表</span>
+            </a>
         </li>
         <li class="operation-item">
             <img src="img/home-7.png" class="operation-img">
@@ -203,4 +206,7 @@
 </div>
 
 </body>
+<script>
+
+</script>
 </html>

@@ -76,6 +76,20 @@ public class ProductService {
     public Map<String, Object> findOneOrder(String oid) {
         return ProductDao.findOneOrder(oid);
     }
+    /********查看商品分类*********/
+    public Page sort(int currentPage, String sort_level,String id) {
+        int totalSize = productDao.countSort(sort_level,id);
+        Page page = new Page(currentPage,totalSize);
+        List<Map<String,Object>> list = ProductDao.sortStatus(page.getStartIndex(),page.getPageSize(),sort_level,id);
+        page.setList(list);
+        System.out.println("service执行");
+        return page;
+    }
+    /********查看分类*********/
+    public Object findSort() {
+        return productDao.findSort();
+    }
+
 
     /**删除一条数据*/
     public  void delete(int id){
