@@ -90,6 +90,12 @@
                     <c:when test="${record.status == '4'}"><!-- 如果 -->
                         待评价
                     </c:when>
+                    <c:when test="${record.status == '6'}"><!-- 如果 -->
+                        退货处理中
+                    </c:when>
+                    <c:when test="${record.status == '7'}"><!-- 如果 -->
+                        退款处理中
+                    </c:when>
                     <c:otherwise> <!-- 否则 -->
                     </c:otherwise>
                 </c:choose>
@@ -101,7 +107,7 @@
             </div>
         </c:forEach>
     </div>
-    <!--分页-->
+    <!--分页功能-->
     <div class="pagination">
         <div style="width: 70%;text-align: left;margin-left: 20px;float: left">
             共找到${myOrder.totalSize}条记录，每页${myOrder.pageSize}条，共${myOrder.totalPage }页，当前第${myOrder.currentPage }页
@@ -141,8 +147,8 @@
             </c:choose>
         </div>
         <div style="float: left">
-            跳至<input  type="text" id="num" name="currentPage" style="height: 20px;width: 30px;margin: 0 5px;">页
-            <input type="button" onclick="gk()" style="border: none;background-color: #fff" value="确定">
+            跳至<input  type="text" id="num" name="currentPage" style="height: 20px;width: 30px;">页
+            <a href="#" onclick="gk()" >确定</a>
         </div>
     </div>
 </div>
@@ -164,8 +170,8 @@
     function gkd5() {
         document.location = "ProductServlet?action=orderStatus&status=4";
     };
-
-
+    /******分页********
+     **********/
     function del() {
         const msg = "确定要删除吗？\n请确认！";
         if (confirm(msg)==true){

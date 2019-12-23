@@ -64,7 +64,7 @@ a:active {text-decoration:underline;}
 /**右侧*/
 .content-right{
     width: 960px;
-    height: 600px;
+    height: auto;
     margin-left: 35px;
     font-size: 10pt;
     border: #1aa5fb solid 1px;
@@ -118,4 +118,17 @@ a:active {text-decoration:underline;}
     text-overflow: ellipsis;
     /**禁止换行*/
     //white-space: nowrap;
+}
+/***分页功能***/
+.pagination{
+    width: 960px;
+    height: 40px;
+    line-height:40px;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 9pt;
+    border-bottom: solid 1px #dddddd;
+    border-left: solid 1px #dddddd;
+    border-right: solid 1px #dddddd;
+    float: left;
 }

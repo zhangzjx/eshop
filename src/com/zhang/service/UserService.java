@@ -125,13 +125,25 @@ public class UserService {
         userDao.payOrder(order);
     }
     /******查看订单状态*****/
-    public Object findAllOrder(String uid) {
-        return userDao.findAllOrder(uid);
-    }
-    public Object orderStatus(String uid, String status) {
-        return userDao.orderStatus(uid,status);
+
+    public Page findAllOrder(int uid, int currentPage) {
+        String status=null;
+        int totalSize = userDao.findCountOrder(uid,status);
+        Page page = new Page(currentPage,totalSize);
+        List<Map<String,Object>> list = UserDao.findAllOrder(uid,page.getStartIndex(),page.getPageSize());
+        page.setList(list);
+        System.out.println("页码"+page.getCurrentPage());
+        return page;
     }
 
+    public Page orderStatus(int uid, String status,int currentPage) {
+        int totalSize = userDao.findCountOrder(uid,status);
+        Page page = new Page(currentPage,totalSize);
+        List<Map<String,Object>> list = UserDao.orderStatus(uid,status,page.getStartIndex(),page.getPageSize());
+        page.setList(list);
+        System.out.println("页码"+page.getCurrentPage());
+        return page;
+    }
 
 
 }

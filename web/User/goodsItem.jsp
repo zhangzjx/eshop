@@ -30,12 +30,10 @@
             </div>
             <div class="top-right">
                 <ul class="ul-right">
-                    <li ><span><a href="centerOrder.jsp" >我的订单</a></span></li>
-                    <li><span><a href=""  target="_blank" onclick="myCart()">我的购物车</a></span></li>
-                    <li><span><a href="myInf.jsp" target="_blank">我的青橙</a></span></li>
-                    <li><span>青橙会员</span></li>
+                    <li ><span><a href="#" onclick="myOrder()">我的订单</a></span></li>
+                    <li><span><a href="#"  onclick="myCart()">我的购物车</a></span></li>
+                    <li><span><a href="myInf.jsp"  >个人信息</a></span></li>
                     <li><span>企业采购</span></li>
-                    <li><span>关注青橙</span></li>
                     <li><span><a href="cooperation.html" target="_blank">合作招商</a></span></li>
                     <li ><span><a href="shoplogin.html" target="_blank">商家后台</a></span></li>
                     <li><span>网站导航</span></li>
@@ -115,7 +113,9 @@
             </div>
         </div>
         <!--商品参数-->
-        <!--<input type="hidden" name="id" value=${map.id}-->
+        <input type="hidden" id="id" value=${map.id}>
+        <input type="hidden" id="price" value=${map.price}>
+        <input type="hidden" id="quantity" value=1>
         <div class="main-top-right">
             <div class="top-right-item" style="font-family: 微软雅黑">${map.goods_name}</div>
             <div class="top-right-item">
@@ -123,8 +123,7 @@
                 <b  style="font-size: 15pt;color: red">${map.price}</b>
             </div>
             <div class="top-right-item">
-                <span class="item">重量</span>
-
+                <span class="item">${map.id}</span>
             </div>
             <div class="top-right-item">
                 <span class="item">选择颜色</span>
@@ -152,7 +151,7 @@
                     <input type="text" value="1" class="sum">
                     <a href="javascript:;" class="plus increment">+</a>
                 </div>
-                <input type="button" class="el-button" value="加入购物车"></div>
+                <input type="button" onclick="addCart()" class="el-button" value="加入购物车"></div>
         </div>
     </div>
 
@@ -325,6 +324,14 @@
 <script type="text/javascript" src="js/magnifier.js"></script>
 
 <script type="text/javascript">
+    const uid = document.getElementById("uid").value;
+    const id = document.getElementById("id").value;
+    const quantity = document.getElementById("quantity").value;
+    const price = document.getElementById("price").value;
+    function addCart(){
+        document.location = "../UserServlet?action=addCart&uid="+uid+"&id="+id+"&quantity="+quantity+"&price="+price;
+        alert("已加入购物车");
+    }
     $(function() {
 
         const magnifierConfig = {

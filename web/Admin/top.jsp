@@ -45,13 +45,7 @@
           <a href="manageLeftOrder.jsp" target="left">订单</a>
       </div>
       <div class="head-3">
-          <a href="">库存</a>
-      </div>
-      <div class="head-3">
           <a href="">用户</a>
-      </div>
-      <div class="head-3">
-          <a href="">统计</a>
       </div>
       <div class="head-3">
           <a href="">设置</a>

@@ -4,7 +4,7 @@
 <head>
     <title>系统首页</title>
     <link rel="stylesheet" href="css/manageHome.css">
-    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="css/popup.css">
 
 </head>
 <body >
@@ -13,23 +13,23 @@
 <!--主要内容-->
 <div class="manage-main" >
     <div class="home-top">
-        <div class="top_item">
+        <div class="top_item" onclick="toast()">
 
             <img src="img/home-1.png" class="item-img">
             <span class="item-inf">今日订单总数</span><br><br>
             <strong class="item-num">200</strong>
         </div>
-        <div class="top_item">
+        <div class="top_item" onclick="toast()">
             <img src="img/home-2.png" class="item-img">
             <span class="item-inf">今日销售总额</span><br><br>
             <strong class="item-num">￥5000</strong>
         </div>
-        <div class="top_item">
+        <div class="top_item" onclick="toast()">
             <img src="img/home-3.png" class="item-img">
             <span class="item-inf">昨日销售总额</span><br><br>
             <strong class="item-num">￥5200</strong>
         </div>
-        <div class="top_item">
+        <div class="top_item" onclick="toast()">
             <img src="img/home-4.png" class="item-img">
             <span class="item-inf">近7天销售总额</span><br><br>
             <strong class="item-num">￥56400</strong>
@@ -41,7 +41,7 @@
             <span style="margin-left: 25px">待处理事务</span>
         </div>
 
-        <li class="pending-item">
+        <li class="pending-item" >
             <a href="<c:url value='/ProductServlet?action=orderStatus&status=1'/>">
                 <span style="float: left">待付款订单</span>
                 <span style="float: right">(10)</span>
@@ -84,13 +84,13 @@
             </a>
         </li>
         <li class="pending-item">
-            <a href="#">
+            <a href="#" onclick="toast()">
                 <span style="float: left">待处理退货订单</span>
                 <span style="float: right">(10)</span>
             </a>
         </li>
         <li class="pending-item">
-            <a href="#">
+            <a href="#" onclick="toast()">
                 <span style="float: left">广告位即将到期</span>
                 <span style="float: right">(10)</span>
             </a>
@@ -113,23 +113,23 @@
                 <span>订单列表</span>
             </a>
         </li>
-        <li class="operation-item">
+        <li class="operation-item" onclick="toast()">
             <img src="img/home-7.png" class="operation-img">
             <span>用户管理</span>
         </li>
-        <li class="operation-item">
+        <li class="operation-item" onclick="toast()">
             <img src="img/home-8.png" class="operation-img">
             <span>交易统计</span>
         </li>
-        <li class="operation-item">
+        <li class="operation-item" onclick="toast()">
             <img src="img/home-9.png" class="operation-img">
             <span>广告管理</span>
         </li>
-        <li class="operation-item">
+        <li class="operation-item" onclick="toast()">
             <img src="img/home-10.png" class="operation-img">
             <span>短信营销</span>
         </li>
-        <li class="operation-item">
+        <li class="operation-item" onclick="toast()">
             <img src="img/home-11.png" class="operation-img">
             <span>秒杀管理</span>
         </li>
@@ -206,7 +206,11 @@
 </div>
 
 </body>
-<script>
-
+<script type="application/javascript" src="js/popup.js"></script>
+<script type="text/javascript">
+    var Popup = new Popup();
+    function toast() {
+        Popup.toast('正在完善中',2);
+    }
 </script>
 </html>

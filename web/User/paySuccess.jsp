@@ -26,12 +26,10 @@
             </div>
             <div class="top-right">
                 <ul class="ul-right">
-                    <li ><span><a href="centerOrder.jsp" >我的订单</a></span></li>
-                    <li><span><a href="#"  target="_blank" onclick="myCart()">我的购物车</a></span></li>
-                    <li><span><a href="myInf.jsp" target="_blank">我的青橙</a></span></li>
-                    <li><span>青橙会员</span></li>
+                    <li ><span><a href="#" onclick="myOrder()">我的订单</a></span></li>
+                    <li><span><a href="#"  onclick="myCart()">我的购物车</a></span></li>
+                    <li><span><a href="myInf.jsp"  >个人信息</a></span></li>
                     <li><span>企业采购</span></li>
-                    <li><span>关注青橙</span></li>
                     <li><span><a href="cooperation.html" target="_blank">合作招商</a></span></li>
                     <li ><span><a href="shoplogin.html" target="_blank">商家后台</a></span></li>
                     <li><span>网站导航</span></li>
@@ -62,7 +60,7 @@
         <div class="payDetail">
             <p>支付方式：支付宝</p>
             <p>支付金额：￥1006.00元</p>
-            <p class="button"><a href="centerOrder.jsp" class="pay-sui-btn">查看订单</a>
+            <p class="button"><a  href="index.jsp"    class="pay-sui-btn">商城首页</a>
                 <a href="index.jsp" class="pay-sui-btn">继续购物</a></p>
         </div>
     </div>
@@ -130,7 +128,9 @@
 </div>
 </body>
 <script>
-    let t = 10;//设定跳转的时间
+    const uid = $("#uid").val();
+
+    const t = 10;//设定跳转的时间
     setInterval("refer()",1000); //启动1秒定时
     function refer(){
         if(t==0){

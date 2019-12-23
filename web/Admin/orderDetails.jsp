@@ -34,7 +34,7 @@
         <div class="details-top-border border-color"></div>
         <div class="details-top-item">
             <img src="img/未完成.png" class="details-top-img" title="这是一张照片"><br><br>
-            <strong>确认发货</strong>
+            <strong>确认收货</strong>
         </div>
         <div class="details-top-border border-color"></div>
         <div class="details-top-item">

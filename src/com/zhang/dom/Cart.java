@@ -96,6 +96,21 @@ public class Cart {
         this.status = status;
     }
 
+    private int id;
+    private int uid;
+    private int cid;
+    private String oid;
+    private int quantity;
+    private double price;
+    private Date addTime;
+    private int aphone ;
+    private String address;
+    private String receiver;
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "Cart{" +
@@ -109,21 +124,15 @@ public class Cart {
                 ", aphone=" + aphone +
                 ", address='" + address + '\'' +
                 ", receiver='" + receiver + '\'' +
+                ", name='" + name + '\'' +
                 ", status=" + status +
                 '}';
     }
 
-    private int id;
-    private int uid;
-    private int cid;
-    private String oid;
-    private int quantity;
-    private double price;
-    private Date addTime;
-    private int aphone ;
-    private String address;
-    private String receiver;
+    private String name;
     private int status;
 
 
+    public void setName(String goodsName) {
+    }
 }

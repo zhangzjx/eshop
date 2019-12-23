@@ -14,49 +14,15 @@
     <script type="text/javascript" src="js/topHeader.js"></script>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 
-    <script type="application/javascript">
-        $(document).ready(function(){
-            // 页面加载后任何需要执行的js特效
-            let name = $("#name").val();
-            if(name != null&&name != ""){
-                $("#logout").show()
-            }else {
-                $("#lg").show();
-            }
-
-            //Web小功能1——jquery实现一个按钮两个功能（触发不同事件）
-            let switcher = false;
-            $("#change").click(function(){
-                if(switcher = !switcher){
-                    $("#itxt").removeAttr("readonly");
-                    $("#itxt").css("border","#7EC0EE solid 1px");
-                    $("#change").val("保存");
-                }else{
-                    $("#itxt").attr("readonly","readonly");
-                    $("#itxt").css("border","0px");
-                    $("#change").val("修改");
-                }
-            });
-
-            $("#xianshang").click(function(){
-                $(this).addClass('check-box')
-                $("#xianxia").removeClass('check-box');
-            });
-            $("#xianxia").click(function(){
-                $(this).addClass('check-box')
-                $("#xianshang").removeClass('check-box');
-            });
-            $("#1").click(function(){
-                $(this).addClass('check-box')
-                $("#2").removeClass('check-box');
-            });
-            $("#2").click(function(){
-                $(this).addClass('check-box')
-                $("#1").removeClass('check-box');
-            });
-
-        })
-    </script>
+    <style type="text/css">
+        .t3-item{
+            width: 200px;
+            height: 80px;
+            float: left;
+            text-align: center;
+            line-height:80px;
+        }
+    </style>
 </head>
 <body>
 <input type="hidden" id="name" value="${name }">
@@ -77,12 +43,10 @@
             </div>
             <div class="top-right">
                 <ul class="ul-right">
-                    <li ><span><a href="centerOrder.jsp" >我的订单</a></span></li>
-                    <li><span><a href=""  target="_blank" onclick="myCart()">我的购物车</a></span></li>
-                    <li><span><a href="myInf.jsp" target="_blank">我的青橙</a></span></li>
-                    <li><span>青橙会员</span></li>
+                    <li ><span><a href="#" onclick="myOrder()">我的订单</a></span></li>
+                    <li><span><a href="#"  onclick="myCart()">我的购物车</a></span></li>
+                    <li><span><a href="myInf.jsp"  >个人信息</a></span></li>
                     <li><span>企业采购</span></li>
-                    <li><span>关注青橙</span></li>
                     <li><span><a href="cooperation.html" target="_blank">合作招商</a></span></li>
                     <li ><span><a href="shoplogin.html" target="_blank">商家后台</a></span></li>
                     <li><span>网站导航</span></li>
@@ -120,6 +84,10 @@
                 <input type="hidden" id="status" name="status" value=1>
                 <input type="hidden" id="id" name="id" value=${record.id}>
                 <input type="hidden" id="quantity" name="quantity" value=${record.quantity}>
+                <input type="hidden" id="goodsname" name="goodsname" value=${record.goods_name}>
+                <input type="hidden" id="danjia" name="danjia" value=${record.price}>
+
+                <input type="hidden" id="aid" value=${record.aid}>
                 <div class="order-main">
                     <div class="main-list">
                         <span>收件人信息</span><br>
@@ -160,10 +128,12 @@
                     <div class="main-list">
                         <span>送货清单</span><br>
                         <div class="t3" style="height: 80px;border: #d4d4d4 solid 1px;margin-top: 30px">
-                            <div style="width: 200px;height: 80px;float: left;text-align: center;line-height:80px;">图片</div>
-                            <div style="width: 300px;height: 80px;float: left;text-align: center;line-height:80px;">${record.goods_name}</div>
-                            <div style="width: 300px;height: 80px;float: left;text-align: center;line-height:80px;">${record.price}</div>
-                            <div style="width: 300px;height: 80px;float: left;text-align: center;line-height:80px;">${record.quantity}</div>
+                            <div class="t3-item">
+                                <img src="/uploadImg/${record.img}" style="width: 80px;height: 80px">
+                            </div>
+                        <div class="t3-item" >${record.goods_name}</div>
+                        <div class="t3-item">${record.price}</div>
+                        <div class="t3-item">${record.quantity}</div>
 
                         </div>
                     </div>
@@ -171,7 +141,7 @@
                 <div class="order-base">
                     <div class="base-item">
                         <br>
-                        应付金额：￥<span class=".total_text">${price }</span><br>
+                        应付金额：￥<span class="total_text">${price }</span><br>
                         寄送至：<span>${record.address}</span>
                     </div>
                     <input type="submit" class="base-item-sub el-button" value="提交订单">
@@ -242,17 +212,53 @@
     </div>
 </div>
 </body>
-<script type="application/javascript">
 
-    $(document).ready(function() {
+<script type="application/javascript">
+    $(document).ready(function(){
         // 页面加载后任何需要执行的js特效
         let name = $("#name").val();
-        if (name != null && name != "") {
+        if(name != null&&name != ""){
             $("#logout").show()
-        } else {
+        }else {
             $("#lg").show();
         }
-    })
 
+        //Web小功能1——jquery实现一个按钮两个功能（触发不同事件）
+        let switcher = false;
+        $("#change").click(function(){
+            if(switcher = !switcher){
+                $("#itxt").removeAttr("readonly");
+                $("#itxt").css("border","#7EC0EE solid 1px");
+                $("#change").val("保存");
+            }else{
+                $("#itxt").attr("readonly","readonly");
+                $("#itxt").css("border","0px");
+                const uid = document.getElementById("uid").value;
+                const aid = document.getElementById("aid").value;
+                const address = document.getElementById("itxt").value;
+
+                document.location = "../UserServlet?action=changeAddress&uid=${user.uid}&aid="+aid+"&address="+address;
+
+            }
+        });
+
+        $("#xianshang").click(function(){
+            $(this).addClass('check-box')
+            $("#xianxia").removeClass('check-box');
+        });
+        $("#xianxia").click(function(){
+            $(this).addClass('check-box')
+            $("#xianshang").removeClass('check-box');
+        });
+        $("#1").click(function(){
+            $(this).addClass('check-box')
+            $("#2").removeClass('check-box');
+        });
+        $("#2").click(function(){
+            $(this).addClass('check-box')
+            $("#1").removeClass('check-box');
+        });
+
+    })
 </script>
 </html>

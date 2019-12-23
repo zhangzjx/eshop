@@ -4,6 +4,7 @@
     <title>我的信息</title>
     <link rel="stylesheet" href="css/topFoot.css">
     <link rel="stylesheet" href="css/myInf.css">
+    <script type="text/javascript" src="js/order.js"></script>
     <script type="text/javascript" src="js/topHeader.js"></script>
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
     <script type="application/javascript">
@@ -40,12 +41,10 @@
             </div>
             <div class="top-right">
                 <ul class="ul-right">
-                    <li ><span><a href="centerOrder.jsp" >我的订单</a></span></li>
-                    <li><span><a href=""  target="_blank" onclick="myCart()">我的购物车</a></span></li>
-                    <li><span><a href="myInf.jsp" target="_blank">我的青橙</a></span></li>
-                    <li><span>青橙会员</span></li>
+                    <li ><span><a href="#" onclick="myOrder()">我的订单</a></span></li>
+                    <li><span><a href="#"  onclick="myCart()">我的购物车</a></span></li>
+                    <li><span><a href="myInf.jsp"  >个人信息</a></span></li>
                     <li><span>企业采购</span></li>
-                    <li><span>关注青橙</span></li>
                     <li><span><a href="cooperation.html" target="_blank">合作招商</a></span></li>
                     <li ><span><a href="shoplogin.html" target="_blank">商家后台</a></span></li>
                     <li><span>网站导航</span></li>
@@ -76,11 +75,11 @@
 
             <div class="content-left-main">
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">订单中心</div>
-                    <li class="content-left-list"><a href="centerOrder.jsp">我的订单</a></li>
+                    <li class="content-left-list"><a href="#" onclick="myOrder()">我的订单</a></li>
                     <li class="content-left-list"><a onclick="orderEvaluate()" href="">待评价</a></li>
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">我的钱包</div>
-                    <li class="content-left-list"><a onclick="orderSend()" href="">优惠券</a></li>
-                    <li class="content-left-list"><a onclick="orderReceive()" href="">红包</a></li>
+                    <li class="content-left-list"><a  href="coupon.jsp">优惠券</a></li>
+                    <li class="content-left-list"><a  href="bonus.jsp">红包</a></li>
                     <li class="content-left-list"><a onclick="orderEvaluate()" href="">礼品卡</a></li>
                 <div style="font-size: 12pt;text-align: center;margin-bottom: 15px;">账户设置</div>
                     <li class="content-left-list"><a href="centerOrder.jsp">个人信息</a></li>
@@ -113,7 +112,7 @@
                     </div>
                     <div class="top-right-main">
                         <br>
-                        <a href=""><strong style="font-size: 15pt;">5</strong></a><br>
+                        <a href="coupon.jsp"><strong style="font-size: 15pt;">5</strong></a><br>
                         <span>优惠券</span><br><br>
                         <a href="">领券</a>
                     </div>
@@ -144,15 +143,15 @@
                     我的订单
                 </div>
                 <div class="central-left-change">
-                    <div class="change-item">
+                    <div class="change-item" onclick="orderPay()">
                         <img src="img/待付款.png" class="item-img" title="待付款">
                         待付款
                     </div>
-                    <div class="change-item">
+                    <div class="change-item" onclick="orderReceive()">
                         <img src="img/待收货.png" class="item-img" title="待收货">
                         待收货
                     </div>
-                    <div class="change-item">
+                    <div class="change-item" onclick="orderEvaluate()">
                         <img src="img/待评价.png" class="item-img" title="待评价">
                         待评价
                     </div>
@@ -160,7 +159,7 @@
                         <img src="img/退货售后.png" class="item-img" title="退换/售后">
                         退换/售后
                     </div>
-                    <div class="change-item">
+                    <div class="change-item" onclick="myOrder()">
                         <img src="img/更多.png" class="item-img" title="全部订单">
                         全部订单
                     </div>

@@ -1,4 +1,7 @@
 /************main主要内容*******************/
+*{
+    font-family: 微软雅黑;
+}
 .main{
     width: 1200px;
     margin: 0 auto;

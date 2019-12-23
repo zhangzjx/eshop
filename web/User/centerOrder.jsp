@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2019/11/21
-  Time: 15:13
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -46,12 +39,10 @@
             </div>
             <div class="top-right">
                 <ul class="ul-right">
-                    <li ><span><a href="centerOrder.jsp" >我的订单</a></span></li>
-                    <li><span><a href=""  target="_blank" onclick="myCart()">我的购物车</a></span></li>
-                    <li><span><a href="myInf.jsp" target="_blank">我的青橙</a></span></li>
-                    <li><span>青橙会员</span></li>
+                    <li ><span><a href="#" onclick="myOrder()">我的订单</a></span></li>
+                    <li><span><a href="#"  onclick="myCart()">我的购物车</a></span></li>
+                    <li><span><a href="myInf.jsp"  >个人信息</a></span></li>
                     <li><span>企业采购</span></li>
-                    <li><span>关注青橙</span></li>
                     <li><span><a href="cooperation.html" target="_blank">合作招商</a></span></li>
                     <li ><span><a href="shoplogin.html" target="_blank">商家后台</a></span></li>
                     <li><span>网站导航</span></li>
@@ -108,7 +99,7 @@
             </div>
 
             <div class="right-main" >
-                <c:forEach var="record" items="${order }">
+                <c:forEach var="record" items="${order.list}">
                     <div class="right-main-top">
                         <div class="main-top-list">订单时间：${record.ordertime}</div>
                         <div class="main-top-list">订单编号：${record.oid}</div>
@@ -123,73 +114,65 @@
                                 ${record.buycount}
                         </div>
                         <div class="main-content-list" style="line-height: 35px">
-                            <c:choose>
-                                <c:when test="${record.status == '1'}"><!-- 如果 -->
-                                    待支付<br>
-                                    <a href="#">取消订单</a>
-                                </c:when>
-                                <c:when test="${record.status == '2'}"><!-- 如果 -->
-                                    待发货<br>
-                                    <a href="#">退货/退款</a>
-                                </c:when>
-
-                                <c:when test="${record.status == '3'}"><!-- 如果 -->
-                                    待收货<br>
-                                    <a href="#">退货/退款</a>
-                                </c:when>
-                                <c:when test="${record.status == '4'}"><!-- 如果 -->
-                                    <td>评价</td>
-                                </c:when>
-                                <c:otherwise> <!-- 否则 -->
-                                </c:otherwise>
-                            </c:choose>
+                            已完成订单
                         </div>
                         <div class="main-content-list">
                                 ${record.totalprice}
                         </div>
                         <div class="main-content-list">
-                            <c:choose>
-                                <c:when test="${record.status == '1'}"><!-- 如果 -->
-                                    <td> 待支付</td>
-                                </c:when>
-                                <c:when test="${record.status == '2'}"><!-- 如果 -->
-                                    <td>待发货</td>
-                                </c:when>
-
-                                <c:when test="${record.status == '3'}"><!-- 如果 -->
-                                    <td>待收货</td>
-                                </c:when>
-                                <c:when test="${record.status == '4'}"><!-- 如果 -->
-                                    <td>评价</td>
-                                </c:when>
-                                <c:otherwise> <!-- 否则 -->
-                                </c:otherwise>
-                            </c:choose>
-
+                            待评价
                         </div>
                         <div class="main-content-list">
-                            <c:choose>
-                                <c:when test="${record.status == '1'}"><!-- 如果 -->
-                                    <a href="#">支付</a>
-                                </c:when>
-                                <c:when test="${record.status == '2'}"><!-- 如果 -->
-                                    <a href="#">提醒发货</a>
-                                </c:when>
-
-                                <c:when test="${record.status == '3'}"><!-- 如果 -->
-                                    <a href="#">确认收货</a>
-                                </c:when>
-                                <c:when test="${record.status == '4'}"><!-- 如果 -->
-                                    <a href="#">评价</a>>
-                                </c:when>
-                                <c:otherwise> <!-- 否则 -->
-                                </c:otherwise>
-                            </c:choose>
+                            <a href="#">评价</a>
                         </div>
-
                     </div>
                 </c:forEach>
             </div>
+            <!--分页 -->
+            <div class="pagination">
+                <div style="width: 68%;text-align: left;margin-left: 20px;float: left">
+                    共找到${order.totalSize}条记录，每页${order.pageSize}条，共${order.totalPage }页，当前第${order.currentPage }页
+                </div>
+                <div style="float: left;width: 17%;">
+                    <!-- 首页 -->
+                    <c:choose>
+                        <c:when test="${order.currentPage==1 }">首页
+                        </c:when>
+                        <c:otherwise>
+                            <a href="<c:url value='/UserServlet?action=findAllOrder&uid=${user.uid }&currentPage=${order.currentPage != 1 }'/>">首页</a>
+                        </c:otherwise>
+                    </c:choose>
+                    <!-- 上一页 -->
+                    <c:choose>
+                        <c:when test="${order.currentPage==1 }">上一页
+                        </c:when>
+                        <c:otherwise>
+                            <a href="<c:url value='/UserServlet?action=findAllOrder&uid=${user.uid }&currentPage=${order.currentPage-1 }'/>">上一页</a>
+                        </c:otherwise>
+                    </c:choose>
+                    <!-- 下一页 -->
+                    <c:choose>
+                        <c:when test="${order.currentPage==order.totalPage }">下一页
+                        </c:when>
+                        <c:otherwise>
+                            <a href="<c:url value='/UserServlet?action=findAllOrder&uid=${user.uid }&currentPage=${order.currentPage+1 }'/>">下一页</a>
+                        </c:otherwise>
+                    </c:choose>
+                    <!-- 尾页 -->
+                    <c:choose>
+                        <c:when test="${order.currentPage == order.totalPage }">尾页
+                        </c:when>
+                        <c:otherwise>
+                            <a href="<c:url value='/UserServlet?action=findAllOrder&uid=${user.uid }&currentPage=${order.totalPage }'/>">尾页</a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <div style="float: left">
+                    跳至<input  type="text" id="num" name="currentPage" style="height: 20px;width: 30px;margin: 0 5px;">页
+                    <input type="button" onclick="gk()" style="border: none;background-color: #fff" value="确定">
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -256,6 +239,12 @@
 </div>
 </body>
 <script type="application/javascript">
+    const uid = document.getElementById("uid").value;
+    function gk() {
+        const num = document.getElementById("num").value;
+        document.location = "../UserServlet?action=findAllOrder&uid="+uid+"&currentPage="+num;
+    }
+    /******
     $(document).ready(function(){
         // 页面加载后任何需要执行的js特效
         let uid = $("#uid").val();
@@ -266,13 +255,15 @@
         },)
 
     });
-    /*****加载后页面只刷新一次******/
+     *******/
+    /*****加载后页面只刷新一次 ******/
     function refresh(){
         if(location.href.indexOf("?reload=true")<0){
             location.href+="?reload=true";
         }
     }
     setTimeout("refresh()",50);
+
 
 </script>
 </html>

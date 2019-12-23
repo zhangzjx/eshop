@@ -50,6 +50,7 @@
 </head>
 <body>
 <input type="hidden" id="name" value="${name }">
+
 <%//根据IP统计访问人数
     String ip = new NetWork().getIP(request);
     Set<String> set = (Set<String>) application.getAttribute("ips");
@@ -68,10 +69,12 @@
 %>
 <!--第一次登录时间：<%//=iu %>-->
 <%}} %>
+<!--
 <div class="index-top">
     您是第<%=set.size()%>个访问者，访问IP为:<%=ip%>，本次访问时间:<%=data%>
     当前在线人数：${number}
 </div>
+-->
 <!-- 头部栏位 -->
 <!--页面顶部-->
 <div class="all-header">
@@ -89,12 +92,10 @@
             </div>
             <div class="top-right">
                 <ul class="ul-right">
-                    <li ><span><a href="#"  onclick="myOrder()">我的订单</a></span></li>
-                    <li><span><a href=""  target="_blank" onclick="myCart()">我的购物车</a></span></li>
-                    <li><span><a href="myInf.jsp" target="_blank">我的青橙</a></span></li>
-                    <li><span>青橙会员</span></li>
+                    <li ><span><a href="#" onclick="myOrder()">我的订单</a></span></li>
+                    <li><span><a href="#"  onclick="myCart()">我的购物车</a></span></li>
+                    <li><span><a href="myInf.jsp"  >个人信息</a></span></li>
                     <li><span>企业采购</span></li>
-                    <li><span>关注青橙</span></li>
                     <li><span><a href="cooperation.html" target="_blank">合作招商</a></span></li>
                     <li ><span><a href="shoplogin.html" target="_blank">商家后台</a></span></li>
                     <li><span>网站导航</span></li>
@@ -436,7 +437,7 @@
         </div>
     </div>
     <br>
-    ${user.uid }
+
     <!-- 商品内容 -->
     <div style="width: 100%">
         <!--热门商品-->
@@ -463,7 +464,7 @@
                     <div class="content">
                         <form id="addForm" action="../UserServlet?action=addCart" method="post">
                             <!--查看商品详情-->
-                            <input type="hidden" id="uid" name="uid" value=${user.uid}>
+                            <input type="hidden"  name="uid" value=${user.uid}>
                             <input type="hidden" name="id" value=${record.id}>
                             <a href="<c:url value='/UserServlet?action=findOne&id=${record.id}'/>" >
                                 <div>
@@ -486,29 +487,35 @@
             </div>
         </div>
         <!--猜你喜欢-->
-        <div class="goods-favorite">
+        <div class="goods-content">
             <div class="favorite-top">
                 <h3>猜你喜欢</h3>
             </div>
-            <div class="favorite-main">
-                <div class="favorite-main-list">
-                    ${user}
+            <div class="content-all">
+                <c:forEach var="record" items="${myIndex}">
+                    <div class="content">
+                    <form  action="../UserServlet?action=addCart" method="post">
+                        <!--查看商品详情-->
+                        <input type="hidden" id="uid" name="uid" value=${user.uid}>
+                        <input type="hidden" name="id" value=${record.id}>
+                        <a href="<c:url value='/UserServlet?action=findOne&id=${record.id}'/>" >
+                            <div>
+                                <img src="/uploadImg/${record.img}"  class="goods-img">
+                            </div>
+                            <div class="goods-inf">
+                                <!--<img src="/img/${record.content}" style="width: 195px;height: 200px;">-->
+                                    ${record.content}
+                            </div>
+                        </a>
+                        <div class="goods-bottom">
+                            <input type="hidden" name="quantity" value="1">
+                            <input type="hidden" name="price" value=${record.price}>
+                            <div class="goods-price" ><span>￥</span>${record.price}</div>
+                            <input type="submit" class="add-cart" value="" title="加购" >
+                        </div>
+                    </form>
                 </div>
-                <div class="favorite-main-list">
-                    商品信息
-                </div>
-                <div class="favorite-main-list">
-                    商品信息
-                </div>
-                <div class="favorite-main-list">
-                    商品信息
-                </div>
-                <div class="favorite-main-list">
-                    商品信息
-                </div>
-                <div class="favorite-main-list">
-                    商品信息
-                </div>
+                </c:forEach>>
             </div>
         </div>
     </div>

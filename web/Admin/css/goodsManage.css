@@ -238,8 +238,8 @@ input,select{margin-top:2px;}
 
 .top-item-3{
     width: 15.7%;
-    height: 40px;
-    line-height:40px;
+    height: 60px;
+    line-height:60px;
     text-align: center;
     font-family: 微软雅黑;
     border-bottom: solid 1px #dddddd;
@@ -249,8 +249,8 @@ input,select{margin-top:2px;}
 }
 .top-item-4{
     width: 15.7%;
-    height: 50px;
-    line-height:50px;
+    height: 60px;
+    line-height:60px;
     text-align: center;
     font-family: 微软雅黑;
     font-size: 10pt;
@@ -263,6 +263,10 @@ input,select{margin-top:2px;}
     text-overflow: ellipsis;
     /**禁止换行*/
     white-space: nowrap;
+}
+.brandImg{
+    width: 60px;
+    height: 60px;
 }
 /*************退款申请处理*************/
 /*************退货原因设置*************/

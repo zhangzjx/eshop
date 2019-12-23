@@ -117,7 +117,7 @@ public class ProductDao {
     }
 
     /**搜索结果总记录数*/
-    public int findCountOrder(String skey,String svalue,int status) {
+    public int findCountOrder(String skey, String svalue) {
         StringBuilder sql=new StringBuilder("select count(*) from orderinf a,orderitem b " +
                 "where a.oid=b.oid");
         if(skey!=null&&skey.length()>0&&svalue!=null&&svalue.length()>0){
@@ -136,11 +136,10 @@ public class ProductDao {
      * and a.gid like 100000001 limit 0,3 条件是a.bid=b。id和当a.gid=100000001时
      * */
     public static List<Map<String, Object>> findAllOrder(int startIndex, int pageSize,
-                                                         String skey,String svalue,int status) {
+                                                         String skey,String svalue) {
         StringBuilder sql=new StringBuilder("select a.*,b.* from" +
                 " orderinf a,orderitem b where a.oid=b.oid");
         if(skey!=null&&skey.length()>0&&svalue!=null&&svalue.length()>0){
-            //sql.append(" and (a.oid="+svalue+" or b.id="+svalue+") limit ?,?");
             if ("id".equals(skey)){
                 sql.append(" and b."+skey+" like \"%"+svalue+"%\" limit ?,?");
                 //sql.append(" and (a.receiver=\"%"+svalue+"%\" or a.aphone=\"%"+svalue+"%\") limit ?,?");
@@ -150,7 +149,6 @@ public class ProductDao {
         }else {
             sql.append(" limit ?,?");
         }
-
         return JdbcUtils.find(sql.toString(), startIndex, pageSize);
     }
 
@@ -163,7 +161,6 @@ public class ProductDao {
 
     public static List<Map<String, Object>> allOrderStatus(int startIndex, int pageSize,
                                                            int status) {
-        System.out.println("到层"+status);
         StringBuilder sql=new StringBuilder("select a.*,b.* from" +
                 " orderinf a,orderitem b where a.oid=b.oid and a.status="+status+" limit ?,?");
         return JdbcUtils.find(sql.toString(), startIndex, pageSize);

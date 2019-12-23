@@ -3,7 +3,7 @@
 function myOrder(){
     let uid = $("#uid").val();
     document.location = "../UserServlet?action=findAllOrder&uid="+uid;
-    /*******8
+    /*******
     $.post("${pageContext.request.contextPath}/UserServlet",{
         action:"myOrder",
         uid:uid,

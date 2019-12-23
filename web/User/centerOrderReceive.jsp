@@ -39,12 +39,10 @@
             </div>
             <div class="top-right">
                 <ul class="ul-right">
-                    <li ><span><a href="centerOrder.jsp" >我的订单</a></span></li>
-                    <li><span><a href=""  target="_blank" onclick="myCart()">我的购物车</a></span></li>
-                    <li><span><a href="myInf.jsp" target="_blank">我的青橙</a></span></li>
-                    <li><span>青橙会员</span></li>
+                    <li ><span><a href="#" onclick="myOrder()">我的订单</a></span></li>
+                    <li><span><a href="#"  onclick="myCart()">我的购物车</a></span></li>
+                    <li><span><a href="myInf.jsp"  >个人信息</a></span></li>
                     <li><span>企业采购</span></li>
-                    <li><span>关注青橙</span></li>
                     <li><span><a href="cooperation.html" target="_blank">合作招商</a></span></li>
                     <li ><span><a href="shoplogin.html" target="_blank">商家后台</a></span></li>
                     <li><span>网站导航</span></li>
@@ -100,7 +98,7 @@
             </div>
 
             <div class="right-main" >
-                <c:forEach var="record" items="${order }">
+                <c:forEach var="record" items="${order.list }">
                     <div class="right-main-top">
                         <div class="main-top-list">订单时间：${record.ordertime}</div>
                         <div class="main-top-list">订单编号：${record.oid}</div>
@@ -129,6 +127,50 @@
                         </div>
                     </div>
                 </c:forEach>
+            </div>
+            <!--分页 -->
+            <div class="pagination">
+                <div style="width: 68%;text-align: left;margin-left: 20px;float: left">
+                    共找到${order.totalSize}条记录，每页${order.pageSize}条，共${order.totalPage }页，当前第${order.currentPage }页
+                </div>
+                <div style="float: left;width: 17%;">
+                    <!-- 首页 -->
+                    <c:choose>
+                        <c:when test="${order.currentPage==1 }">首页
+                        </c:when>
+                        <c:otherwise>
+                            <a href="<c:url value='/UserServlet?action=findAllOrder&uid=${user.uid }&currentPage=${order.currentPage != 1 }'/>">首页</a>
+                        </c:otherwise>
+                    </c:choose>
+                    <!-- 上一页 -->
+                    <c:choose>
+                        <c:when test="${order.currentPage==1 }">上一页
+                        </c:when>
+                        <c:otherwise>
+                            <a href="<c:url value='/UserServlet?action=findAllOrder&uid=${user.uid }&currentPage=${order.currentPage-1 }'/>">上一页</a>
+                        </c:otherwise>
+                    </c:choose>
+                    <!-- 下一页 -->
+                    <c:choose>
+                        <c:when test="${order.currentPage==order.totalPage }">下一页
+                        </c:when>
+                        <c:otherwise>
+                            <a href="<c:url value='/UserServlet?action=findAllOrder&uid=${user.uid }&currentPage=${order.currentPage+1 }'/>">下一页</a>
+                        </c:otherwise>
+                    </c:choose>
+                    <!-- 尾页 -->
+                    <c:choose>
+                        <c:when test="${order.currentPage == order.totalPage }">尾页
+                        </c:when>
+                        <c:otherwise>
+                            <a href="<c:url value='/UserServlet?action=findAllOrder&uid=${user.uid }&currentPage=${order.totalPage }'/>">尾页</a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <div style="float: left">
+                    跳至<input  type="text" id="num" name="currentPage" style="height: 20px;width: 30px;margin: 0 5px;">页
+                    <input type="button" onclick="gk()" style="border: none;background-color: #fff" value="确定">
+                </div>
             </div>
         </div>
     </div>
@@ -240,6 +282,11 @@
 </div>
 </body>
 <script type="application/javascript">
+    const uid = document.getElementById("uid").value;
+    function gk() {
+        const num = document.getElementById("num").value;
+        document.location = "../UserServlet?action=findAllOrder&uid="+uid+"&currentPage="+num;
+    }
     /*****加载后页面只刷新一次******/
     function refresh(){
         if(location.href.indexOf("?reload=true")<0){
@@ -247,6 +294,5 @@
         }
     }
     setTimeout("refresh()",50);
-
 </script>
 </html>

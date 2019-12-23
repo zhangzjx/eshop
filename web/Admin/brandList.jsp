@@ -8,6 +8,29 @@
     <link rel="stylesheet" href="./Admin/css/goodsManage.css">
     <!--<link  rel="stylesheet" href="css/brandList.css" type="text/css"  charset="utf-8"/>-->
     <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <style type="text/css">
+        .top-item-4{
+            width: 15.7%;
+            height: 60px;
+            line-height:60px;
+            text-align: center;
+            font-family: 微软雅黑;
+            font-size: 10pt;
+            border-bottom: solid 1px #dddddd;
+            border-left: solid 1px #dddddd;
+            float: left;
+            /**对超出容器的部分强制截取，高度不确定则换行*/
+            overflow: hidden;
+            /**显示省略符号来代表被修剪的文本。*/
+            text-overflow: ellipsis;
+            /**禁止换行*/
+            white-space: nowrap;
+        }
+        .brandImg{
+            width: 60px;
+            height: 60px;
+        }
+    </style>
 
 </head>
 <body>
@@ -54,7 +77,7 @@
             <div class="top-item-4" style="width: 27.5%;">${record.name}</div>
             <div class="top-item-4">${record.first}</div>
             <div class="top-item-4" title=${record.imgname}>
-                <img src="/uploadImg/${record.imgname}"></div>
+                <img src="/uploadImg/${record.imgname}" class="brandImg"></div>
 
             <div class="top-item-4">
                 <a href="<c:url value='/ProductServlet?action=updateBeforeBr&id=${record.id}'/>">修改</a>|

@@ -13,12 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.awt.geom.Area;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -145,6 +141,8 @@ public class UserServlet extends HttpServlet {
         int status = Integer.parseInt(request.getParameter("status"));
         int id = Integer.parseInt(request.getParameter("id"));
         int quantity=Integer.parseInt(request.getParameter("quantity"));
+        double price=Double.parseDouble(request.getParameter("danjia"));
+        String goodsName= request.getParameter("goodsname");
         System.out.println(uid+" "+totalPrice+" "+aphone+" "+address+" "+receiver+" "+status);
 
         Cart order = new Cart();
@@ -174,6 +172,10 @@ public class UserServlet extends HttpServlet {
 
         orderItem.setId(id);
         orderItem.setQuantity(quantity);
+        orderItem.setName(goodsName);
+        orderItem.setPrice(price);
+
+
         //4.调用Service中add方法添加一条新闻
         userService.subOrder(order,cid);
         userService.subOrderItem(orderItem);
@@ -191,38 +193,54 @@ public class UserServlet extends HttpServlet {
 
         order.setOid(oid);
         order.setStatus(Integer.parseInt(status));
-
         userService.payOrder(order);
-        response.sendRedirect(request.getContextPath()+"/User/centerSettingAddress.jsp");
+        response.sendRedirect(request.getContextPath()+"/User/paySuccess.jsp");
+    }
+
+    private void findAllOrder(HttpServletRequest request,
+                             HttpServletResponse response) throws IOException {
+        int uid = Integer.parseInt(request.getParameter("uid"));
+        String current = request.getParameter("currentPage");
+        int currentPage = 1;
+        try{
+            currentPage = Integer.parseInt(current);
+        }catch(Exception e){
+            currentPage = 1;
+        }
+        Page page = userService.findAllOrder(uid, currentPage);
+        request.getSession().setAttribute("order",page);
+        response.sendRedirect(request.getContextPath() + "/User/centerOrder.jsp");
+
     }
 
     /********查看订单状态*********/
-    private void findAllOrder(HttpServletRequest request,
-                             HttpServletResponse response) throws IOException {
-        String uid = request.getParameter("uid");
-        System.out.println("转发第一个页面");
-        request.getSession().setAttribute("order", userService.findAllOrder(uid));
-        response.sendRedirect(request.getContextPath() + "/User/centerOrder.jsp");
-    }
     private void orderStatus(HttpServletRequest request,
                              HttpServletResponse response) throws IOException {
-        String uid = request.getParameter("uid");
-        String status = request.getParameter("status");        
+        int uid = Integer.parseInt(request.getParameter("uid"));
+        String status = request.getParameter("status");
+        String current = request.getParameter("currentPage");
+        int currentPage = 1;
+        try{
+            currentPage = Integer.parseInt(current);
+        }catch(Exception e){
+            currentPage = 1;
+        }
         if(ONE.equals(status)) {
-            System.out.println("转发第二个页面，待付款");
-            request.getSession().setAttribute("order", userService.orderStatus(uid, status));
+            Page page = userService.orderStatus(uid, status,currentPage);
+            request.getSession().setAttribute("order",page);
             response.sendRedirect(request.getContextPath() + "/User/centerOrderPay.jsp");
         } else if(TWO.equals(status)) {
-            System.out.println("转发第三个页面，代发货");
-            request.getSession().setAttribute("order", userService.orderStatus(uid, status));
+            Page page = userService.orderStatus(uid, status,currentPage);
+            request.getSession().setAttribute("order",page);
             response.sendRedirect(request.getContextPath() + "/User/centerOrderSend.jsp");
         } else if(THREE.equals(status)) {
-            System.out.println("转发第四个页面，待收货");
-            request.getSession().setAttribute("order", userService.orderStatus(uid, status));
+            Page page = userService.orderStatus(uid, status,currentPage);
+            request.getSession().setAttribute("order",page);
             response.sendRedirect(request.getContextPath() + "/User/centerOrderReceive.jsp");
         } else if(FOUR.equals(status)) {
-            System.out.println("转发第四个页面，待评价");
-            request.getSession().setAttribute("order", userService.orderStatus(uid, status));
+            Page page = userService.orderStatus(uid, status,currentPage);
+            request.getSession().setAttribute("order",page);
+            //request.getSession().setAttribute("order", userService.orderStatus(uid, status));
             response.sendRedirect(request.getContextPath() + "/User/centerOrderEvaluate.jsp");
         }
     }

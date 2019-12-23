@@ -20,19 +20,19 @@ a:active {text-decoration:underline;}
     margin: 0 auto;
 }
 .top-left{
-    width: 35%;
+    width: 53%;
     height: 30px;
     float: left;
 }
 .top-right{
-    width: 64%;
+    width: 45%;
     height: 30px;
     float: left;
 }
 /**顶部样式*/
 ul li {float: left;list-style: none;text-align: center;}
 .ul-left{height:20px;margin: 5px 0 0 0;}
-.ul-right{height:20px;margin: 5px 0 0 90px;}
+.ul-right{height:20px;margin: 5px 0 0 0;}
 .ul-right li{width: 70px;}
 .ul-left li{width: 100px; margin-left: 5px}
 

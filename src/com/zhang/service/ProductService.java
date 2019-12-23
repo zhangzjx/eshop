@@ -55,10 +55,10 @@ public class ProductService {
     }
 
     /**查询订单数目及分页，查询搜索结果数目及分页（搜索功能）*/
-    public Page findAllOrder(int currentPage, String skey, String svalue, int status) {
-        int totalSize = productDao.findCountOrder(skey,svalue,status);
+    public Page findAllOrder(int currentPage, String skey, String svalue) {
+        int totalSize = productDao.findCountOrder(skey,svalue);
         Page page = new Page(currentPage,totalSize);
-        List<Map<String,Object>> list = ProductDao.findAllOrder(page.getStartIndex(),page.getPageSize(),skey,svalue,status);
+        List<Map<String,Object>> list = ProductDao.findAllOrder(page.getStartIndex(),page.getPageSize(),skey,svalue);
         page.setList(list);
         System.out.println("页码"+page.getCurrentPage());
         return page;

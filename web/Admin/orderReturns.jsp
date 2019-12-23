@@ -20,7 +20,7 @@
 </head>
 <body>
 <!--系统首页-->
-<div class="main-top"><span style="margin-left: 30px">订单列表</span></div>
+<div class="main-top"><span style="margin-left: 30px">退货申请列表</span></div>
 <!--主要内容-->
 <div class="order-main">
     <div class="order-main-top">
@@ -87,16 +87,16 @@
             <div class="returns-item">支付宝</div>
             <div class="returns-item" >
                 <c:choose>
-                    <c:when test="${record.status == '1'}"><!-- 如果 -->
+                    <c:when test="${record.status == '9'}"><!-- 如果 -->
                         待处理
                     </c:when>
-                    <c:when test="${record.status == '2'}"><!-- 如果 -->
+                    <c:when test="${record.status == '10'}"><!-- 如果 -->
                         退货中
                     </c:when>
-                    <c:when test="${record.status == '3'}"><!-- 如果 -->
+                    <c:when test="${record.status == '6'}"><!-- 如果 -->
                         已完成
                     </c:when>
-                    <c:when test="${record.status == '4'}"><!-- 如果 -->
+                    <c:when test="${record.status == '8'}"><!-- 如果 -->
                         已拒绝
                     </c:when>
                     <c:otherwise> <!-- 否则 -->

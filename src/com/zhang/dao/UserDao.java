@@ -15,6 +15,7 @@ import static com.zhang.servlet.UserServlet.*;
  */
 public class UserDao {
 
+
     /**首页显示的商品*/
     public List<Map<String,Object>> findAll() {
         String sql = "select * from goods limit 0,5";
@@ -74,7 +75,7 @@ public class UserDao {
          */
         User user = null;
         String sql ="select * from user where name=?";
-        System.out.println("ASC升序执行");
+
         List<Map<String,Object>> list = JdbcUtils.find(sql,name);
         if(list.size()>0){
             user = new User();
@@ -205,14 +206,14 @@ public class UserDao {
 
     /*****添加订单第一步，获取商品信息及地址信息******/
     public Object addOrder(String uid, String cid) {
-        String sql = "select a.goods_name,a.content,b.cid,b.id,b.quantity,b.price,c.address,c.receiver,c.aphone,c.status" +
+        String sql = "select a.goods_name,a.content,a.img,b.cid,b.id,b.quantity,b.price,c.* " +
                 " from goods a,cart b,address c " +
                 "where  a.id=b.id and b.cid=? and c.uid=? and c.status=0";
         return JdbcUtils.find(sql, cid, uid);
     }
     /*****添加订单第二步，提交商品信息及地址信息，等待付款******/
     public void subOrder(Cart order) {
-        String sql = "insert into orderinf values(?,?,?,?,?,?,?,null,null,?)";
+        String sql = "insert into orderinf values(?,?,?,?,?,?,?,null,null,?,null)";
         Object[] params = {
                 order.getOid(),
                 order.getUid(),
@@ -231,11 +232,13 @@ public class UserDao {
         JdbcUtils.update(sql,cid);
     }
     public void subOrderItem(Cart orderItem) {
-        String sql = "insert into orderitem values(null,?,?,?,null,null,null,null)";
+        String sql = "insert into orderitem values(null,?,?,?,null,?,?,null)";
         Object[] params = {
                 orderItem.getOid(),
                 orderItem.getId(),
                 orderItem.getQuantity(),
+                orderItem.getName(),
+                orderItem.getPrice(),
         };
         JdbcUtils.insert(sql, params);
     }
@@ -250,23 +253,28 @@ public class UserDao {
     }
 
     /*******查看所有订单状态*******/
-    public Object findAllOrder(String uid) {
-        String sql = "select a.goods_name,a.content,b.oid,b.ordertime,b.totalprice,b.status," +
-                "c.id,c.price,c.buycount,c.total from goods a,orderinf b,orderitem c " +
-                "where a.id=c.id and b.oid=c.oid and b.uid=?";
-        return JdbcUtils.find(sql,uid);
-    }
-    public Object orderStatus(String uid, String status) {
-        String sql = "select a.goods_name,a.content,b.oid,b.ordertime,b.totalprice,b.status," +
-                "c.id,c.price,c.buycount,c.total from goods a,orderinf b,orderitem c " +
-                "where a.id=c.id and b.oid=c.oid and b.uid=? and b.status=?";
-        return JdbcUtils.find(sql,uid,status);
+    /***分页开始****/
+    public int findCountOrder(int uid,String status) {
+        StringBuilder sql=new StringBuilder("select count(*) from orderinf  where uid="+uid+" ");
+        if(status!=null&&status.length()>0){
+            sql.append(" and status="+status);
+        }
+        return ((Number) JdbcUtils.selectScalar(sql.toString(), (Object[]) null)).intValue();
     }
 
-    /****
-     * String sql = "select a.goods_name,a.content,b.oid,b.totalprice,b.status,c.id,c.price " +
-     *                 "from goods a,orderinf b,orderitem c " +
-     *                 "where a.id=c.id and b.oid=c.oid and b.oid=? and b.status=?";
-     *                 ****/
+    public static List<Map<String, Object>> findAllOrder(int uid,int startIndex, int pageSize) {
+        String sql = "select a.goods_name,a.content,b.oid,b.ordertime,b.totalprice,b.status," +
+                "c.id,c.price,c.buycount,c.total from goods a,orderinf b,orderitem c " +
+                "where a.id=c.id and b.oid=c.oid and b.uid=? limit ?,?";
+        return JdbcUtils.find(sql, uid, startIndex, pageSize);
+    }
+    /***分页结束****/
+    public static List<Map<String, Object>> orderStatus(int uid, String status,int startIndex, int pageSize) {
+        String sql = "select a.goods_name,a.content,b.oid,b.ordertime,b.totalprice,b.status," +
+                "c.id,c.price,c.buycount,c.total from goods a,orderinf b,orderitem c " +
+                "where a.id=c.id and b.oid=c.oid and b.uid=? and b.status=?  limit ?,?";
+        return JdbcUtils.find(sql,uid,status,startIndex, pageSize);
+    }
+
 
 }
